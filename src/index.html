@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodePlay - Apprends à programmer</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+</head>
+<body>
+  <div id="app">
+    <header class="app-header">
+      <div class="header-brand">
+        <h1>🚀 CodePlay</h1>
+        <span class="header-tagline">Apprends à programmer</span>
+      </div>
+      <nav class="header-nav">
+        <div class="module-selector" id="module-selector"></div>
+        <button class="btn-icon" id="btn-settings" title="Paramètres">⚙️</button>
+      </nav>
+    </header>
+    
+    <main class="app-main">
+      <aside class="sidebar" id="sidebar">
+        <div class="lessons-container">
+          <h2>📚 Leçons</h2>
+          <div id="lessons-list" class="lessons-list">
+            <div class="loading">Chargement...</div>
+          </div>
+        </div>
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+          <span class="progress-text">0% complété</span>
+        </div>
+      </aside>
+      
+      <section class="workspace">
+        <div class="lesson-info" id="lesson-info">
+          <div class="welcome-screen">
+            <h2>Bienvenue dans CodePlay ! 👋</h2>
+            <p>Sélectionne une leçon pour commencer</p>
+          </div>
+        </div>
+        
+        <div class="editor-container">
+          <div class="editor-toolbar">
+            <button class="btn-primary" id="btn-run">
+              ▶️ Exécuter
+            </button>
+            <button class="btn-secondary" id="btn-reset">
+              🔄 Réinitialiser
+            </button>
+          </div>
+          <div id="editor" class="editor"></div>
+        </div>
+        
+        <div class="console-container" id="console"></div>
+      </section>
+    </main>
+  </div>
+  
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
