@@ -1,0 +1,29 @@
+{
+  "version": "1.0.0",
+  "lessons": [
+    {
+      "id": "js-01-hello",
+      "title": "Hello World",
+      "description": "Ta première ligne de code JavaScript",
+      "module": "javascript",
+      "icon": "👋",
+      "duration": "10 min",
+      "difficulty": "débutant",
+      "contentUrl": "/lessons/javascript/01-hello/content.html",
+      "starterUrl": "/lessons/javascript/01-hello/starter.js",
+      "testUrl": "/lessons/javascript/01-hello/test.js"
+    },
+    {
+      "id": "js-02-variables",
+      "title": "Les Variables",
+      "description": "Apprends à stocker des informations",
+      "module": "javascript",
+      "icon": "📦",
+      "duration": "15 min",
+      "difficulty": "débutant",
+      "contentUrl": "/lessons/javascript/02-variables/content.html",
+      "starterUrl": "/lessons/javascript/02-variables/starter.js",
+      "testUrl": "/lessons/javascript/02-variables/test.js"
+    }
+  ]
+}

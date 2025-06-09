@@ -306,3 +306,42 @@ body {
 .console-entry {
   animation: fadeIn 0.3s ease;
 }
+
+/* File Tabs */
+.file-tabs {
+  display: flex;
+  background-color: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  overflow-x: auto;
+}
+
+.file-tab {
+  padding: 10px 20px;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  border-right: 1px solid var(--border-color);
+  transition: all 0.2s;
+}
+
+.file-tab:hover {
+  background-color: var(--bg-tertiary);
+  color: var(--text-primary);
+}
+
+.file-tab.active {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--color-primary);
+}
+
+/* Preview Container */
+#preview-container {
+  box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+}
+
+#preview-frame {
+  transition: width 0.3s ease;
+}

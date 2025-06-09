@@ -1,0 +1,13 @@
+{
+  "appName": "CodePlay",
+  "version": "2.0.0",
+  "modules": ["javascript", "python", "web"],
+  "features": {
+    "github": false,
+    "collaboration": false,
+    "analytics": false
+  },
+  "lessonsUrl": "/lessons/manifest.json",
+  "theme": "dark",
+  "locale": "fr"
+}

@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
-import monacoEditorPlugin from 'vite-plugin-monaco-editor';
+import monacoEditor from 'vite-plugin-monaco-editor';
+const monacoEditorPlugin = monacoEditor.default;
 import { resolve } from 'path';
 
 export default defineConfig({
