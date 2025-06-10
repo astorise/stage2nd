@@ -67,7 +67,8 @@ export class CodePlayApp extends EventEmitter {
         await this.modules.activateModule(lastSession.moduleId);
       }
       if (lastSession.lessonId) {
-        await this.lessons.loadLesson(lastSession.lessonId);
+        await this.lessons.loadExercise(lastSession.lessonId);
+        this.currentLesson = this.lessons.currentExercise;
       }
     }
   }
