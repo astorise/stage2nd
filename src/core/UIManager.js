@@ -197,7 +197,7 @@ this.setupOutputTabs();
         
         if (success) {
           this.showSuccess('Exercice réussi ! 🎉');
-          this.app.lessons.completeLesson(this.app.currentLesson.id);
+          this.app.lessons.completeExercise(this.app.currentLesson.fullId);
         }
       }
       

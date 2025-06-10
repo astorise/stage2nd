@@ -73,11 +73,11 @@ export class CodePlayApp extends EventEmitter {
     }
   }
   
-  async saveSession() {
-    await this.storage.set('lastSession', {
-      moduleId: this.currentModule?.id,
-      lessonId: this.currentLesson?.id,
-      timestamp: Date.now()
-    });
-  }
+async saveSession() {
+  await this.storage.set('lastSession', {
+    moduleId: this.currentModule?.id,
+    lessonId: this.currentLesson?.fullId ?? this.currentLesson?.id, // full ID
+    timestamp: Date.now()
+  });
+}
 }
