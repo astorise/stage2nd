@@ -1,0 +1,287 @@
+{
+  "name": "JavaScript Learning Path",
+  "version": "1.0.0",
+  "description": "Cours complet de JavaScript de débutant à avancé",
+  "language": "javascript",
+  "author": "CodePlay",
+  "created": "2025-06-10",
+  "structure": {
+    "type": "progressive",
+    "chapters": 8,
+    "totalExercises": 24,
+    "estimatedDuration": "40-60 heures"
+  },
+  "chapters": [
+    {
+      "id": "01-fundamentals",
+      "title": "Fondamentaux JavaScript",
+      "description": "Les bases essentielles du langage",
+      "difficulty": "débutant",
+      "estimatedTime": "6-8 heures",
+      "prerequisites": [],
+      "exercises": [
+        {
+          "id": "01-first-program",
+          "title": "Votre premier programme",
+          "description": "Créez un programme qui affiche votre nom",
+          "difficulty": "facile",
+          "files": ["README.md", "index.js", "solution.js", "test.js"],
+          "mainFile": "index.js",
+          "testFile": "test.js",
+          "type": "coding"
+        },
+        {
+          "id": "02-variables",
+          "title": "Variables et Types de Données",
+          "description": "Déclarer et utiliser des variables",
+          "difficulty": "facile",
+          "files": ["README.md", "index.js", "solution.js", "test.js"],
+          "mainFile": "index.js",
+          "testFile": "test.js",
+          "type": "coding"
+        },
+        {
+          "id": "03-calculator",
+          "title": "Calculatrice Simple",
+          "description": "Créez une calculatrice avec les 4 opérations",
+          "difficulty": "moyen",
+          "files": ["README.md", "index.js", "solution.js", "test.js"],
+          "mainFile": "index.js",
+          "testFile": "test.js",
+          "type": "coding"
+        }
+      ]
+    },
+    {
+      "id": "02-control-structures",
+      "title": "Structures de Contrôle",
+      "description": "Conditions et boucles",
+      "difficulty": "débutant",
+      "estimatedTime": "4-6 heures",
+      "prerequisites": ["01-fundamentals"],
+      "exercises": [
+        {
+          "id": "01-grade-calculator",
+          "title": "Calculateur de Notes",
+          "description": "Convertissez une note numérique en lettre",
+          "difficulty": "moyen",
+          "files": ["README.md", "index.js", "solution.js", "test.js"],
+          "mainFile": "index.js",
+          "testFile": "test.js",
+          "type": "coding"
+        },
+        {
+          "id": "02-multiplication-table",
+          "title": "Table de Multiplication",
+          "description": "Affichez la table de multiplication d'un nombre",
+          "difficulty": "moyen",
+          "files": ["README.md", "index.js", "solution.js", "test.js"],
+          "mainFile": "index.js",
+          "testFile": "test.js",
+          "type": "coding"
+        }
+      ]
+    },
+    {
+      "id": "03-functions",
+      "title": "Fonctions",
+      "description": "Créer et utiliser des fonctions",
+      "difficulty": "débutant-intermédiaire",
+      "estimatedTime": "6-8 heures",
+      "prerequisites": ["01-fundamentals", "02-control-structures"],
+      "exercises": [
+        {
+          "id": "01-calculator-functions",
+          "title": "Calculatrice avec Fonctions",
+          "description": "Créez des fonctions pour les opérations mathématiques",
+          "difficulty": "moyen",
+          "files": ["README.md", "index.js", "solution.js", "test.js"],
+          "mainFile": "index.js",
+          "testFile": "test.js",
+          "type": "coding"
+        },
+        {
+          "id": "02-arrow-functions",
+          "title": "Fonctions Fléchées",
+          "description": "Convertissez des fonctions classiques en fonctions fléchées",
+          "difficulty": "moyen",
+          "files": ["README.md", "index.js", "solution.js", "test.js"],
+          "mainFile": "index.js",
+          "testFile": "test.js",
+          "type": "coding"
+        }
+      ]
+    },
+    {
+      "id": "04-arrays",
+      "title": "Tableaux",
+      "description": "Manipulation des tableaux (arrays)",
+      "difficulty": "intermédiaire",
+      "estimatedTime": "8-10 heures",
+      "prerequisites": ["01-fundamentals", "03-functions"],
+      "exercises": [
+        {
+          "id": "01-shopping-list",
+          "title": "Liste de Courses",
+          "description": "Créez et manipulez une liste de courses",
+          "difficulty": "facile",
+          "files": ["README.md", "index.js", "solution.js", "test.js"],
+          "mainFile": "index.js",
+          "testFile": "test.js",
+          "type": "coding"
+        },
+        {
+          "id": "02-student-grades",
+          "title": "Gestion des Notes d'Étudiants",
+          "description": "Analysez les notes avec les méthodes de tableaux",
+          "difficulty": "difficile",
+          "files": ["README.md", "index.js", "solution.js", "test.js"],
+          "mainFile": "index.js",
+          "testFile": "test.js",
+          "type": "coding"
+        }
+      ]
+    },
+    {
+      "id": "05-objects",
+      "title": "Objets",
+      "description": "Programmation orientée objet",
+      "difficulty": "intermédiaire",
+      "estimatedTime": "8-10 heures",
+      "prerequisites": ["01-fundamentals", "03-functions", "04-arrays"],
+      "exercises": [
+        {
+          "id": "01-person-object",
+          "title": "Créer un Objet Personne",
+          "description": "Créez un objet représentant un étudiant",
+          "difficulty": "moyen",
+          "files": ["README.md", "index.js", "solution.js", "test.js"],
+          "mainFile": "index.js",
+          "testFile": "test.js",
+          "type": "coding"
+        },
+        {
+          "id": "02-bank-account",
+          "title": "Compte Bancaire",
+          "description": "Créez une classe CompteBancaire avec des méthodes de gestion",
+          "difficulty": "difficile",
+          "files": ["README.md", "index.js", "solution.js", "test.js"],
+          "mainFile": "index.js",
+          "testFile": "test.js",
+          "type": "coding"
+        }
+      ]
+    },
+    {
+      "id": "06-dom-events",
+      "title": "DOM et Événements",
+      "description": "Manipulation du DOM et gestion des événements",
+      "difficulty": "intermédiaire-avancé",
+      "estimatedTime": "10-12 heures",
+      "prerequisites": ["01-fundamentals", "03-functions", "05-objects"],
+      "exercises": [
+        {
+          "id": "01-color-changer",
+          "title": "Changeur de Couleur",
+          "description": "Créez une page qui change la couleur de fond",
+          "difficulty": "moyen",
+          "files": ["README.md", "index.html", "script.js", "solution.js", "test.js"],
+          "mainFile": "script.js",
+          "htmlFile": "index.html",
+          "testFile": "test.js",
+          "type": "web"
+        },
+        {
+          "id": "02-todo-app",
+          "title": "Application Todo",
+          "description": "Créez une application de gestion de tâches",
+          "difficulty": "difficile",
+          "files": ["README.md", "index.html", "script.js", "solution.js", "test.js"],
+          "mainFile": "script.js",
+          "htmlFile": "index.html",
+          "testFile": "test.js",
+          "type": "web"
+        }
+      ]
+    },
+    {
+      "id": "07-async",
+      "title": "Programmation Asynchrone",
+      "description": "Callbacks, Promises, async/await",
+      "difficulty": "avancé",
+      "estimatedTime": "10-12 heures",
+      "prerequisites": ["01-fundamentals", "03-functions", "05-objects"],
+      "exercises": [
+        {
+          "id": "01-timer-app",
+          "title": "Application Timer",
+          "description": "Créez un minuteur avec des callbacks",
+          "difficulty": "moyen",
+          "files": ["README.md", "index.html", "script.js", "solution.js", "test.js"],
+          "mainFile": "script.js",
+          "htmlFile": "index.html",
+          "testFile": "test.js",
+          "type": "web"
+        },
+        {
+          "id": "02-api-simulator",
+          "title": "Simulateur d'API",
+          "description": "Créez des fonctions qui simulent des appels API",
+          "difficulty": "difficile",
+          "files": ["README.md", "script.js", "solution.js", "test.js"],
+          "mainFile": "script.js",
+          "testFile": "test.js",
+          "type": "coding"
+        },
+        {
+          "id": "03-weather-app",
+          "title": "Application Météo",
+          "description": "Créez une app météo avec async/await",
+          "difficulty": "difficile",
+          "files": ["README.md", "index.html", "script.js", "solution.js", "test.js"],
+          "mainFile": "script.js",
+          "htmlFile": "index.html",
+          "testFile": "test.js",
+          "type": "web"
+        }
+      ]
+    },
+    {
+      "id": "08-modules",
+      "title": "Modules et Outils Modernes",
+      "description": "ES6 Modules, npm, bundlers",
+      "difficulty": "avancé",
+      "estimatedTime": "8-10 heures",
+      "prerequisites": ["01-fundamentals", "03-functions", "07-async"],
+      "exercises": [
+        {
+          "id": "01-library-system",
+          "title": "Système de Bibliothèque Modulaire",
+          "description": "Créez un système de gestion de livres avec des modules",
+          "difficulty": "difficile",
+          "files": ["README.md", "livre.js", "bibliotheque.js", "utilisateur.js", "main.js", "solution/livre.js", "solution/bibliotheque.js", "solution/utilisateur.js", "solution/main.js", "test.js"],
+          "mainFile": "main.js",
+          "moduleFiles": ["livre.js", "bibliotheque.js", "utilisateur.js"],
+          "testFile": "test.js",
+          "type": "modules"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "autoSave": true,
+    "autoTest": false,
+    "showHints": true,
+    "allowSolution": true,
+    "progressTracking": true
+  },
+  "features": {
+    "codeExecution": true,
+    "testRunner": true,
+    "progressBar": true,
+    "hints": true,
+    "solutions": true,
+    "fileManager": true,
+    "console": true
+  }
+}
