@@ -8,10 +8,7 @@
       "module": "javascript",
       "icon": "👋",
       "duration": "10 min",
-      "difficulty": "débutant",
-      "contentUrl": "/lessons/javascript/01-hello/content.html",
-      "starterUrl": "/lessons/javascript/01-hello/starter.js",
-      "testUrl": "/lessons/javascript/01-hello/test.js"
+      "difficulty": "débutant"
     },
     {
       "id": "js-02-variables",
@@ -20,10 +17,25 @@
       "module": "javascript",
       "icon": "📦",
       "duration": "15 min",
-      "difficulty": "débutant",
-      "contentUrl": "/lessons/javascript/02-variables/content.html",
-      "starterUrl": "/lessons/javascript/02-variables/starter.js",
-      "testUrl": "/lessons/javascript/02-variables/test.js"
+      "difficulty": "débutant"
+    },
+    {
+      "id": "web-01-intro",
+      "title": "Ma première page web",
+      "description": "Crée une page HTML simple",
+      "module": "web",
+      "icon": "🌐",
+      "duration": "20 min",
+      "difficulty": "débutant"
+    },
+    {
+      "id": "py-01-hello",
+      "title": "Python : Les bases",
+      "description": "Découvre Python",
+      "module": "python",
+      "icon": "🐍",
+      "duration": "15 min",
+      "difficulty": "débutant"
     }
   ]
 }

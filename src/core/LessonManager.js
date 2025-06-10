@@ -1,183 +1,389 @@
 export class LessonManager {
   constructor(app) {
     this.app = app;
-    this.lessons = [];
-    this.completedLessons = new Set();
-    this.currentLesson = null;
+    this.manifest = null;
+    this.chapters = [];
+    this.exercises = new Map(); // exerciseId -> exercise data
+    this.completedExercises = new Set();
+    this.currentExercise = null;
   }
   
   async loadManifest() {
     try {
-      const manifestUrl = this.app.config.lessonsUrl || '/lessons/manifest.json';
+      // Charger le manifest principal
+      const manifestUrl = '/lessons/javascript/manifest.json';
       const response = await fetch(manifestUrl);
       
       if (!response.ok) {
-        throw new Error('Impossible de charger les leçons');
+        throw new Error('Impossible de charger le manifest');
       }
       
-      const data = await response.json();
-      this.lessons = data.lessons || [];
+      this.manifest = await response.json();
+      this.chapters = this.manifest.chapters || [];
+      
+      // Indexer tous les exercices pour un accès rapide
+      this.indexExercises();
       
       // Charger la progression
       await this.loadProgress();
       
-      // Afficher les leçons
-      this.renderLessons();
+      // Afficher les chapitres et exercices
+      this.renderChapters();
       
     } catch (error) {
-      console.error('Erreur lors du chargement des leçons:', error);
+      console.error('Erreur lors du chargement du manifest:', error);
       this.app.ui.showError('Impossible de charger les leçons');
     }
   }
   
-  async loadLesson(lessonId) {
-    const lesson = this.lessons.find(l => l.id === lessonId);
-    if (!lesson) {
-      throw new Error(`Leçon introuvable: ${lessonId}`);
+  indexExercises() {
+    this.chapters.forEach(chapter => {
+      chapter.exercises.forEach(exercise => {
+        // Créer un ID unique pour chaque exercice
+        const exerciseId = `${chapter.id}/${exercise.id}`;
+        this.exercises.set(exerciseId, {
+          ...exercise,
+          chapterId: chapter.id,
+          chapterTitle: chapter.title,
+          fullId: exerciseId,
+          basePath: `/lessons/javascript/${chapter.id}/${exercise.id}/`
+        });
+      });
+    });
+  }
+  
+  renderChapters() {
+    const container = this.app.ui.elements.lessonsList;
+    container.innerHTML = '';
+    
+    this.chapters.forEach(chapter => {
+      // Créer la section du chapitre
+      const chapterSection = document.createElement('div');
+      chapterSection.className = 'chapter-section';
+      
+      // En-tête du chapitre
+      const chapterHeader = document.createElement('div');
+      chapterHeader.className = 'chapter-header';
+      chapterHeader.innerHTML = `
+        <h3>${chapter.title}</h3>
+        <span class="chapter-info">${chapter.exercises.length} exercices • ${chapter.estimatedTime}</span>
+      `;
+      
+      // Liste des exercices
+      const exercisesList = document.createElement('div');
+      exercisesList.className = 'exercises-list';
+      
+      chapter.exercises.forEach(exercise => {
+        const exerciseId = `${chapter.id}/${exercise.id}`;
+        const isCompleted = this.completedExercises.has(exerciseId);
+        const isActive = this.currentExercise?.fullId === exerciseId;
+        
+        const exerciseCard = document.createElement('div');
+        exerciseCard.className = `exercise-card ${isCompleted ? 'completed' : ''} ${isActive ? 'active' : ''}`;
+        
+        exerciseCard.innerHTML = `
+          <div class="exercise-status">
+            ${isCompleted ? '✅' : this.getDifficultyIcon(exercise.difficulty)}
+          </div>
+          <div class="exercise-info">
+            <h4>${exercise.title}</h4>
+            <p>${exercise.description}</p>
+            <span class="exercise-meta">${exercise.difficulty} • ${exercise.type}</span>
+          </div>
+        `;
+        
+        exerciseCard.addEventListener('click', () => this.loadExercise(exerciseId));
+        exercisesList.appendChild(exerciseCard);
+      });
+      
+      chapterSection.appendChild(chapterHeader);
+      chapterSection.appendChild(exercisesList);
+      container.appendChild(chapterSection);
+    });
+    
+    this.updateProgress();
+  }
+  
+  getDifficultyIcon(difficulty) {
+    const icons = {
+      'facile': '🟢',
+      'moyen': '🟡',
+      'difficile': '🔴'
+    };
+    return icons[difficulty] || '📝';
+  }
+  
+  async loadExercise(exerciseId) {
+    const exercise = this.exercises.get(exerciseId);
+    if (!exercise) {
+      throw new Error(`Exercice introuvable: ${exerciseId}`);
     }
     
     try {
-      // Charger le contenu de la leçon
-      if (lesson.contentUrl) {
-        const response = await fetch(lesson.contentUrl);
-        lesson.content = await response.text();
+      // Charger les fichiers de l'exercice
+      const files = {};
+      
+      // Charger les fichiers principaux
+      for (const filename of exercise.files) {
+        const filePath = `${exercise.basePath}${filename}`;
+        try {
+          const response = await fetch(filePath);
+          if (response.ok) {
+            files[filename] = await response.text();
+          }
+        } catch (error) {
+          console.warn(`Impossible de charger ${filename}:`, error);
+        }
       }
       
-      // Charger le code de démarrage
-      if (lesson.starterUrl) {
-        const response = await fetch(lesson.starterUrl);
-        lesson.starterCode = await response.text();
-      }
+      // Préparer les données de l'exercice
+      this.currentExercise = {
+        ...exercise,
+        files,
+        readme: files['README.md'] || this.generateDefaultReadme(exercise),
+        starterCode: files[exercise.mainFile] || '// Code de démarrage\n',
+        testCode: files[exercise.testFile] || 'return true;',
+        solutionCode: files['solution.js'] || ''
+      };
       
-      // Charger les tests
-      if (lesson.testUrl) {
-        const response = await fetch(lesson.testUrl);
-        const testCode = await response.text();
-        lesson.testFunction = new Function('code', 'output', testCode);
-      }
-      
-      this.currentLesson = lesson;
-      this.app.currentLesson = lesson;
-      
-      // Afficher la leçon
-      this.app.ui.showLesson(lesson);
-      
-      // Charger le code de démarrage dans l'éditeur
-      if (lesson.starterCode) {
-        this.app.ui.editor.setValue(lesson.starterCode);
-      }
+      // Afficher l'exercice
+      this.displayExercise();
       
       // Activer le bon module
-      if (lesson.module) {
-        await this.app.modules.activateModule(lesson.module);
+      const moduleType = exercise.type === 'web' ? 'web' : 'javascript';
+      await this.app.modules.activateModule(moduleType);
+      
+      // Si c'est un exercice web, charger aussi le HTML
+      if (exercise.type === 'web' && exercise.htmlFile) {
+        const webModule = this.app.modules.getActiveModule();
+        if (webModule && webModule.id === 'web') {
+          webModule.files.set('index.html', { 
+            language: 'html', 
+            content: files[exercise.htmlFile] || '' 
+          });
+          webModule.files.set('script.js', { 
+            language: 'javascript', 
+            content: this.currentExercise.starterCode 
+          });
+        }
       }
       
       // Sauvegarder la session
       await this.app.saveSession();
       
     } catch (error) {
-      console.error('Erreur lors du chargement de la leçon:', error);
-      throw error;
+      console.error('Erreur lors du chargement de l\'exercice:', error);
+      this.app.ui.showError(`Impossible de charger l'exercice: ${error.message}`);
     }
   }
   
-  renderLessons() {
-    const container = this.app.ui.elements.lessonsList;
-    container.innerHTML = '';
+  displayExercise() {
+    if (!this.currentExercise) return;
     
-    this.lessons.forEach(lesson => {
-      const card = document.createElement('div');
-      card.className = 'lesson-card';
-      
-      if (this.completedLessons.has(lesson.id)) {
-        card.classList.add('completed');
-      }
-      
-      if (this.currentLesson?.id === lesson.id) {
-        card.classList.add('active');
-      }
-      
-      card.innerHTML = `
-        <div class="lesson-icon">${lesson.icon || '📖'}</div>
-        <div class="lesson-details">
-          <h3>${lesson.title}</h3>
-          <p>${lesson.description || ''}</p>
+    // Convertir le README markdown en HTML (version simplifiée)
+    const readmeHtml = this.markdownToHtml(this.currentExercise.readme);
+    
+    // Afficher dans l'interface
+    this.app.ui.showLesson({
+      title: this.currentExercise.title,
+      content: `
+        <div class="exercise-breadcrumb">
+          ${this.currentExercise.chapterTitle} › ${this.currentExercise.title}
         </div>
-        ${this.completedLessons.has(lesson.id) ? '<span class="checkmark">✓</span>' : ''}
-      `;
-      
-      card.addEventListener('click', () => this.loadLesson(lesson.id));
-      container.appendChild(card);
+        ${readmeHtml}
+        <div class="exercise-actions">
+          ${this.currentExercise.solutionCode ? 
+            '<button class="btn-secondary" onclick="window.codePlayApp.lessons.showSolution()">👁️ Voir la solution</button>' : 
+            ''}
+          <button class="btn-secondary" onclick="window.codePlayApp.lessons.resetExercise()">🔄 Réinitialiser</button>
+        </div>
+      `
     });
     
-    this.updateProgress();
+    // Charger le code de démarrage
+    this.app.ui.editor.setValue(this.currentExercise.starterCode);
+    
+    // Mettre à jour l'interface
+    this.renderChapters();
   }
   
-  async checkExercise(lessonId, code, executionResult) {
-    const lesson = this.lessons.find(l => l.id === lessonId);
-    if (!lesson || !lesson.testFunction) {
+  markdownToHtml(markdown) {
+    // Conversion markdown basique
+    return markdown
+      .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+      .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+      .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+      .replace(/^\* (.+)/gim, '<li>$1</li>')
+      .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
+      .replace(/`([^`]+)`/g, '<code>$1</code>')
+      .replace(/```javascript\n([\s\S]*?)```/g, '<pre class="code-block"><code>$1</code></pre>')
+      .replace(/```\n([\s\S]*?)```/g, '<pre class="code-block"><code>$1</code></pre>')
+      .replace(/\n\n/g, '</p><p>')
+      .replace(/^/, '<p>')
+      .replace(/$/, '</p>');
+  }
+  
+  generateDefaultReadme(exercise) {
+    return `# ${exercise.title}
+
+## Description
+${exercise.description}
+
+## Objectif
+Complétez le code pour faire passer tous les tests.
+
+## Difficulté
+${exercise.difficulty}
+
+## Conseils
+- Lisez attentivement les tests pour comprendre ce qui est attendu
+- N'hésitez pas à utiliser console.log() pour débugger
+- Si vous êtes bloqué, utilisez le bouton "Voir la solution"
+`;
+  }
+  
+  async checkExercise(code, executionResult) {
+    if (!this.currentExercise || !this.currentExercise.testCode) {
       return false;
     }
     
     try {
-      // Formatter la sortie pour les tests
+      // Créer une fonction de test
+      const testFunction = new Function('code', 'output', 'results', this.currentExercise.testCode);
+      
+      // Formatter la sortie
       const output = executionResult.logs
         .filter(log => log.type === 'log')
         .map(log => log.args.join(' '))
         .join('\n');
       
-      return lesson.testFunction(code, output);
+      // Exécuter les tests
+      const passed = testFunction(code, output, executionResult);
+      
+      if (passed) {
+        this.completeExercise(this.currentExercise.fullId);
+      }
+      
+      return passed;
+      
     } catch (error) {
-      console.error('Erreur lors de la vérification:', error);
+      console.error('Erreur lors de l\'exécution des tests:', error);
       return false;
     }
   }
   
-  completeLesson(lessonId) {
-    if (!this.completedLessons.has(lessonId)) {
-      this.completedLessons.add(lessonId);
+  completeExercise(exerciseId) {
+    if (!this.completedExercises.has(exerciseId)) {
+      this.completedExercises.add(exerciseId);
       this.saveProgress();
-      this.renderLessons();
+      this.renderChapters();
       
-      // Animation de succès
-      const lesson = this.lessons.find(l => l.id === lessonId);
-      this.app.ui.showSuccess(`Bravo ! Tu as complété "${lesson.title}"`);
+      const exercise = this.exercises.get(exerciseId);
+      this.app.ui.showSuccess(`Bravo ! Tu as complété "${exercise.title}" 🎉`);
       
       // Vérifier les achievements
       this.checkAchievements();
     }
   }
   
+  showSolution() {
+    if (this.currentExercise && this.currentExercise.solutionCode) {
+      if (confirm('Es-tu sûr de vouloir voir la solution ?')) {
+        this.app.ui.editor.setValue(this.currentExercise.solutionCode);
+        this.app.ui.console.info('Solution chargée. Essaie de la comprendre !');
+      }
+    }
+  }
+  
+  resetExercise() {
+    if (this.currentExercise) {
+      this.app.ui.editor.setValue(this.currentExercise.starterCode);
+      this.app.ui.console.info('Code réinitialisé');
+    }
+  }
+  
   async saveProgress() {
-    await this.app.storage.set('completedLessons', Array.from(this.completedLessons));
+    await this.app.storage.set('completedExercises', Array.from(this.completedExercises));
     await this.app.storage.set('lastCompletedDate', new Date().toISOString());
+    await this.app.storage.set('currentPath', this.manifest.name);
   }
   
   async loadProgress() {
-    const saved = await this.app.storage.get('completedLessons');
+    const saved = await this.app.storage.get('completedExercises');
     if (saved) {
-      this.completedLessons = new Set(saved);
+      this.completedExercises = new Set(saved);
     }
   }
   
   updateProgress() {
-    const total = this.lessons.length;
-    const completed = this.completedLessons.size;
-    const percentage = total > 0 ? (completed / total) * 100 : 0;
+    const totalExercises = this.exercises.size;
+    const completedCount = this.completedExercises.size;
+    const percentage = totalExercises > 0 ? (completedCount / totalExercises) * 100 : 0;
     
     this.app.ui.updateProgress(percentage);
+    
+    // Mettre à jour les statistiques
+    const stats = this.calculateStats();
+    this.updateStatsDisplay(stats);
+  }
+  
+  calculateStats() {
+    let completedByChapter = {};
+    let completedByDifficulty = { facile: 0, moyen: 0, difficile: 0 };
+    
+    this.completedExercises.forEach(exerciseId => {
+      const exercise = this.exercises.get(exerciseId);
+      if (exercise) {
+        // Par chapitre
+        if (!completedByChapter[exercise.chapterId]) {
+          completedByChapter[exercise.chapterId] = 0;
+        }
+        completedByChapter[exercise.chapterId]++;
+        
+        // Par difficulté
+        completedByDifficulty[exercise.difficulty]++;
+      }
+    });
+    
+    return {
+      total: this.exercises.size,
+      completed: this.completedExercises.size,
+      byChapter: completedByChapter,
+      byDifficulty: completedByDifficulty
+    };
+  }
+  
+  updateStatsDisplay(stats) {
+    // Vous pouvez ajouter un affichage des statistiques dans l'UI
+    console.log('Statistiques:', stats);
   }
   
   checkAchievements() {
-    const completed = this.completedLessons.size;
-    const total = this.lessons.length;
+    const completed = this.completedExercises.size;
+    const total = this.exercises.size;
     
+    // Achievements par nombre
     if (completed === 1) {
-      this.app.ui.showSuccess('🎉 Première leçon complétée !');
+      this.app.ui.showSuccess('🎉 Premier exercice complété !');
     } else if (completed === 5) {
-      this.app.ui.showSuccess('🌟 5 leçons complétées ! Continue comme ça !');
-    } else if (completed === total) {
-      this.app.ui.showSuccess('🏆 Félicitations ! Tu as terminé toutes les leçons !');
+      this.app.ui.showSuccess('⭐ 5 exercices complétés !');
+    } else if (completed === 10) {
+      this.app.ui.showSuccess('🔥 10 exercices complétés ! Tu progresses bien !');
+    }
+    
+    // Achievement par chapitre
+    this.chapters.forEach(chapter => {
+      const chapterExercises = chapter.exercises.map(e => `${chapter.id}/${e.id}`);
+      const completedInChapter = chapterExercises.filter(id => this.completedExercises.has(id));
+      
+      if (completedInChapter.length === chapterExercises.length) {
+        this.app.ui.showSuccess(`🏆 Chapitre "${chapter.title}" complété !`);
+      }
+    });
+    
+    // Achievement final
+    if (completed === total) {
+      this.app.ui.showSuccess('🎓 Félicitations ! Tu as terminé tout le parcours JavaScript !');
     }
   }
 }

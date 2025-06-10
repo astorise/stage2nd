@@ -53,19 +53,173 @@ export default class WebModule extends BaseModule {
   }
   
   buildCompleteHTML() {
-    const htmlContent = this.files.get('index.html').content;
-    const cssContent = this.files.get('style.css').content;
-    const jsContent = this.files.get('script.js').content;
-    
-    // Si le HTML contient déjà une structure complète
-    if (htmlContent.includes('<!DOCTYPE') || htmlContent.includes('<html>')) {
-      return htmlContent
-        .replace('</head>', `<style>${cssContent}</style></head>`)
-        .replace('</body>', `<script>${jsContent}</script></body>`);
-    }
-    
-    // Sinon, créer une structure complète
-    return `<!DOCTYPE html>
+  const htmlContent = this.files.get('index.html').content;
+  const cssContent = this.files.get('style.css').content;
+  const jsContent = this.files.get('script.js').content;
+  
+  // Code d'interception réseau à injecter dans l'iframe
+  const networkInterceptor = `
+    <script>
+      // Intercepteur de requêtes réseau pour l'iframe
+      (function() {
+        const originalFetch = window.fetch;
+        const originalXHR = window.XMLHttpRequest;
+        let requestId = 0;
+        
+        // Fonction pour envoyer les infos réseau au parent
+        function sendNetworkInfo(info) {
+          window.parent.postMessage({
+            type: 'network',
+            data: info
+          }, '*');
+        }
+        
+        // Intercepter fetch
+        window.fetch = function(...args) {
+          const id = ++requestId;
+          const startTime = performance.now();
+          const url = args[0].toString();
+          const options = args[1] || {};
+          const method = options.method || 'GET';
+          
+          // Notifier le début de la requête
+          sendNetworkInfo({
+            id,
+            url,
+            method,
+            status: 'pending',
+            startTime
+          });
+          
+          return originalFetch.apply(window, args)
+            .then(async response => {
+              const endTime = performance.now();
+              const duration = Math.round(endTime - startTime);
+              
+              // Cloner pour lire la taille
+              let size = 0;
+              try {
+                const cloned = response.clone();
+                const blob = await cloned.blob();
+                size = blob.size;
+              } catch (e) {
+                const contentLength = response.headers.get('content-length');
+                if (contentLength) size = parseInt(contentLength);
+              }
+              
+              // Notifier la fin de la requête
+              sendNetworkInfo({
+                id,
+                url,
+                method,
+                status: response.status,
+                statusText: response.statusText,
+                size,
+                duration,
+                headers: Object.fromEntries(response.headers.entries())
+              });
+              
+              return response;
+            })
+            .catch(error => {
+              const endTime = performance.now();
+              const duration = Math.round(endTime - startTime);
+              
+              sendNetworkInfo({
+                id,
+                url,
+                method,
+                status: 'error',
+                statusText: error.message,
+                size: 0,
+                duration
+              });
+              
+              throw error;
+            });
+        };
+        
+        // Intercepter XMLHttpRequest
+        window.XMLHttpRequest = function() {
+          const xhr = new originalXHR();
+          const id = ++requestId;
+          let startTime;
+          let method;
+          let url;
+          
+          const originalOpen = xhr.open;
+          xhr.open = function(...args) {
+            method = args[0];
+            url = args[1];
+            return originalOpen.apply(xhr, args);
+          };
+          
+          const originalSend = xhr.send;
+          xhr.send = function(...args) {
+            startTime = performance.now();
+            
+            sendNetworkInfo({
+              id,
+              url,
+              method: method || 'GET',
+              status: 'pending',
+              startTime
+            });
+            
+            xhr.addEventListener('load', function() {
+              const endTime = performance.now();
+              const duration = Math.round(endTime - startTime);
+              
+              let size = 0;
+              if (xhr.responseText) {
+                size = new Blob([xhr.responseText]).size;
+              }
+              
+              sendNetworkInfo({
+                id,
+                url,
+                method: method || 'GET',
+                status: xhr.status,
+                statusText: xhr.statusText,
+                size,
+                duration,
+                headers: xhr.getAllResponseHeaders()
+              });
+            });
+            
+            xhr.addEventListener('error', function() {
+              const endTime = performance.now();
+              const duration = Math.round(endTime - startTime);
+              
+              sendNetworkInfo({
+                id,
+                url,
+                method: method || 'GET',
+                status: 'error',
+                statusText: 'Network Error',
+                size: 0,
+                duration
+              });
+            });
+            
+            return originalSend.apply(xhr, args);
+          };
+          
+          return xhr;
+        };
+      })();
+    </script>
+  `;
+  
+  // Si le HTML contient déjà une structure complète
+  if (htmlContent.includes('<!DOCTYPE') || htmlContent.includes('<html>')) {
+    return htmlContent
+      .replace('</head>', `<style>${cssContent}</style></head>`)
+      .replace('</body>', `${networkInterceptor}<script>${jsContent}</script></body>`);
+  }
+  
+  // Sinon, créer une structure complète
+  return `<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -91,6 +245,7 @@ export default class WebModule extends BaseModule {
 </head>
 <body>
     ${htmlContent}
+    ${networkInterceptor}
     <script>
         // Capturer console.log pour l'affichage dans CodePlay
         (function() {
@@ -138,7 +293,7 @@ export default class WebModule extends BaseModule {
     </script>
 </body>
 </html>`;
-  }
+}
   
   updatePreview(html) {
     // Trouver ou créer le conteneur de preview

@@ -1,5 +1,6 @@
 import { Editor } from '@components/Editor/Editor';
 import { Console } from '@components/Console/Console';
+import { NetworkMonitor } from '@components/NetworkMonitor/NetworkMonitor';
 
 export class UIManager {
   constructor(app) {
@@ -36,7 +37,14 @@ export class UIManager {
       await this.editor.init();
       
       // Initialiser la console
-      this.console = new Console(this.elements.console);
+    // Après l'initialisation de la console
+this.console = new Console(document.getElementById('console'));
+
+// Initialiser le Network Monitor
+this.networkMonitor = new NetworkMonitor(document.getElementById('network-monitor'));
+
+// Gérer les onglets
+this.setupOutputTabs();
       
       // Configurer les événements
       this.setupEventListeners();
@@ -105,7 +113,20 @@ export class UIManager {
             <div id="editor" class="editor"></div>
           </div>
           
-          <div class="console-container" id="console"></div>
+          <div class="output-container" id="output-container">
+  <div class="output-tabs">
+    <button class="output-tab active" data-panel="console">Console</button>
+    <button class="output-tab" data-panel="network">Réseau</button>
+  </div>
+  <div class="output-panels">
+    <div class="output-panel active" id="console-panel">
+      <div id="console"></div>
+    </div>
+    <div class="output-panel" id="network-panel">
+      <div id="network-monitor"></div>
+    </div>
+  </div>
+</div>
         </section>
       </main>
     `;
@@ -312,4 +333,27 @@ export class UIManager {
     );
   }
 }
+setupOutputTabs() {
+  const tabs = document.querySelectorAll('.output-tab');
+  const panels = document.querySelectorAll('.output-panel');
+  
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const targetPanel = tab.dataset.panel;
+      
+      // Mettre à jour les onglets
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      
+      // Mettre à jour les panneaux
+      panels.forEach(panel => {
+        panel.classList.remove('active');
+        if (panel.id === `${targetPanel}-panel`) {
+          panel.classList.add('active');
+        }
+      });
+    });
+  });
+}
+
 }
