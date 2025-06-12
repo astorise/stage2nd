@@ -123,8 +123,8 @@ export class LessonManager {
       // Charger les fichiers de l'exercice
       const files = {};
       
-      // Charger les fichiers principaux
-      for (const filename of exercise.files) {
+      // Charger les fichiers principaux en parallèle
+      const fetchPromises = exercise.files.map(async (filename) => {
         const filePath = `${exercise.basePath}${filename}`;
         try {
           const response = await fetch(filePath);
@@ -134,7 +134,9 @@ export class LessonManager {
         } catch (error) {
           console.warn(`Impossible de charger ${filename}:`, error);
         }
-      }
+      });
+
+      await Promise.all(fetchPromises);
       
       // Préparer les données de l'exercice
       this.currentExercise = {
