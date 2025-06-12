@@ -255,7 +255,7 @@ ${exercise.difficulty}
       const testFunction = new Function('code', 'output', 'results', this.currentExercise.testCode);
       
       // Formatter la sortie
-      const output = executionResult.logs
+        const output = (executionResult.logs || [])
         .filter(log => log.type === 'log')
         .map(log => log.args.join(' '))
         .join('\n');
