@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Timer App</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      text-align: center; 
+      padding: 50px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .timer-container {
+      background: rgba(255,255,255,0.1);
+      padding: 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .timer-display {
+      font-size: 4em;
+      font-weight: bold;
+      margin: 30px 0;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    .timer-controls {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin: 20px 0;
+    }
+    .btn {
+      padding: 15px 25px;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s;
+      font-weight: bold;
+    }
+    .btn-start { background: #28a745; color: white; }
+    .btn-pause { background: #ffc107; color: black; }
+    .btn-stop { background: #dc3545; color: white; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+    .timer-input {
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      text-align: center;
+      margin: 10px;
+      width: 80px;
+    }
+    .presets {
+      margin: 20px 0;
+    }
+    .preset-btn {
+      padding: 10px 15px;
+      margin: 5px;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      border-radius: 15px;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="timer-container">
+    <h1>Timer App</h1>
+    
+    <div class="timer-display" id="display">00:00</div>
+    
+    <div>
+      <input type="number" id="minutes" class="timer-input" placeholder="Min" min="0" max="59" value="5">
+      <input type="number" id="seconds" class="timer-input" placeholder="Sec" min="0" max="59" value="0">
+    </div>
+    
+    <div class="presets">
+      <button class="preset-btn" onclick="app.setTimer(1, 0)">1 min</button>
+      <button class="preset-btn" onclick="app.setTimer(5, 0)">5 min</button>
+      <button class="preset-btn" onclick="app.setTimer(10, 0)">10 min</button>
+      <button class="preset-btn" onclick="app.setTimer(25, 0)">Pomodoro</button>
+    </div>
+    
+    <div class="timer-controls">
+      <button id="startBtn" class="btn btn-start">Démarrer</button>
+      <button id="pauseBtn" class="btn btn-pause">Pause</button>
+      <button id="stopBtn" class="btn btn-stop">Stop</button>
+    </div>
+    
+    <div id="status">Prêt</div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
