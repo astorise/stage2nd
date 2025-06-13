@@ -3,44 +3,46 @@ import { ModuleManager } from "./ModuleManager";
 import { StorageService } from "@services/StorageService";
 import { UIManager } from "./UIManager";
 import { LessonManager } from "./LessonManager";
+import { CourseManager } from './CourseManager';
 
 export class CodePlayApp extends EventEmitter {
   constructor() {
     super();
-
+    
+    this.courses = new CourseManager(this);  // Nouveau !
     this.modules = new ModuleManager(this);
     this.storage = new StorageService();
     this.ui = new UIManager(this);
     this.lessons = new LessonManager(this);
-
-    this.currentLesson = null;
-    this.currentModule = null;
   }
-
+  
   async init() {
     try {
       // Initialiser l'interface
       await this.ui.init();
-
+      
       // Charger la configuration
       await this.loadConfig();
-
+      
       // Charger les modules disponibles
       await this.modules.loadAvailableModules();
-
-      // Charger les leçons
-      await this.lessons.loadManifest();
-
-      // Restaurer la session précédente
-      await this.restoreSession();
-
-      this.emit("app:ready");
-      console.log("✅ CodePlay initialized successfully");
+      
+      // Initialiser le gestionnaire de cours
+      await this.courses.init();  // Nouveau !
+      
+      // Vérifier les mises à jour périodiquement
+      setInterval(() => {
+        this.courses.checkForUpdates();
+      }, 300000); // Toutes les 5 minutes
+      
+      this.emit('app:ready');
+      
     } catch (error) {
-      console.error("❌ Failed to initialize CodePlay:", error);
-      this.ui.showError("Erreur lors de l'initialisation");
+      console.error('❌ Failed to initialize CodePlay:', error);
+      this.ui.showError('Erreur lors de l\'initialisation');
     }
   }
+
 
   async loadConfig() {
     try {

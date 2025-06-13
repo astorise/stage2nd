@@ -51,6 +51,21 @@ export class LessonManager {
       });
     });
   }
+
+  indexExercisesWithBasePath(baseUrl) {
+  this.chapters.forEach(chapter => {
+    chapter.exercises.forEach(exercise => {
+      const exerciseId = `${chapter.id}/${exercise.id}`;
+      this.exercises.set(exerciseId, {
+        ...exercise,
+        chapterId: chapter.id,
+        chapterTitle: chapter.title,
+        fullId: exerciseId,
+        basePath: `${baseUrl}/${chapter.id}/${exercise.id}/`
+      });
+    });
+  });
+}
   
   renderChapters() {
     const container = this.app.ui.elements.lessonsList;
@@ -112,6 +127,24 @@ export class LessonManager {
     };
     return icons[difficulty] || '📝';
   }
+  
+async loadCourse(course) {
+  this.currentCourse = course;
+  this.manifest = course.manifest;
+  this.chapters = this.manifest.chapters || [];
+  
+  // Réinitialiser les exercices
+  this.exercises.clear();
+  
+  // Réindexer avec le bon chemin de base
+  this.indexExercisesWithBasePath(course.baseUrl);
+  
+  // Charger la progression spécifique à ce cours
+  await this.loadCourseProgress(course.id);
+  
+  // Afficher les chapitres
+  this.renderChapters();
+}
   
   async loadExercise(exerciseId) {
     const exercise = this.exercises.get(exerciseId);
@@ -391,4 +424,25 @@ ${exercise.difficulty}
       this.app.ui.showSuccess('🎓 Félicitations ! Tu as terminé tout le parcours JavaScript !');
     }
   }
+
+  async loadCourseProgress(courseId) {
+  const key = `progress_${courseId}`;
+  const saved = await this.app.storage.get(key);
+  if (saved) {
+    this.completedExercises = new Set(saved.completedExercises || []);
+  } else {
+    this.completedExercises = new Set();
+  }
+}
+async saveProgress() {
+  if (!this.currentCourse) return;
+  
+  const key = `progress_${this.currentCourse.id}`;
+  await this.app.storage.set(key, {
+    completedExercises: Array.from(this.completedExercises),
+    lastUpdated: new Date().toISOString(),
+    courseVersion: this.manifest.version
+  });
+}
+
 }

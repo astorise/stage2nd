@@ -406,5 +406,38 @@ setupOutputTabs() {
     });
   });
 }
+showLoading(message = 'Chargement...') {
+  // Créer ou mettre à jour l'overlay de chargement
+  let loader = document.getElementById('global-loader');
+  
+  if (!loader) {
+    loader = document.createElement('div');
+    loader.id = 'global-loader';
+    loader.className = 'loading-overlay';
+    document.body.appendChild(loader);
+  }
+  
+  loader.innerHTML = `
+    <div class="loading-content">
+      <div class="loading-spinner"></div>
+      <p class="loading-message">${message}</p>
+    </div>
+  `;
+  
+  loader.classList.add('show');
+}
+
+hideLoading() {
+  const loader = document.getElementById('global-loader');
+  if (loader) {
+    loader.classList.remove('show');
+    // Retirer complètement après l'animation
+    setTimeout(() => {
+      if (!loader.classList.contains('show')) {
+        loader.remove();
+      }
+    }, 300);
+  }
+}
 
 }
