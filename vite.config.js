@@ -21,10 +21,13 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          'monaco': ['monaco-editor'],
-          'vendor': ['localforage', 'eventemitter3']
+          monaco: ['monaco-editor'],
+          vendor: ['localforage', 'eventemitter3']
         }
       }
     }
+  },
+  worker: {
+    format: 'es'
   }
 });

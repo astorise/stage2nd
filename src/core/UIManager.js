@@ -58,57 +58,6 @@ this.setupOutputTabs();
     }
   }
   
-// Ajouter dans UIManager.js après init()
-
-setupResizer() {
-  // Créer une poignée de redimensionnement entre l'éditeur et la console
-  const resizer = document.createElement('div');
-  resizer.className = 'workspace-resizer';
-  resizer.style.cssText = `
-    height: 5px;
-    background: var(--border-color);
-    cursor: ns-resize;
-    user-select: none;
-  `;
-  
-  // L'insérer entre l'éditeur et la console
-  const outputContainer = document.getElementById('output-container');
-  outputContainer.parentNode.insertBefore(resizer, outputContainer);
-  
-  let isResizing = false;
-  let startY = 0;
-  let startHeight = 0;
-  
-  resizer.addEventListener('mousedown', (e) => {
-    isResizing = true;
-    startY = e.clientY;
-    startHeight = outputContainer.offsetHeight;
-    document.body.style.cursor = 'ns-resize';
-  });
-  
-  document.addEventListener('mousemove', (e) => {
-    if (!isResizing) return;
-    
-    const delta = startY - e.clientY;
-    const newHeight = Math.min(
-      Math.max(200, startHeight + delta), // Min 200px
-      window.innerHeight * 0.5 // Max 50% de la hauteur
-    );
-    
-    outputContainer.style.height = `${newHeight}px`;
-    
-    // Si vous utilisez Grid, ajustez la template
-    const workspace = document.querySelector('.workspace');
-    if (workspace.style.display === 'grid') {
-      workspace.style.gridTemplateRows = `auto 1fr ${newHeight}px`;
-    }
-  });
-  
-  document.addEventListener('mouseup', () => {
-    isResizing = false;
-    document.body.style.cursor = '';
-  });
-}
 
   createUI() {
     const app = document.getElementById('app');
@@ -358,32 +307,6 @@ setupResizer() {
     this.showNotification(message, 'error');
   }
 
-  setupFileTabs() {
-  const module = this.app.modules.getActiveModule();
-  
-  if (module && module.capabilities.multiFile) {
-    // Créer le conteneur d'onglets s'il n'existe pas
-    let tabsContainer = document.getElementById('file-tabs-container');
-    if (!tabsContainer) {
-      tabsContainer = document.createElement('div');
-      tabsContainer.id = 'file-tabs-container';
-      
-      // L'insérer avant l'éditeur
-      const editorContainer = document.querySelector('.editor-container');
-      editorContainer.insertBefore(tabsContainer, editorContainer.firstChild);
-    }
-    
-    // Initialiser les onglets
-    const fileTabs = new FileTabs(tabsContainer, (filename) => {
-      module.switchFile(filename);
-    });
-    
-    fileTabs.init(
-      Array.from(module.files.keys()),
-      module.activeFile
-    );
-  }
-}
 setupOutputTabs() {
   const tabs = document.querySelectorAll('.output-tab');
   const panels = document.querySelectorAll('.output-panel');
