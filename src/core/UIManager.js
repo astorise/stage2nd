@@ -20,6 +20,7 @@ export class UIManager {
       console: document.getElementById('console'),
       lessonsList: document.getElementById('lessons-list'),
       lessonInfo: document.getElementById('lesson-info'),
+      courseSelector: document.getElementById('course-selector'),
       moduleSelector: document.getElementById('module-selector'),
       runButton: document.getElementById('btn-run'),
       resetButton: document.getElementById('btn-reset'),
@@ -73,6 +74,7 @@ this.setupOutputTabs();
           <span class="header-tagline">Apprends à programmer</span>
         </div>
         <nav class="header-nav">
+          <div id="course-selector" class="course-selector"></div>
           <div class="module-selector" id="module-selector"></div>
           <button class="btn-icon" id="btn-settings" title="Paramètres">⚙️</button>
         </nav>
