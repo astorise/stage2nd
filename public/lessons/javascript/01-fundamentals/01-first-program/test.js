@@ -1,12 +1,12 @@
 // Tests automatisés
-function testPremierProgramme() {
+function testPremierProgramme(code) {
   // Capture la sortie console
   let output = '';
   const originalLog = console.log;
   console.log = (message) => output += message;
-  
+
   // Exécute le code étudiant
-  require('./index.js');
+  new Function(code)();
   
   // Restaure console.log
   console.log = originalLog;
@@ -25,4 +25,4 @@ function testPremierProgramme() {
   
   return tests;
 }
-return testPremierProgramme();
+return testPremierProgramme(code);
