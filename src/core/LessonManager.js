@@ -282,31 +282,52 @@ ${exercise.difficulty}
   
   async checkExercise(code, executionResult) {
     if (!this.currentExercise || !this.currentExercise.testCode) {
-      return false;
+      return { success: false, tests: [] };
     }
-    
+
     try {
+      let testCode = this.currentExercise.testCode;
+
+      // Détecter la première fonction test...()
+      const fnMatch = testCode.match(/function\s+(test\w+)\s*\(/);
+      if (fnMatch) {
+        const fnName = fnMatch[1];
+        testCode += `\nreturn ${fnName}(code, output, results);`;
+      }
+
       // Créer une fonction de test
-      const testFunction = new Function('code', 'output', 'results', this.currentExercise.testCode);
-      
+      const testFunction = new Function('code', 'output', 'results', testCode);
+
       // Formatter la sortie
-        const output = (executionResult.logs || [])
+      const output = (executionResult.logs || [])
         .filter(log => log.type === 'log')
         .map(log => log.args.join(' '))
         .join('\n');
-      
+
       // Exécuter les tests
-      const passed = testFunction(code, output, executionResult);
-      
-      if (passed) {
+      const result = testFunction(code, output, executionResult);
+
+      let tests, success;
+      if (Array.isArray(result)) {
+        tests = result;
+        success = tests.every(t => t.pass);
+      } else if (typeof result === 'boolean') {
+        success = result;
+        tests = [{ name: 'Résultat', pass: result }];
+      } else {
+        success = !!result;
+        tests = [{ name: 'Résultat', pass: success }];
+      }
+
+      if (success) {
         this.completeExercise(this.currentExercise.fullId);
       }
-      
-      return passed;
-      
+
+      return { success, tests };
+
     } catch (error) {
       console.error('Erreur lors de l\'exécution des tests:', error);
-      return false;
+      return { success: false, tests: [{ name: 'Erreur', pass: false }] };
     }
   }
   
