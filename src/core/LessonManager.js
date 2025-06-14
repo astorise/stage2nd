@@ -11,7 +11,7 @@ export class LessonManager {
   async loadManifest() {
     try {
       // Charger le manifest principal
-      const manifestUrl = '/lessons/javascript/manifest.json';
+      const manifestUrl = 'lessons/javascript/manifest.json';
       const response = await fetch(manifestUrl);
       
       if (!response.ok) {
@@ -46,7 +46,7 @@ export class LessonManager {
           chapterId: chapter.id,
           chapterTitle: chapter.title,
           fullId: exerciseId,
-          basePath: `/lessons/javascript/${chapter.id}/${exercise.id}/`
+          basePath: `lessons/javascript/${chapter.id}/${exercise.id}/`
         });
       });
     });
