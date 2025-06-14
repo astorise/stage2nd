@@ -1,69 +1,73 @@
-import { Editor } from '@components/Editor/Editor';
-import { Console } from '@components/Console/Console';
-import { NetworkMonitor } from '@components/NetworkMonitor/NetworkMonitor';
+import { Editor } from "@components/Editor/Editor";
+import { Console } from "@components/Console/Console";
+import { NetworkMonitor } from "@components/NetworkMonitor/NetworkMonitor";
+import { TestRunner } from "@components/TestRunner/TestRunner";
 
 export class UIManager {
   constructor(app) {
     this.app = app;
     this.editor = null;
     this.console = null;
+    this.testRunner = null;
     this.elements = {};
   }
-  
+
   async init() {
     // Créer l'interface si elle n'existe pas
     this.createUI();
-    
+
     // Récupérer les éléments DOM
     this.elements = {
-      editor: document.getElementById('editor'),
-      console: document.getElementById('console'),
-      lessonsList: document.getElementById('lessons-list'),
-      lessonInfo: document.getElementById('lesson-info'),
-      moduleSelector: document.getElementById('module-selector'),
-      runButton: document.getElementById('btn-run'),
-      resetButton: document.getElementById('btn-reset'),
-      progressFill: document.getElementById('progress-fill')
+      editor: document.getElementById("editor"),
+      console: document.getElementById("console"),
+      lessonsList: document.getElementById("lessons-list"),
+      lessonInfo: document.getElementById("lesson-info"),
+      courseSelector: document.getElementById("course-selector"),
+      runButton: document.getElementById("btn-run"),
+      resetButton: document.getElementById("btn-reset"),
+      progressFill: document.getElementById("progress-fill"),
+      testRunner: document.getElementById("test-runner"),
     };
-    
+
     // Vérifier que les éléments critiques existent
     if (!this.elements.editor) {
-      throw new Error('Editor element not found in DOM');
+      throw new Error("Editor element not found in DOM");
     }
-    
+
     try {
       // Initialiser l'éditeur
       this.editor = new Editor(this.elements.editor);
       await this.editor.init();
-      
+
       // Initialiser la console
-    // Après l'initialisation de la console
-this.console = new Console(document.getElementById('console'));
+      // Après l'initialisation de la console
+      this.console = new Console(document.getElementById("console"));
 
-// Initialiser le Network Monitor
-this.networkMonitor = new NetworkMonitor(document.getElementById('network-monitor'));
+      // Initialiser le Network Monitor
+      this.networkMonitor = new NetworkMonitor(
+        document.getElementById("network-monitor"),
+      );
 
-// Gérer les onglets
-this.setupOutputTabs();
-      
+      // Initialiser le Test Runner
+      this.testRunner = new TestRunner(document.getElementById("test-runner"));
+
+      // Gérer les onglets
+      this.setupOutputTabs();
+
       // Configurer les événements
       this.setupEventListeners();
-      
-      // Initialiser le sélecteur de modules
-      this.initModuleSelector();
-      
     } catch (error) {
-      console.error('Failed to initialize UI components:', error);
+      console.error("Failed to initialize UI components:", error);
       throw error;
     }
   }
-  
+
   createUI() {
-    const app = document.getElementById('app');
+    const app = document.getElementById("app");
     if (!app) {
-      throw new Error('App container not found');
+      throw new Error("App container not found");
     }
-    
+
     // Remplacer le contenu de chargement par l'interface
     app.innerHTML = `
       <header class="app-header">
@@ -72,7 +76,7 @@ this.setupOutputTabs();
           <span class="header-tagline">Apprends à programmer</span>
         </div>
         <nav class="header-nav">
-          <div class="module-selector" id="module-selector"></div>
+          <div id="course-selector" class="course-selector"></div>
           <button class="btn-icon" id="btn-settings" title="Paramètres">⚙️</button>
         </nav>
       </header>
@@ -117,6 +121,7 @@ this.setupOutputTabs();
   <div class="output-tabs">
     <button class="output-tab active" data-panel="console">Console</button>
     <button class="output-tab" data-panel="network">Réseau</button>
+    <button class="output-tab" data-panel="tests">Tests</button>
   </div>
   <div class="output-panels">
     <div class="output-panel active" id="console-panel">
@@ -124,6 +129,9 @@ this.setupOutputTabs();
     </div>
     <div class="output-panel" id="network-panel">
       <div id="network-monitor"></div>
+    </div>
+    <div class="output-panel" id="tests-panel">
+      <div id="test-runner"></div>
     </div>
   </div>
 </div>
@@ -133,127 +141,108 @@ this.setupOutputTabs();
   }
   setupEventListeners() {
     // Bouton Exécuter
-    this.elements.runButton.addEventListener('click', () => {
+    this.elements.runButton.addEventListener("click", () => {
       this.executeCode();
     });
-    
+
     // Bouton Réinitialiser
-    this.elements.resetButton.addEventListener('click', () => {
+    this.elements.resetButton.addEventListener("click", () => {
       this.resetCode();
     });
-    
+
     // Raccourcis clavier globaux
-    document.addEventListener('editor:run', () => {
+    document.addEventListener("editor:run", () => {
       this.executeCode();
     });
-    
-    document.addEventListener('editor:save', () => {
+
+    document.addEventListener("editor:save", () => {
       this.app.saveSession();
-      this.showNotification('Session sauvegardée');
+      this.showNotification("Session sauvegardée");
     });
-    
+
     // Changements dans l'éditeur
     this.editor.onDidChangeContent(() => {
-      this.app.emit('editor:change', {
-        code: this.editor.getValue()
+      this.app.emit("editor:change", {
+        code: this.editor.getValue(),
       });
     });
   }
-  
+
   async executeCode() {
     const code = this.editor.getValue();
-    
+
     // Désactiver le bouton pendant l'exécution
     this.elements.runButton.disabled = true;
-    this.elements.runButton.textContent = '⏳ Exécution...';
-    
+    this.elements.runButton.textContent = "⏳ Exécution...";
+
     try {
       // Effacer la console
       this.console.clear();
-      
+      this.testRunner.showResults([]);
+
       // Exécuter le code
       const result = await this.app.modules.executeCode(code);
-      
+
       // Afficher les résultats
       if (result.logs) {
-        result.logs.forEach(log => {
+        result.logs.forEach((log) => {
           this.console[log.type](...log.args);
         });
       }
-      
+
       if (result.errors && result.errors.length > 0) {
-        result.errors.forEach(error => {
+        result.errors.forEach((error) => {
           this.console.error(error.message);
         });
       }
-      
+
       // Vérifier si l'exercice est réussi
       if (this.app.currentLesson) {
-        const success = await this.app.lessons.checkExercise(
-          this.app.currentLesson.id,
+        const { success, tests } = await this.app.lessons.checkExercise(
           code,
-          result
+          result,
         );
-        
-        if (success) {
-          this.showSuccess('Exercice réussi ! 🎉');
-          this.app.lessons.completeLesson(this.app.currentLesson.id);
+
+        if (Array.isArray(tests)) {
+          tests.forEach((t) => {
+            if (t.pass) {
+              this.console.log(`✅ ${t.name}`);
+            } else {
+              this.console.error(`❌ ${t.name}`);
+            }
+          });
+          this.testRunner.showResults(tests);
+        } else {
+          this.testRunner.showResults([]);
         }
+
+        if (success) {
+          this.showSuccess("Exercice réussi ! 🎉");
+          this.app.lessons.completeExercise(this.app.currentLesson.fullId);
+        }
+      } else {
+        this.testRunner.showResults([]);
       }
-      
     } catch (error) {
-      this.console.error('Erreur:', error.message);
+      this.console.error("Erreur:", error.message);
     } finally {
       // Réactiver le bouton
       this.elements.runButton.disabled = false;
-      this.elements.runButton.textContent = '▶️ Exécuter';
+      this.elements.runButton.textContent = "▶️ Exécuter";
     }
   }
-  
+
   resetCode() {
     if (this.app.currentLesson) {
-      const starterCode = this.app.currentLesson.starterCode || 
-                         this.app.modules.getActiveModule()?.getStarterCode() || 
-                         '';
+      const starterCode =
+        this.app.currentLesson.starterCode ||
+        this.app.modules.getActiveModule()?.getStarterCode() ||
+        "";
       this.editor.setValue(starterCode);
-      this.console.info('Code réinitialisé');
+      this.console.info("Code réinitialisé");
     }
   }
-  
-  initModuleSelector() {
-    // Créer le sélecteur de modules
-    const selector = document.createElement('select');
-    selector.className = 'module-select';
-    
-    // Écouter les modules chargés
-    this.app.modules.on('modules:loaded', (modules) => {
-      selector.innerHTML = modules.map(module => `
-        <option value="${module.id}">
-          ${module.icon} ${module.name}
-        </option>
-      `).join('');
-      
-      // Sélectionner le module actif
-      if (this.app.currentModule) {
-        selector.value = this.app.currentModule.id;
-      }
-    });
-    
-    // Gérer le changement de module
-    selector.addEventListener('change', (e) => {
-      this.app.modules.activateModule(e.target.value);
-    });
-    
-    this.elements.moduleSelector.appendChild(selector);
-  }
-  
-  setActiveModule(moduleId) {
-    const selector = this.elements.moduleSelector.querySelector('select');
-    if (selector) {
-      selector.value = moduleId;
-    }
-  }
-  
+
   showLesson(lesson) {
     if (!lesson) {
       this.elements.lessonInfo.innerHTML = `
@@ -264,96 +253,103 @@ this.setupOutputTabs();
       `;
       return;
     }
-    
+
     this.elements.lessonInfo.innerHTML = `
       <div class="lesson-header">
         <h2>${lesson.title}</h2>
-        <span class="lesson-meta">${lesson.duration || '15 min'}</span>
+        <span class="lesson-meta">${lesson.duration || "15 min"}</span>
       </div>
       <div class="lesson-content">
-        ${lesson.content || '<p>Contenu de la leçon...</p>'}
+        ${lesson.content || "<p>Contenu de la leçon...</p>"}
       </div>
     `;
   }
-  
+
   updateProgress(percentage) {
     this.elements.progressFill.style.width = `${percentage}%`;
-    document.querySelector('.progress-text').textContent = `${Math.round(percentage)}% complété`;
+    document.querySelector(".progress-text").textContent =
+      `${Math.round(percentage)}% complété`;
   }
-  
-  showNotification(message, type = 'info') {
+
+  showNotification(message, type = "info") {
     // Créer une notification temporaire
-    const notification = document.createElement('div');
+    const notification = document.createElement("div");
     notification.className = `notification notification-${type}`;
     notification.textContent = message;
-    
+
     document.body.appendChild(notification);
-    
+
     // Animation d'entrée
-    setTimeout(() => notification.classList.add('show'), 10);
-    
+    setTimeout(() => notification.classList.add("show"), 10);
+
     // Suppression après 3 secondes
     setTimeout(() => {
-      notification.classList.remove('show');
+      notification.classList.remove("show");
       setTimeout(() => notification.remove(), 300);
     }, 3000);
   }
-  
+
   showSuccess(message) {
-    this.showNotification(message, 'success');
-  }
-  
-  showError(message) {
-    this.showNotification(message, 'error');
+    this.showNotification(message, "success");
   }
 
-  setupFileTabs() {
-  const module = this.app.modules.getActiveModule();
-  
-  if (module && module.capabilities.multiFile) {
-    // Créer le conteneur d'onglets s'il n'existe pas
-    let tabsContainer = document.getElementById('file-tabs-container');
-    if (!tabsContainer) {
-      tabsContainer = document.createElement('div');
-      tabsContainer.id = 'file-tabs-container';
-      
-      // L'insérer avant l'éditeur
-      const editorContainer = document.querySelector('.editor-container');
-      editorContainer.insertBefore(tabsContainer, editorContainer.firstChild);
-    }
-    
-    // Initialiser les onglets
-    const fileTabs = new FileTabs(tabsContainer, (filename) => {
-      module.switchFile(filename);
-    });
-    
-    fileTabs.init(
-      Array.from(module.files.keys()),
-      module.activeFile
-    );
+  showError(message) {
+    this.showNotification(message, "error");
   }
-}
-setupOutputTabs() {
-  const tabs = document.querySelectorAll('.output-tab');
-  const panels = document.querySelectorAll('.output-panel');
-  
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const targetPanel = tab.dataset.panel;
-      
-      // Mettre à jour les onglets
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      
-      // Mettre à jour les panneaux
-      panels.forEach(panel => {
-        panel.classList.remove('active');
-        if (panel.id === `${targetPanel}-panel`) {
-          panel.classList.add('active');
-        }
+
+  setupOutputTabs() {
+    const tabs = document.querySelectorAll(".output-tab");
+    const panels = document.querySelectorAll(".output-panel");
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const targetPanel = tab.dataset.panel;
+
+        // Mettre à jour les onglets
+        tabs.forEach((t) => t.classList.remove("active"));
+        tab.classList.add("active");
+
+        // Mettre à jour les panneaux
+        panels.forEach((panel) => {
+          panel.classList.remove("active");
+          if (panel.id === `${targetPanel}-panel`) {
+            panel.classList.add("active");
+          }
+        });
       });
     });
-  });
-}
+  }
+  showLoading(message = "Chargement...") {
+    // Créer ou mettre à jour l'overlay de chargement
+    let loader = document.getElementById("global-loader");
 
+    if (!loader) {
+      loader = document.createElement("div");
+      loader.id = "global-loader";
+      loader.className = "loading-overlay";
+      document.body.appendChild(loader);
+    }
+
+    loader.innerHTML = `
+    <div class="loading-content">
+      <div class="loading-spinner"></div>
+      <p class="loading-message">${message}</p>
+    </div>
+  `;
+
+    loader.classList.add("show");
+  }
+
+  hideLoading() {
+    const loader = document.getElementById("global-loader");
+    if (loader) {
+      loader.classList.remove("show");
+      // Retirer complètement après l'animation
+      setTimeout(() => {
+        if (!loader.classList.contains("show")) {
+          loader.remove();
+        }
+      }, 300);
+    }
+  }
 }

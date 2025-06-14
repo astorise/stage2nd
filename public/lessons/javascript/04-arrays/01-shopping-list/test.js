@@ -4,3 +4,4 @@ function testShoppingList() {
     { name: "Articles ajoutés", pass: listeCourses.length > 0 }
   ];
 }
+return testShoppingList();

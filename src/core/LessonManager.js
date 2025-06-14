@@ -51,6 +51,21 @@ export class LessonManager {
       });
     });
   }
+
+  indexExercisesWithBasePath(baseUrl) {
+  this.chapters.forEach(chapter => {
+    chapter.exercises.forEach(exercise => {
+      const exerciseId = `${chapter.id}/${exercise.id}`;
+      this.exercises.set(exerciseId, {
+        ...exercise,
+        chapterId: chapter.id,
+        chapterTitle: chapter.title,
+        fullId: exerciseId,
+        basePath: `${baseUrl}/${chapter.id}/${exercise.id}/`
+      });
+    });
+  });
+}
   
   renderChapters() {
     const container = this.app.ui.elements.lessonsList;
@@ -88,7 +103,7 @@ export class LessonManager {
           <div class="exercise-info">
             <h4>${exercise.title}</h4>
             <p>${exercise.description}</p>
-            <span class="exercise-meta">${exercise.difficulty} • ${exercise.type}</span>
+            <span class="exercise-meta">${exercise.difficulty} • ${exercise.language}</span>
           </div>
         `;
         
@@ -113,6 +128,24 @@ export class LessonManager {
     return icons[difficulty] || '📝';
   }
   
+async loadCourse(course) {
+  this.currentCourse = course;
+  this.manifest = course.manifest;
+  this.chapters = this.manifest.chapters || [];
+  
+  // Réinitialiser les exercices
+  this.exercises.clear();
+  
+  // Réindexer avec le bon chemin de base
+  this.indexExercisesWithBasePath(course.baseUrl);
+  
+  // Charger la progression spécifique à ce cours
+  await this.loadCourseProgress(course.id);
+  
+  // Afficher les chapitres
+  this.renderChapters();
+}
+  
   async loadExercise(exerciseId) {
     const exercise = this.exercises.get(exerciseId);
     if (!exercise) {
@@ -123,8 +156,8 @@ export class LessonManager {
       // Charger les fichiers de l'exercice
       const files = {};
       
-      // Charger les fichiers principaux
-      for (const filename of exercise.files) {
+      // Charger les fichiers principaux en parallèle
+      const fetchPromises = exercise.files.map(async (filename) => {
         const filePath = `${exercise.basePath}${filename}`;
         try {
           const response = await fetch(filePath);
@@ -134,7 +167,9 @@ export class LessonManager {
         } catch (error) {
           console.warn(`Impossible de charger ${filename}:`, error);
         }
-      }
+      });
+
+      await Promise.all(fetchPromises);
       
       // Préparer les données de l'exercice
       this.currentExercise = {
@@ -149,15 +184,18 @@ export class LessonManager {
       // Mettre à jour la référence dans l'application
       this.app.currentLesson = this.currentExercise;
       
+      // Mettre à jour la référence dans l'application
+      this.app.currentLesson = this.currentExercise;
+      
       // Afficher l'exercice
       this.displayExercise();
       
       // Activer le bon module
-      const moduleType = exercise.type === 'web' ? 'web' : 'javascript';
+      const moduleType = exercise.language === 'web' ? 'web' : 'javascript';
       await this.app.modules.activateModule(moduleType);
       
       // Si c'est un exercice web, charger aussi le HTML
-      if (exercise.type === 'web' && exercise.htmlFile) {
+      if (exercise.language === 'web' && exercise.htmlFile) {
         const webModule = this.app.modules.getActiveModule();
         if (webModule && webModule.id === 'web') {
           webModule.files.set('index.html', { 
@@ -247,31 +285,52 @@ ${exercise.difficulty}
   
   async checkExercise(code, executionResult) {
     if (!this.currentExercise || !this.currentExercise.testCode) {
-      return false;
+      return { success: false, tests: [] };
     }
-    
+
     try {
+      let testCode = this.currentExercise.testCode;
+
+      // Détecter la première fonction test...()
+      const fnMatch = testCode.match(/function\s+(test\w+)\s*\(/);
+      if (fnMatch) {
+        const fnName = fnMatch[1];
+        testCode += `\nreturn ${fnName}(code, output, results);`;
+      }
+
       // Créer une fonction de test
-      const testFunction = new Function('code', 'output', 'results', this.currentExercise.testCode);
-      
+      const testFunction = new Function('code', 'output', 'results', testCode);
+
       // Formatter la sortie
-      const output = executionResult.logs
+      const output = (executionResult.logs || [])
         .filter(log => log.type === 'log')
         .map(log => log.args.join(' '))
         .join('\n');
-      
+
       // Exécuter les tests
-      const passed = testFunction(code, output, executionResult);
-      
-      if (passed) {
+      const result = testFunction(code, output, executionResult);
+
+      let tests, success;
+      if (Array.isArray(result)) {
+        tests = result;
+        success = tests.every(t => t.pass);
+      } else if (typeof result === 'boolean') {
+        success = result;
+        tests = [{ name: 'Résultat', pass: result }];
+      } else {
+        success = !!result;
+        tests = [{ name: 'Résultat', pass: success }];
+      }
+
+      if (success) {
         this.completeExercise(this.currentExercise.fullId);
       }
-      
-      return passed;
-      
+
+      return { success, tests };
+
     } catch (error) {
       console.error('Erreur lors de l\'exécution des tests:', error);
-      return false;
+      return { success: false, tests: [{ name: 'Erreur', pass: false }] };
     }
   }
   
@@ -389,4 +448,25 @@ ${exercise.difficulty}
       this.app.ui.showSuccess('🎓 Félicitations ! Tu as terminé tout le parcours JavaScript !');
     }
   }
+
+  async loadCourseProgress(courseId) {
+  const key = `progress_${courseId}`;
+  const saved = await this.app.storage.get(key);
+  if (saved) {
+    this.completedExercises = new Set(saved.completedExercises || []);
+  } else {
+    this.completedExercises = new Set();
+  }
+}
+async saveProgress() {
+  if (!this.currentCourse) return;
+  
+  const key = `progress_${this.currentCourse.id}`;
+  await this.app.storage.set(key, {
+    completedExercises: Array.from(this.completedExercises),
+    lastUpdated: new Date().toISOString(),
+    courseVersion: this.manifest.version
+  });
+}
+
 }

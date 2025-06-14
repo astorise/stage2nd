@@ -28,7 +28,7 @@
           "files": ["README.md", "index.js", "solution.js", "test.js"],
           "mainFile": "index.js",
           "testFile": "test.js",
-          "type": "coding"
+          "language": "js"
         },
         {
           "id": "02-variables",
@@ -38,7 +38,7 @@
           "files": ["README.md", "index.js", "solution.js", "test.js"],
           "mainFile": "index.js",
           "testFile": "test.js",
-          "type": "coding"
+          "language": "js"
         },
         {
           "id": "03-calculator",
@@ -48,7 +48,7 @@
           "files": ["README.md", "index.js", "solution.js", "test.js"],
           "mainFile": "index.js",
           "testFile": "test.js",
-          "type": "coding"
+          "language": "js"
         }
       ]
     },
@@ -68,7 +68,7 @@
           "files": ["README.md", "index.js", "solution.js", "test.js"],
           "mainFile": "index.js",
           "testFile": "test.js",
-          "type": "coding"
+          "language": "js"
         },
         {
           "id": "02-multiplication-table",
@@ -78,7 +78,7 @@
           "files": ["README.md", "index.js", "solution.js", "test.js"],
           "mainFile": "index.js",
           "testFile": "test.js",
-          "type": "coding"
+          "language": "js"
         }
       ]
     },
@@ -98,7 +98,7 @@
           "files": ["README.md", "index.js", "solution.js", "test.js"],
           "mainFile": "index.js",
           "testFile": "test.js",
-          "type": "coding"
+          "language": "js"
         },
         {
           "id": "02-arrow-functions",
@@ -108,7 +108,7 @@
           "files": ["README.md", "index.js", "solution.js", "test.js"],
           "mainFile": "index.js",
           "testFile": "test.js",
-          "type": "coding"
+          "language": "js"
         }
       ]
     },
@@ -128,7 +128,7 @@
           "files": ["README.md", "index.js", "solution.js", "test.js"],
           "mainFile": "index.js",
           "testFile": "test.js",
-          "type": "coding"
+          "language": "js"
         },
         {
           "id": "02-student-grades",
@@ -138,7 +138,7 @@
           "files": ["README.md", "index.js", "solution.js", "test.js"],
           "mainFile": "index.js",
           "testFile": "test.js",
-          "type": "coding"
+          "language": "js"
         }
       ]
     },
@@ -158,7 +158,7 @@
           "files": ["README.md", "index.js", "solution.js", "test.js"],
           "mainFile": "index.js",
           "testFile": "test.js",
-          "type": "coding"
+          "language": "js"
         },
         {
           "id": "02-bank-account",
@@ -168,7 +168,7 @@
           "files": ["README.md", "index.js", "solution.js", "test.js"],
           "mainFile": "index.js",
           "testFile": "test.js",
-          "type": "coding"
+          "language": "js"
         }
       ]
     },
@@ -189,7 +189,7 @@
           "mainFile": "script.js",
           "htmlFile": "index.html",
           "testFile": "test.js",
-          "type": "web"
+          "language": "web"
         },
         {
           "id": "02-todo-app",
@@ -200,7 +200,7 @@
           "mainFile": "script.js",
           "htmlFile": "index.html",
           "testFile": "test.js",
-          "type": "web"
+          "language": "web"
         }
       ]
     },
@@ -221,7 +221,7 @@
           "mainFile": "script.js",
           "htmlFile": "index.html",
           "testFile": "test.js",
-          "type": "web"
+          "language": "web"
         },
         {
           "id": "02-api-simulator",
@@ -231,7 +231,7 @@
           "files": ["README.md", "script.js", "solution.js", "test.js"],
           "mainFile": "script.js",
           "testFile": "test.js",
-          "type": "coding"
+          "language": "js"
         },
         {
           "id": "03-weather-app",
@@ -242,7 +242,7 @@
           "mainFile": "script.js",
           "htmlFile": "index.html",
           "testFile": "test.js",
-          "type": "web"
+          "language": "web"
         }
       ]
     },
@@ -263,7 +263,7 @@
           "mainFile": "main.js",
           "moduleFiles": ["livre.js", "bibliotheque.js", "utilisateur.js"],
           "testFile": "test.js",
-          "type": "modules"
+          "language": "modules"
         }
       ]
     }

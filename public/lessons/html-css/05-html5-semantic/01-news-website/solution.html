@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Actualités technologiques et innovations numériques">
+    <meta name="keywords" content="technologie, innovation, actualités, numérique">
+    <meta name="author" content="TechNews Daily">
+    <title>TechNews Daily - Actualités Technologiques</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            line-height: 1.6; 
+            color: #333;
+        }
+        
+        header { 
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white; 
+            padding: 1rem 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+        
+        nav ul { 
+            list-style: none; 
+            display: flex; 
+            gap: 2rem; 
+        }
+        
+        nav a { 
+            color: white; 
+            text-decoration: none; 
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #74b9ff;
+        }
+        
+        .main-layout {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+        
+        main {
+            background: white;
+        }
+        
+        article { 
+            margin-bottom: 3rem; 
+            padding: 2rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        
+        article header {
+            background: none;
+            color: #333;
+            padding: 0;
+            margin-bottom: 1rem;
+            box-shadow: none;
+        }
+        
+        article h2 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            font-size: 1.5em;
+        }
+        
+        .article-meta {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+        
+        .article-meta time {
+            color: #3498db;
+            font-weight: bold;
+        }
+        
+        aside { 
+            background: #f8f9fa; 
+            padding: 2rem;
+            border-radius: 10px;
+            height: fit-content;
+            position: sticky;
+            top: 2rem;
+        }
+        
+        aside h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
+        
+        .trending-list {
+            list-style: none;
+            margin: 1rem 0;
+        }
+        
+        .trending-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .trending-list a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-size: 0.9em;
+        }
+        
+        .trending-list a:hover {
+            color: #3498db;
+        }
+        
+        .stats {
+            background: white;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            text-align: center;
+        }
+        
+        .stats strong {
+            color: #e74c3c;
+            font-size: 1.2em;
+        }
+        
+        footer { 
+            background: #2c3e50; 
+            color: white; 
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            color: #74b9ff;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section a {
+            color: #bdc3c7;
+            text-decoration: none;
+        }
+        
+        .footer-section a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #34495e;
+            color: #95a5a6;
+        }
+        
+        @media (max-width: 768px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            nav ul {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">📱 TechNews Daily</div>
+            <nav>
+                <ul>
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#tech">Technologie</a></li>
+                    <li><a href="#startups">Start-ups</a></li>
+                    <li><a href="#innovations">Innovations</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <div class="main-layout">
+        <main>
+            <section id="actualites">
+                <h1>Dernières Actualités Technologiques</h1>
+                
+                <article>
+                    <header>
+                        <h2>L'IA générative transforme l'industrie créative</h2>
+                        <div class="article-meta">
+                            <time datetime="2025-06-09">9 juin 2025</time> - Par <strong>Marie Dubois</strong> - Catégorie: <em>Intelligence Artificielle</em>
+                        </div>
+                    </header>
+                    <p>L'intelligence artificielle générative continue de révolutionner de nombreux secteurs, 
+                       particulièrement l'industrie créative. Des outils comme DALL-E, Midjourney et Stable Diffusion 
+                       permettent désormais aux artistes et designers de créer des œuvres d'une qualité exceptionnelle.</p>
+                    <p>Les entreprises adoptent massivement ces technologies pour améliorer leur productivité créative. 
+                       Selon une étude récente, <strong>85% des agences de communication</strong> utilisent déjà 
+                       l'IA générative dans leurs processus créatifs.</p>
+                    <p>Cependant, cette révolution soulève aussi des questions importantes sur l'avenir des métiers créatifs 
+                       et la propriété intellectuelle des œuvres générées par IA.</p>
+                </article>
+                
+                <article>
+                    <header>
+                        <h2>Nouvelle percée en informatique quantique</h2>
+                        <div class="article-meta">
+                            <time datetime="2025-06-08">8 juin 2025</time> - Par <strong>Pierre Martin</strong> - Catégorie: <em>Recherche</em>
+                        </div>
+                    </header>
+                    <p>Des chercheurs de l'Université de Cambridge ont réussi à créer un processeur quantique 
+                       plus stable que jamais, capable de maintenir la cohérence quantique pendant plusieurs minutes.</p>
+                    <p>Cette avancée majeure pourrait révolutionner :</p>
+                    <ul>
+                        <li>La cryptographie et la sécurité informatique</li>
+                        <li>La simulation moléculaire pour la recherche pharmaceutique</li>
+                        <li>L'optimisation de réseaux complexes</li>
+                        <li>L'intelligence artificielle quantique</li>
+                    </ul>
+                    <p>Les applications commerciales de cette technologie pourraient voir le jour d'ici 2027.</p>
+                </article>
+                
+                <article>
+                    <header>
+                        <h2>Les véhicules autonomes arrivent en Europe</h2>
+                        <div class="article-meta">
+                            <time datetime="2025-06-07">7 juin 2025</time> - Par <strong>Sophie Chen</strong> - Catégorie: <em>Mobilité</em>
+                        </div>
+                    </header>
+                    <p>Après des années de tests, les premiers véhicules entièrement autonomes (niveau 5) 
+                       commencent leur déploiement commercial dans plusieurs villes européennes.</p>
+                    <p><strong>Amsterdam, Berlin et Lyon</strong> sont les premières villes à accueillir 
+                       ces flottes de taxis autonomes, marquant une étape historique dans l'évolution 
+                       des transports urbains.</p>
+                    <p>Cette technologie promet de réduire considérablement les accidents de la route 
+                       et d'optimiser le trafic urbain grâce à l'intelligence artificielle embarquée.</p>
+                </article>
+            </section>
+        </main>
+        
+        <aside>
+            <section>
+                <h3>🔥 Tendances de la semaine</h3>
+                <ul class="trending-list">
+                    <li><a href="#">🚀 Lancement de nouvelles start-ups deep tech</a></li>
+                    <li><a href="#">💡 Investissements record dans l'IA générative</a></li>
+                    <li><a href="#">🔐 Nouvelles réglementations cybersécurité</a></li>
+                    <li><a href="#">🌱 Technologies vertes en plein essor</a></li>
+                    <li><a href="#">⚡ Batteries révolutionnaires pour VE</a></li>
+                </ul>
+            </section>
+            
+            <section>
+                <h3>📊 Statistiques du site</h3>
+                <div class="stats">
+                    <p><strong>2.4M</strong><br>Lecteurs mensuels</p>
+                    <p><strong>450</strong><br>Articles publiés</p>
+                    <p><strong>85</strong><br>Experts contributeurs</p>
+                </div>
+            </section>
+            
+            <section>
+                <h3>💌 Newsletter</h3>
+                <p>Recevez les dernières actualités tech chaque semaine :</p>
+                <form style="margin-top: 1rem;">
+                    <input type="email" placeholder="Votre email" 
+                           style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 5px; margin-bottom: 0.5rem;">
+                    <button type="submit" 
+                            style="width: 100%; padding: 0.5rem; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                        S'abonner
+                    </button>
+                </form>
+            </section>
+        </aside>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>TechNews Daily</h4>
+                <p>Votre source d'information pour les dernières actualités technologiques et innovations numériques.</p>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Catégories</h4>
+                <ul>
+                    <li><a href="#">Intelligence Artificielle</a></li>
+                    <li><a href="#">Blockchain</a></li>
+                    <li><a href="#">IoT & Domotique</a></li>
+                    <li><a href="#">Cybersécurité</a></li>
+                    <li><a href="#">Start-ups</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Ressources</h4>
+                <ul>
+                    <li><a href="#">Guide Tech 2025</a></li>
+                    <li><a href="#">Livre Blanc IA</a></li>
+                    <li><a href="#">Événements Tech</a></li>
+                    <li><a href="#">Podcasts</a></li>
+                    <li><a href="#">Webinaires</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="#">À propos</a></li>
+                    <li><a href="#">Équipe</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Publicité</a></li>
+                    <li><a href="#">Mentions légales</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2025 TechNews Daily. Tous droits réservés. | 
+            Suivez-nous sur 
+            <a href="#" style="color: #74b9ff;">Twitter</a>, 
+            <a href="#" style="color: #74b9ff;">LinkedIn</a> et 
+            <a href="#" style="color: #74b9ff;">YouTube</a></p>
+        </div>
+    </footer>
+</body>
+</html>

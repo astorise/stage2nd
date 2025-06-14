@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formation HTML/CSS - De Zéro à Expert</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/reveal.min.css" integrity="sha512-V5fKCVKOFy36w8zJmLzPH5R6zU6KvuHOvxfMRczx2ZeqTjKRGSBO9yiZjCKEJS3n6EmENwrH/xvSwXqxje+VVA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/css/theme/moon.min.css" integrity="sha512-fIE1bAi7Yajoby7f9usOLSzdxew+pROc3K15ReE9q/9bFgJKi9xfNIfLLV0yRYdivOk8l6gKTIpOBx19F442Xg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    
+    <style>
+        .reveal {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .reveal h1, .reveal h2, .reveal h3 {
+            text-transform: none;
+            font-weight: 600;
+        }
+        
+        .exercise-preview {
+            background: #1e1e1e;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #42a5f5;
+            text-align: left;
+        }
+        
+        .code-demo {
+            background: #1a1a1a;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8em;
+            text-align: left;
+        }
+        
+        .concept-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .tips-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            color: white;
+        }
+        
+        .demo-result {
+            background: white;
+            color: #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .highlight {
+            color: #42a5f5;
+            font-weight: bold;
+        }
+        
+        .emoji {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+        
+        .structure-tree {
+            font-family: monospace;
+            text-align: left;
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 8px;
+            color: #00ff00;
+        }
+
+        .box-model-visual {
+            display: inline-block;
+            background: #e74c3c;
+            padding: 20px;
+            margin: 20px;
+            border: 5px solid #f39c12;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .navigation-hint {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide de titre -->
+            <section data-background-gradient="linear-gradient(45deg, #667eea, #764ba2)">
+                <h1>🌐 Formation HTML/CSS</h1>
+                <h3>De Zéro à Expert</h3>
+                <p><em>Créez des sites web modernes et attractifs</em></p>
+                <div style="margin-top: 50px;">
+                    <p><span class="emoji">🏗️</span>Structure avec HTML</p>
+                    <p><span class="emoji">🎨</span>Style avec CSS</p>
+                    <p><span class="emoji">🚀</span>Exercices pratiques</p>
+                </div>
+            </section>
+    <!-- ====== CHAPITRE 1: HTML FUNDAMENTALS ====== -->
+            <section>
+                <!-- Intro Chapitre 1 -->
+                <section data-background-gradient="linear-gradient(135deg, #74b9ff 0%, #0984e3 100%)">
+                    <h1>🏗️ Chapitre 1</h1>
+                    <h2>HTML - Les Fondamentaux</h2>
+                    <p><em>Construire la structure de vos pages web</em></p>
+                    <div style="margin-top: 40px;">
+                        <h3>📚 Au programme :</h3>
+                        <ul>
+                            <li>🌐 Introduction au HTML</li>
+                            <li>📝 Exercice 01: Première page</li>
+                            <li>🏪 Exercice 02: Page restaurant</li>
+                            <li>📰 Exercice 03: Article de blog</li>
+                            <li>🎮 Exercice 04: Correction d'erreurs</li>
+                        </ul>
+                    </div>
+                    <div class="navigation-hint">
+                        ↑ ↓ Naviguer dans le chapitre
+                    </div>
+                </section>
+
+                <!-- Qu'est-ce que le HTML -->
+                <section>
+                    <h2>🌐 Qu'est-ce que le HTML ?</h2>
+                    <div class="concept-box">
+                        <p><strong>HTML</strong> = <strong>H</strong>yper<strong>T</strong>ext <strong>M</strong>arkup <strong>L</strong>anguage</p>
+                        <p>Le langage de <span class="highlight">balisage</span> standard pour créer des pages web</p>
+                        <p><strong>🎯 Rôle :</strong> Définir la <em>structure</em> et le <em>contenu</em> (pas l'apparence)</p>
+                    </div>
+                    
+                    <div class="fragment">
+                        <h3>🏗️ Structure de base</h3>
+                        <div class="code-demo">
+                            <pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang="fr"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Ma première page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Bonjour le monde !&lt;/h1&gt;
+    &lt;p&gt;Ceci est ma première page HTML.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Anatomie d'une balise -->
+                <section>
+                    <h2>🔖 Anatomie d'une balise HTML</h2>
+                    <div class="demo-result" style="font-family: monospace; font-size: 1.2em; text-align: center; padding: 30px;">
+                        <span style="color: #e74c3c;">&lt;</span><span style="color: #8e44ad;">h1</span><span style="color: #e74c3c;">&gt;</span><span style="color: #2c3e50;">Mon titre&lt;</span><span style="color: #e74c3c;">/</span><span style="color: #8e44ad;">h1</span><span style="color: #e74c3c;">&gt;</span>
+                    </div>
+                    
+                    <div class="concept-box">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                            <div>
+                                <h4>🏷️ Balise ouvrante</h4>
+                                <p><code>&lt;h1&gt;</code> - Début de l'élément</p>
+                                
+                                <h4>📝 Contenu</h4>
+                                <p>Le texte entre les balises</p>
+                            </div>
+                            <div>
+                                <h4>🏷️ Balise fermante</h4>
+                                <p><code>&lt;/h1&gt;</code> - Fin de l'élément</p>
+                                
+                                <h4>⚡ Balises auto-fermantes</h4>
+                                <p><code>&lt;br&gt;</code> <code>&lt;hr&gt;</code> <code>&lt;img&gt;</code></p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Éléments essentiels -->
+                <section>
+                    <h2>📋 Les éléments essentiels</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <h3 class="fragment highlight-current-blue" data-fragment-index="1">🔖 DOCTYPE</h3>
+                            <p class="fragment" data-fragment-index="1">Déclare le type de document HTML5</p>
+                            
+                            <h3 class="fragment highlight-current-blue" data-fragment-index="2">🌐 html</h3>
+                            <p class="fragment" data-fragment-index="2">Élément racine, contient tout</p>
+                        </div>
+                        <div>
+                            <h3 class="fragment highlight-current-blue" data-fragment-index="3">🧠 head</h3>
+                            <p class="fragment" data-fragment-index="3">Métadonnées invisibles</p>
+                            
+                            <h3 class="fragment highlight-current-blue" data-fragment-index="4">👁️ body</h3>
+                            <p class="fragment" data-fragment-index="4">Contenu visible de la page</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Balises HEAD essentielles -->
+                <section>
+                    <h2>🧠 Balises HEAD essentielles</h2>
+                    <div class="code-demo">
+                        <pre><code class="html">&lt;head&gt;
+    &lt;!-- Encodage des caractères (OBLIGATOIRE) --&gt;
+    &lt;meta charset="UTF-8"&gt;
+    
+    &lt;!-- Responsive design (OBLIGATOIRE pour mobile) --&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    
+    &lt;!-- Titre de la page (affiché dans l'onglet) --&gt;
+    &lt;title&gt;Titre de ma page&lt;/title&gt;
+    
+    &lt;!-- SEO - Description pour Google --&gt;
+    &lt;meta name="description" content="Description de la page pour les moteurs de recherche"&gt;
+    
+    &lt;!-- SEO - Mots-clés --&gt;
+    &lt;meta name="keywords" content="html, css, web, développement"&gt;
+    
+    &lt;!-- Auteur --&gt;
+    &lt;meta name="author" content="Votre nom"&gt;
+&lt;/head&gt;</code></pre>
+                    </div>
+                    
+                    <div class="tips-box">
+                        <p><strong>🎯 Pour vos exercices :</strong> Utilisez toujours charset UTF-8 et viewport pour le responsive</p>
+                    </div>
+                </section>
+
+                <!-- Balises de contenu de base -->
+                <section>
+                    <h2>📝 Balises de contenu de base</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div class="code-demo">
+                            <pre><code class="html">&lt;!-- Titres hiérarchiques --&gt;
+&lt;h1&gt;Titre principal&lt;/h1&gt;
+&lt;h2&gt;Titre de section&lt;/h2&gt;
+&lt;h3&gt;Sous-titre&lt;/h3&gt;
+&lt;h4&gt;Titre mineur&lt;/h4&gt;
+&lt;h5&gt;Petit titre&lt;/h5&gt;
+&lt;h6&gt;Plus petit titre&lt;/h6&gt;
+
+&lt;!-- Paragraphes et contenu --&gt;
+&lt;p&gt;Un paragraphe de texte.&lt;/p&gt;
+
+&lt;!-- Séparateurs --&gt;
+&lt;br&gt; &lt;!-- Saut de ligne --&gt;
+&lt;hr&gt; &lt;!-- Ligne horizontale --&gt;</code></pre>
+                        </div>
+                        <div class="code-demo">
+                            <pre><code class="html">&lt;!-- Conteneurs génériques --&gt;
+&lt;div&gt;Division (bloc)&lt;/div&gt;
+&lt;span&gt;Conteneur en ligne&lt;/span&gt;
+
+&lt;!-- Liens --&gt;
+&lt;a href="https://example.com"&gt;Lien externe&lt;/a&gt;
+&lt;a href="page.html"&gt;Lien interne&lt;/a&gt;
+&lt;a href="#section1"&gt;Lien ancre&lt;/a&gt;
+&lt;a href="mailto:contact@email.com"&gt;Email&lt;/a&gt;
+&lt;a href="tel:+33123456789"&gt;Téléphone&lt;/a&gt;
+
+&lt;!-- Commentaires (invisibles) --&gt;
+&lt;!-- Ceci est un commentaire --&gt;</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Hiérarchie des titres -->
+                <section>
+                    <h2>📊 Hiérarchie des titres</h2>
+                    <div class="demo-result">
+                        <h1 style="margin: 10px 0; color: #2c3e50; font-size: 2em;">h1 - Titre principal (unique)</h1>
+                        <h2 style="margin: 10px 0; color: #34495e; font-size: 1.6em;">h2 - Titre de section</h2>
+                        <h3 style="margin: 10px 0; color: #7f8c8d; font-size: 1.3em;">h3 - Sous-titre</h3>
+                        <h4 style="margin: 10px 0; color: #95a5a6; font-size: 1.1em;">h4 - Titre mineur</h4>
+                        <h5 style="margin: 10px 0; color: #bdc3c7; font-size: 1em;">h5 - Petit titre</h5>
+                        <h6 style="margin: 10px 0; color: #d5dbdb; font-size: 0.9em;">h6 - Plus petit titre</h6>
+                    </div>
+                    
+                    <div class="tips-box">
+                        <p><strong>🎯 Règles d'or :</strong></p>
+                        <ul>
+                            <li>Un seul <code>&lt;h1&gt;</code> par page</li>
+                            <li>Hiérarchie logique : h1 → h2 → h3 (ne pas sauter de niveaux)</li>
+                            <li>Les titres structurent le contenu, pas l'apparence</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Balises de formatage complètes -->
+                <section>
+                    <h2>🎨 Toutes les balises de formatage</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div>
+                            <div class="code-demo">
+                                <pre><code class="html">&lt;strong&gt;Texte important&lt;/strong&gt;
+&lt;em&gt;Texte en emphase&lt;/em&gt;
+&lt;mark&gt;Texte surligné&lt;/mark&gt;
+&lt;small&gt;Petit texte&lt;/small&gt;
+&lt;del&gt;Texte barré&lt;/del&gt;
+&lt;ins&gt;Texte inséré&lt;/ins&gt;
+&lt;sub&gt;Indice&lt;/sub&gt; et &lt;sup&gt;Exposant&lt;/sup&gt;
+&lt;abbr title="HyperText Markup Language"&gt;HTML&lt;/abbr&gt;</code></pre>
+                            </div>
+                        </div>
+                        <div class="demo-result">
+                            <p><strong>Texte important</strong> (sémantique forte)</p>
+                            <p><em>Texte en emphase</em> (sémantique accentuation)</p>
+                            <p><mark style="background: #f1c40f; padding: 2px;">Texte surligné</mark></p>
+                            <p><small>Petit texte</small> (mentions légales, etc.)</p>
+                            <p><del>Texte barré</del> (supprimé)</p>
+                            <p><ins style="text-decoration: underline;">Texte inséré</ins> (ajouté)</p>
+                            <p>H<sub>2</sub>O et E=mc<sup>2</sup></p>
+                            <p><abbr title="HyperText Markup Language">HTML</abbr> (survolez)</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Attributs HTML utiles -->
+                <section>
+                    <h2>🏷️ Attributs HTML utiles</h2>
+                    <div class="code-demo">
+                        <pre><code class="html">&lt;!-- Identificateurs pour CSS/JavaScript --&gt;
+&lt;div id="unique-element"&gt;ID unique (un seul par page)&lt;/div&gt;
+&lt;div class="ma-classe autre-classe"&gt;Classes multiples (réutilisables)&lt;/div&gt;
+
+&lt;!-- Liens avec attributs spéciaux --&gt;
+&lt;a href="#section1"&gt;Lien vers ancre dans la page&lt;/a&gt;
+&lt;a href="https://example.com" target="_blank"&gt;Nouvel onglet&lt;/a&gt;
+&lt;a href="document.pdf" download="nom-fichier.pdf"&gt;Forcer téléchargement&lt;/a&gt;
+&lt;a href="https://external.com" rel="noopener"&gt;Lien externe sécurisé&lt;/a&gt;
+
+&lt;!-- Métadonnées et accessibilité --&gt;
+&lt;time datetime="2025-06-09"&gt;9 juin 2025&lt;/time&gt;
+&lt;span title="Information au survol"&gt;Texte avec aide&lt;/span&gt;
+&lt;div lang="en"&gt;English content&lt;/div&gt;</code></pre>
+                    </div>
+                    
+                    <div class="tips-box">
+                        <p><strong>💡 Bonnes pratiques :</strong></p>
+                        <ul>
+                            <li><strong>ID :</strong> Unique, pour cibler un élément spécifique</li>
+                            <li><strong>Class :</strong> Réutilisable, pour styler plusieurs éléments</li>
+                            <li><strong>title :</strong> Information d'aide au survol</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Exercice 01: Première page -->
+                <section>
+                    <h2>📝 Exercice 01 : Première Page</h2>
+                    <div class="exercise-preview">
+                        <h3>🎯 Objectif</h3>
+                        <p>Créez votre première page HTML avec une présentation personnelle</p>
+                        
+                        <h3>📋 Instructions détaillées</h3>
+                        <ul>
+                            <li>✅ <strong>Structure :</strong> Utilisez la structure HTML5 complète</li>
+                            <li>✅ <strong>Title :</strong> Remplacez le commentaire par votre nom</li>
+                            <li>✅ <strong>Titre principal :</strong> h1 avec votre nom</li>
+                            <li>✅ <strong>Contenu :</strong> 2-3 paragraphes de présentation</li>
+                            <li>✅ <strong>Formatage :</strong> Utilisez &lt;strong&gt; et &lt;em&gt;</li>
+                        </ul>
+                        
+                        <h3>🧰 Balises nécessaires</h3>
+                        <div class="tag-grid">
+                            <div class="tag-item">
+                                <code>&lt;!DOCTYPE html&gt;</code><br>
+                                <small>Déclaration HTML5</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;html lang="fr"&gt;</code><br>
+                                <small>Élément racine</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;head&gt;</code><br>
+                                <small>Métadonnées</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;meta charset="UTF-8"&gt;</code><br>
+                                <small>Encodage caractères</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;title&gt;</code><br>
+                                <small>Titre de l'onglet</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;body&gt;</code><br>
+                                <small>Contenu visible</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;h1&gt;</code><br>
+                                <small>Titre principal</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;p&gt;</code><br>
+                                <small>Paragraphes</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;strong&gt;</code><br>
+                                <small>Importance</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;em&gt;</code><br>
+                                <small>Emphase</small>
+                            </div>
+                        </div>
+                        
+                        <div class="tips-box">
+                            <p><strong>💡 Conseil :</strong> Commencez simple et ajoutez progressivement du contenu !</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Exercice 02: Restaurant -->
+                <section>
+                    <h2>📝 Exercice 02 : Page Restaurant</h2>
+                    <div class="exercise-preview">
+                        <h3>🎯 Défi</h3>
+                        <p>Créez la page d'accueil complète d'un restaurant avec tous les éléments</p>
+                        
+                        <h3>📋 Contenu à inclure</h3>
+                        <ul>
+                            <li>🏪 <strong>Nom du restaurant</strong> - Titre principal (h1)</li>
+                            <li>💬 <strong>Slogan accrocheur</strong> - Sous-titre avec emphase</li>
+                            <li>📖 <strong>Histoire</strong> - Section "Notre Histoire" (h2 + paragraphes)</li>
+                            <li>👨‍🍳 <strong>Chef</strong> - Section "Notre Chef" (h2 + présentation)</li>
+                            <li>🍽️ <strong>Spécialités</strong> - Section "Nos Spécialités" (h2 + liste)</li>
+                            <li>🕒 <strong>Horaires</strong> - Section "Horaires" (h2 + informations)</li>
+                            <li>📞 <strong>Contact</strong> - Adresse et téléphone</li>
+                        </ul>
+                        
+                        <h3>🧰 Nouvelles balises à utiliser</h3>
+                        <div class="tag-grid">
+                            <div class="tag-item">
+                                <code>&lt;h2&gt;</code><br>
+                                <small>Titres de sections</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;h3&gt;</code><br>
+                                <small>Sous-sections</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;hr&gt;</code><br>
+                                <small>Séparateur horizontal</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;small&gt;</code><br>
+                                <small>Informations secondaires</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;mark&gt;</code><br>
+                                <small>Texte surligné</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;a href="tel:"&gt;</code><br>
+                                <small>Lien téléphone</small>
+                            </div>
+                        </div>
+                        
+                        <div class="tips-box">
+                            <p><strong>🎨 Conseils créatifs :</strong></p>
+                            <ul>
+                                <li>Utilisez <code>&lt;em&gt;</code> pour le slogan en italique</li>
+                                <li>Mettez les noms des plats en <code>&lt;strong&gt;</code></li>
+                                <li>Ajoutez des émojis pour rendre plus vivant 🍽️🍷🥖</li>
+                                <li>Utilisez <code>&lt;mark&gt;</code> pour les informations importantes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Exercice 03: Blog -->
+                <section>
+                    <h2>📝 Exercice 03 : Article de Blog</h2>
+                    <div class="exercise-preview">
+                        <h3>🎯 Objectif</h3>
+                        <p>Structurez un article de blog complet avec hiérarchie parfaite</p>
+                        
+                        <h3>📋 Structure suggérée</h3>
+                        <div style="background: #2c3e50; padding: 20px; border-radius: 8px; font-family: monospace; color: #00ff00;">
+                            h1 - TechBlog - Actualités et Innovations<br>
+                            └── h2 - Les Nouvelles Technologies en 2025<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;├── date + auteur (small)<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;├── h2 - Intelligence Artificielle<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── h3 - Applications pratiques<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── h3 - Impact sur l'emploi<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;├── h2 - Réalité Virtuelle<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;├── h3 - Applications en éducation<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;└── h3 - Gaming et divertissement<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;└── hr - Séparateur<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── small - Mention de partage
+                        </div>
+                        
+                        <h3>🧰 Balises de formatage à maîtriser</h3>
+                        <div class="tag-grid">
+                            <div class="tag-item">
+                                <code>&lt;strong&gt;</code><br>
+                                <small>Mots importants (85%)</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;em&gt;</code><br>
+                                <small>Exemples concrets</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;mark&gt;</code><br>
+                                <small>Points d'attention</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;small&gt;</code><br>
+                                <small>Date, auteur, mentions</small>
+                            </div>
+                        </div>
+                        
+                        <div class="tips-box">
+                            <p><strong>✅ Critères de réussite :</strong></p>
+                            <ul>
+                                <li>Hiérarchie logique des titres (h1 → h2 → h3)</li>
+                                <li>Formatage varié et approprié</li>
+                                <li>Contenu structuré et lisible</li>
+                                <li>Métadonnées (auteur, date) bien placées</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Exercice 04: Correction -->
+                <section>
+                    <h2>📝 Exercice 04 : Jeu de Correction</h2>
+                    <div class="exercise-preview">
+                        <h3>🎮 Mission Détective</h3>
+                        <p>Corrigez toutes les erreurs dans ce code HTML mal structuré</p>
+                        
+                        <h3>🔍 Erreurs à identifier</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div>
+                                <h4>❌ Problèmes structurels</h4>
+                                <ul>
+                                    <li>Hiérarchie des titres incorrecte (h3 au lieu de h2)</li>
+                                    <li>Titre sans majuscules</li>
+                                    <li>Manque de structure claire</li>
+                                    <li>Informations mélangées</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>❌ Problèmes de formatage</h4>
+                                <ul>
+                                    <li>Aucun formatage du texte (strong, em)</li>
+                                    <li>Date mal placée et mal formatée</li>
+                                    <li>Manque de détails (ingrédients, étapes)</li>
+                                    <li>Pas de séparateurs visuels</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <h3>🔧 Corrections à apporter</h3>
+                        <div class="tag-grid">
+                            <div class="tag-item">
+                                <code>h3 → h2</code><br>
+                                <small>Corriger hiérarchie</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;strong&gt;</code><br>
+                                <small>Mots importants</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;em&gt;</code><br>
+                                <small>Temperatures, temps</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;small&gt;</code><br>
+                                <small>Date publication</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;hr&gt;</code><br>
+                                <small>Séparer sections</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;mark&gt;</code><br>
+                                <small>Astuces importantes</small>
+                            </div>
+                        </div>
+                        
+                        <div class="tips-box">
+                            <p><strong>🕵️ Stratégie de correction :</strong></p>
+                            <ol>
+                                <li>Corriger la hiérarchie des titres en premier</li>
+                                <li>Ajouter les majuscules et la ponctuation</li>
+                                <li>Structurer en sections logiques</li>
+                                <li>Ajouter les détails manquants (ingrédients précis)</li>
+                                <li>Formater avec strong, em, mark</li>
+                                <li>Placer correctement les métadonnées</li>
+                            </ol>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Récapitulatif du chapitre -->
+                <section>
+                    <h2>🎯 Récapitulatif Chapitre 1</h2>
+                    <div class="concept-box">
+                        <h3>🏆 Ce que vous maîtrisez maintenant :</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px;">
+                            <div>
+                                <h4>🏗️ Structure HTML</h4>
+                                <ul>
+                                    <li>✅ Document HTML5 complet</li>
+                                    <li>✅ Métadonnées essentielles</li>
+                                    <li>✅ Hiérarchie des titres</li>
+                                    <li>✅ Structure sémantique de base</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>📝 Contenu et formatage</h4>
+                                <ul>
+                                    <li>✅ Paragraphes et liens</li>
+                                    <li>✅ Formatage du texte</li>
+                                    <li>✅ Attributs HTML utiles</li>
+                                    <li>✅ Bonnes pratiques</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tips-box">
+                        <p><strong>🚀 Prêt pour la suite :</strong> Chapitre 2 - Les Listes HTML</p>
+                        <p>Vous allez apprendre à organiser l'information avec ul, ol, et dl !</p>
+                    </div>
+                </section>
+
+                <!-- Checklist finale -->
+                <section>
+                    <h2>✅ Checklist de validation</h2>
+                    <div class="exercise-preview">
+                        <h3>🎯 Avant de passer au chapitre suivant</h3>
+                        <p>Vérifiez que vous maîtrisez tous ces éléments :</p>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                            <div>
+                                <h4>📋 Structure obligatoire</h4>
+                                <ul>
+                                    <li>☐ DOCTYPE html déclaré</li>
+                                    <li>☐ html avec lang="fr"</li>
+                                    <li>☐ meta charset UTF-8</li>
+                                    <li>☐ meta viewport pour mobile</li>
+                                    <li>☐ title personnalisé</li>
+                                    <li>☐ Un seul h1 par page</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>🎨 Formatage maîtrisé</h4>
+                                <ul>
+                                    <li>☐ strong pour l'importance</li>
+                                    <li>☐ em pour l'emphase</li>
+                                    <li>☐ mark pour surligner</li>
+                                    <li>☐ small pour métadonnées</li>
+                                    <li>☐ Hiérarchie h1 → h2 → h3</li>
+                                    <li>☐ Attributs id et class</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="concept-box" style="margin-top: 30px;">
+                            <h4>🧪 Test rapide</h4>
+                            <p>Créez une page HTML qui présente votre restaurant imaginaire avec :</p>
+                            <ul>
+                                <li>Une structure HTML5 complète</li>
+                                <li>Au moins 3 sections avec h2</li>
+                                <li>Du formatage varié (strong, em, mark)</li>
+                                <li>Des liens de contact (email, téléphone)</li>
+                            </ul>
+                            <p><strong>⏱️ Temps estimé :</strong> 15 minutes</p>
+                        </div>
+                    </div>
+                </section>
+            </section>
+                <!-- ====== CHAPITRE 2: HTML LISTS ====== -->
+            <section>
+                <!-- Intro Chapitre 2 -->
+                <section data-background-gradient="linear-gradient(135deg, #00b894 0%, #00a085 100%)">
+                    <h1>📋 Chapitre 2</h1>
+                    <h2>HTML - Les Listes</h2>
+                    <p><em>Organiser l'information efficacement</em></p>
+                    <div style="margin-top: 40px;">
+                        <h3>📚 Au programme :</h3>
+                        <ul>
+                            <li>📝 Les 3 types de listes HTML</li>
+                            <li>🛒 Exercice 01: Liste de courses</li>
+                            <li>✈️ Exercice 02: Guide de voyage</li>
+                            <li>🍽️ Exercice 03: Menu restaurant</li>
+                        </ul>
+                    </div>
+                    <div class="navigation-hint">
+                        ↑ ↓ Naviguer dans le chapitre
+                    </div>
+                </section>
+
+                <!-- Pourquoi les listes -->
+                <section>
+                    <h2>🤔 Pourquoi utiliser des listes ?</h2>
+                    <div class="concept-box">
+                        <h3>🎯 Les listes permettent de :</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                            <div>
+                                <h4>📊 Structurer l'information</h4>
+                                <ul>
+                                    <li>Organiser des éléments similaires</li>
+                                    <li>Créer une hiérarchie claire</li>
+                                    <li>Améliorer la lisibilité</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>♿ Améliorer l'accessibilité</h4>
+                                <ul>
+                                    <li>Lecteurs d'écran comprennent mieux</li>
+                                    <li>Navigation clavier facilitée</li>
+                                    <li>Sémantique claire pour les robots</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tips-box">
+                        <p><strong>🎯 Règle d'or :</strong> Utilisez des listes dès que vous avez 2 éléments ou plus du même type !</p>
+                    </div>
+                </section>
+
+                <!-- Types de listes Vue d'ensemble -->
+                <section>
+                    <h2>📝 Les 3 types de listes HTML</h2>
+                    <div class="list-comparison">
+                        <div class="list-type">
+                            <h3>📌 Liste non ordonnée</h3>
+                            <code>&lt;ul&gt;</code>
+                            <p>Pour des éléments sans ordre spécifique</p>
+                            <div style="background: #34495e; padding: 10px; margin: 10px 0; border-radius: 5px;">
+                                • Pommes<br>
+                                • Bananes<br>
+                                • Oranges
+                            </div>
+                        </div>
+                        
+                        <div class="list-type">
+                            <h3>🔢 Liste ordonnée</h3>
+                            <code>&lt;ol&gt;</code>
+                            <p>Pour des étapes ou un ordre important</p>
+                            <div style="background: #34495e; padding: 10px; margin: 10px 0; border-radius: 5px;">
+                                1. Première étape<br>
+                                2. Deuxième étape<br>
+                                3. Troisième étape
+                            </div>
+                        </div>
+                        
+                        <div class="list-type">
+                            <h3>📖 Liste de définition</h3>
+                            <code>&lt;dl&gt;</code>
+                            <p>Pour des termes et leurs définitions</p>
+                            <div style="background: #34495e; padding: 10px; margin: 10px 0; border-radius: 5px;">
+                                <strong>HTML</strong><br>
+                                &nbsp;&nbsp;Markup Language<br>
+                                <strong>CSS</strong><br>
+                                &nbsp;&nbsp;Style Sheets
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Liste non ordonnée détaillée -->
+                <section>
+                    <h2>📌 Liste non ordonnée (ul)</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="code-demo">
+                            <pre><code class="html">&lt;!-- Structure de base --&gt;
+&lt;ul&gt;
+  &lt;li&gt;Premier élément&lt;/li&gt;
+  &lt;li&gt;Deuxième élément&lt;/li&gt;
+  &lt;li&gt;Troisième élément&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- Avec formatage --&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Pommes&lt;/strong&gt; (1 kg)&lt;/li&gt;
+  &lt;li&gt;&lt;em&gt;Bananes&lt;/em&gt; bio (6 pièces)&lt;/li&gt;
+  &lt;li&gt;Oranges &lt;small&gt;(origine Espagne)&lt;/small&gt;&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+                        </div>
+                        <div>
+                            <div class="demo-result">
+                                <h4>Résultat visuel :</h4>
+                                <ul style="text-align: left;">
+                                    <li>Premier élément</li>
+                                    <li>Deuxième élément</li>
+                                    <li>Troisième élément</li>
+                                </ul>
+                                
+                                <h4>Avec formatage :</h4>
+                                <ul style="text-align: left;">
+                                    <li><strong>Pommes</strong> (1 kg)</li>
+                                    <li><em>Bananes</em> bio (6 pièces)</li>
+                                    <li>Oranges <small>(origine Espagne)</small></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tips-box">
+                        <p><strong>💡 Utilisez ul pour :</strong> Ingrédients, fonctionnalités, avantages, éléments de navigation</p>
+                    </div>
+                </section>
+
+                <!-- Liste ordonnée détaillée -->
+                <section>
+                    <h2>🔢 Liste ordonnée (ol)</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="code-demo">
+                            <pre><code class="html">&lt;!-- Structure de base --&gt;
+&lt;ol&gt;
+  &lt;li&gt;Première étape&lt;/li&gt;
+  &lt;li&gt;Deuxième étape&lt;/li&gt;
+  &lt;li&gt;Troisième étape&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;!-- Avec numérotation personnalisée --&gt;
+&lt;ol start="5"&gt;
+  &lt;li&gt;Commence à 5&lt;/li&gt;
+  &lt;li&gt;Puis 6&lt;/li&gt;
+  &lt;li&gt;Et 7&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+                        </div>
+                        <div>
+                            <div class="demo-result">
+                                <h4>Résultat visuel :</h4>
+                                <ol style="text-align: left;">
+                                    <li>Première étape</li>
+                                    <li>Deuxième étape</li>
+                                    <li>Troisième étape</li>
+                                </ol>
+                                
+                                <h4>Numérotation personnalisée :</h4>
+                                <ol start="5" style="text-align: left;">
+                                    <li>Commence à 5</li>
+                                    <li>Puis 6</li>
+                                    <li>Et 7</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tips-box">
+                        <p><strong>💡 Utilisez ol pour :</strong> Recettes, instructions, étapes, classements, chronologie</p>
+                    </div>
+                </section>
+
+                <!-- Attributs des listes ordonnées -->
+                <section>
+                    <h2>⚙️ Attributs des listes ordonnées</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="code-demo">
+                            <pre><code class="html">&lt;!-- Types de numérotation --&gt;
+&lt;ol type="1"&gt;&lt;!-- 1, 2, 3 (défaut) --&gt;
+&lt;ol type="A"&gt;&lt;!-- A, B, C --&gt;
+&lt;ol type="a"&gt;&lt;!-- a, b, c --&gt;
+&lt;ol type="I"&gt;&lt;!-- I, II, III --&gt;
+&lt;ol type="i"&gt;&lt;!-- i, ii, iii --&gt;
+
+&lt;!-- Numérotation personnalisée --&gt;
+&lt;ol start="10"&gt;&lt;!-- Commence à 10 --&gt;
+
+&lt;!-- Ordre inversé --&gt;
+&lt;ol reversed&gt;&lt;!-- Compte à rebours --&gt;</code></pre>
+                        </div>
+                        <div class="demo-result">
+                            <h4>Type="A" (majuscules) :</h4>
+                            <ol type="A" style="text-align: left;">
+                                <li>Première option</li>
+                                <li>Deuxième option</li>
+                                <li>Troisième option</li>
+                            </ol>
+                            
+                            <h4>Type="i" (chiffres romains minuscules) :</h4>
+                            <ol type="i" style="text-align: left;">
+                                <li>Point principal</li>
+                                <li>Point secondaire</li>
+                                <li>Point tertiaire</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="concept-box">
+                        <p><strong>🎯 Cas d'usage :</strong></p>
+                        <ul>
+                            <li><strong>type="A"</strong> : Sections de documents (A. Introduction, B. Développement)</li>
+                            <li><strong>type="i"</strong> : Sous-sections (i. Définition, ii. Exemples)</li>
+                            <li><strong>start="X"</strong> : Continuer une numérotation</li>
+                            <li><strong>reversed</strong> : Classements (Top 10 → Top 1)</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Liste de définition -->
+                <section>
+                    <h2>📖 Liste de définition (dl)</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="code-demo">
+                            <pre><code class="html">&lt;!-- Structure de base --&gt;
+&lt;dl&gt;
+  &lt;dt&gt;Terme à définir&lt;/dt&gt;
+  &lt;dd&gt;Définition du terme&lt;/dd&gt;
+  
+  &lt;dt&gt;Autre terme&lt;/dt&gt;
+  &lt;dd&gt;Sa définition&lt;/dd&gt;
+&lt;/dl&gt;
+
+&lt;!-- Exemple concret --&gt;
+&lt;dl&gt;
+  &lt;dt&gt;&lt;strong&gt;HTML&lt;/strong&gt;&lt;/dt&gt;
+  &lt;dd&gt;HyperText Markup Language&lt;/dd&gt;
+  
+  &lt;dt&gt;&lt;strong&gt;CSS&lt;/strong&gt;&lt;/dt&gt;
+  &lt;dd&gt;Cascading Style Sheets&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+                        </div>
+                        <div class="demo-result">
+                            <h4>Résultat visuel :</h4>
+                            <dl style="text-align: left;">
+                                <dt><strong>HTML</strong></dt>
+                                <dd>HyperText Markup Language - Langage de balisage pour créer des pages web</dd>
+                                
+                                <dt><strong>CSS</strong></dt>
+                                <dd>Cascading Style Sheets - Langage de style pour la présentation</dd>
+                                
+                                <dt><strong>JavaScript</strong></dt>
+                                <dd>Langage de programmation pour l'interactivité web</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    
+                    <div class="tips-box">
+                        <p><strong>💡 Utilisez dl pour :</strong> Glossaires, FAQ, spécifications techniques, contact info</p>
+                    </div>
+                </section>
+
+                <!-- Listes imbriquées -->
+                <section>
+                    <h2>🔄 Listes imbriquées</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="code-demo">
+                            <pre><code class="html">&lt;!-- Liste dans liste --&gt;
+&lt;ol&gt;
+  &lt;li&gt;Préparation du voyage
+    &lt;ul&gt;
+      &lt;li&gt;Réserver les vols&lt;/li&gt;
+      &lt;li&gt;Choisir l'hébergement&lt;/li&gt;
+      &lt;li&gt;Faire les valises&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Pendant le voyage
+    &lt;ul&gt;
+      &lt;li&gt;Prendre des photos&lt;/li&gt;
+      &lt;li&gt;Goûter la cuisine locale&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Retour de voyage&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+                        </div>
+                        <div class="demo-result">
+                            <h4>Résultat visuel :</h4>
+                            <ol style="text-align: left;">
+                                <li>Préparation du voyage
+                                    <ul>
+                                        <li>Réserver les vols</li>
+                                        <li>Choisir l'hébergement</li>
+                                        <li>Faire les valises</li>
+                                    </ul>
+                                </li>
+                                <li>Pendant le voyage
+                                    <ul>
+                                        <li>Prendre des photos</li>
+                                        <li>Goûter la cuisine locale</li>
+                                    </ul>
+                                </li>
+                                <li>Retour de voyage</li>
+                            </ol>
+                        </div>
+                    </div>
+                    
+                    <div class="concept-box">
+                        <p><strong>🎯 Bonnes pratiques pour l'imbrication :</strong></p>
+                        <ul>
+                            <li>Maximum 3 niveaux de profondeur</li>
+                            <li>Mélangez ol et ul selon le contexte</li>
+                            <li>Indentez correctement votre code</li>
+                            <li>Fermez toujours les balises dans l'ordre</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Balises complètes pour les listes -->
+                <section>
+                    <h2>🧰 Toutes les balises des listes</h2>
+                    <div class="tag-grid">
+                        <div class="tag-item">
+                            <code>&lt;ul&gt;</code><br>
+                            <small><strong>U</strong>nordered <strong>L</strong>ist - Liste non ordonnée</small>
+                        </div>
+                        <div class="tag-item">
+                            <code>&lt;ol&gt;</code><br>
+                            <small><strong>O</strong>rdered <strong>L</strong>ist - Liste ordonnée</small>
+                        </div>
+                        <div class="tag-item">
+                            <code>&lt;li&gt;</code><br>
+                            <small><strong>L</strong>ist <strong>I</strong>tem - Élément de liste</small>
+                        </div>
+                        <div class="tag-item">
+                            <code>&lt;dl&gt;</code><br>
+                            <small><strong>D</strong>efinition <strong>L</strong>ist - Liste de définition</small>
+                        </div>
+                        <div class="tag-item">
+                            <code>&lt;dt&gt;</code><br>
+                            <small><strong>D</strong>efinition <strong>T</strong>erm - Terme à définir</small>
+                        </div>
+                        <div class="tag-item">
+                            <code>&lt;dd&gt;</code><br>
+                            <small><strong>D</strong>efinition <strong>D</strong>escription - Définition</small>
+                        </div>
+                    </div>
+                    
+                    <div class="tips-box">
+                        <p><strong>🔧 Attributs importants :</strong></p>
+                        <ul>
+                            <li><code>type="1|A|a|I|i"</code> sur ol - Type de numérotation</li>
+                            <li><code>start="5"</code> sur ol - Numéro de départ</li>
+                            <li><code>reversed</code> sur ol - Ordre inversé</li>
+                            <li><code>value="10"</code> sur li - Valeur spécifique d'un item</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Exercice 01: Shopping List -->
+                <section>
+                    <h2>📝 Exercice 01 : Liste de Courses</h2>
+                    <div class="exercise-preview">
+                        <h3>🎯 Objectif</h3>
+                        <p>Créez une liste de courses bien organisée par catégories avec listes imbriquées</p>
+                        
+                        <h3>📋 Structure attendue</h3>
+                        <div style="background: #2c3e50; padding: 20px; border-radius: 8px; font-family: monospace; color: #00ff00;">
+                            h1 - Ma Liste de Courses<br>
+                            ├── h2 - 🍎 Fruits et Légumes<br>
+                            │&nbsp;&nbsp;&nbsp;└── ul (4 éléments avec quantités)<br>
+                            ├── h2 - 🥛 Produits Laitiers<br>
+                            │&nbsp;&nbsp;&nbsp;└── ul (3-4 éléments)<br>
+                            ├── h2 - 🥖 Boulangerie<br>
+                            │&nbsp;&nbsp;&nbsp;└── ul (2-3 éléments)<br>
+                            └── h2 - 🛒 Épicerie<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── ul (4-5 éléments)
+                        </div>
+                        
+                        <h3>🧰 Balises à utiliser</h3>
+                        <div class="tag-grid">
+                            <div class="tag-item">
+                                <code>&lt;h1&gt; &lt;h2&gt;</code><br>
+                                <small>Titres des sections</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;ul&gt;</code><br>
+                                <small>Listes par catégorie</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;li&gt;</code><br>
+                                <small>Éléments individuels</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;strong&gt;</code><br>
+                                <small>Noms des produits</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;em&gt;</code><br>
+                                <small>Quantités/précisions</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;small&gt;</code><br>
+                                <small>Informations complémentaires</small>
+                            </div>
+                        </div>
+                        
+                        <div class="tips-box">
+                            <p><strong>💡 Conseils pratiques :</strong></p>
+                            <ul>
+                                <li>Ajoutez des émojis pour rendre visuellement attrayant 🍎🥛🥖</li>
+                                <li>Précisez les quantités : (1 kg), (6 pièces), (1 litre)</li>
+                                <li>Utilisez &lt;strong&gt; pour les noms de produits</li>
+                                <li>Ajoutez des notes avec &lt;small&gt; : (bio), (origine France)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Exercice 02: Travel Guide -->
+                <section>
+                    <h2>📝 Exercice 02 : Guide de Voyage</h2>
+                    <div class="exercise-preview">
+                        <h3>🎯 Objectif</h3>
+                        <p>Créez un guide complet pour préparer un voyage au Japon avec étapes ordonnées et sous-étapes</p>
+                        
+                        <h3>📋 Structure logique obligatoire</h3>
+                        <ol style="text-align: left;">
+                            <li><strong>🎯 Planification initiale</strong> (3-6 mois avant)
+                                <ul><li>Période, budget, vols, itinéraire</li></ul>
+                            </li>
+                            <li><strong>📄 Formalités administratives</strong> (2-3 mois avant)
+                                <ul><li>Passeport, visa, assurance, santé</li></ul>
+                            </li>
+                            <li><strong>🎒 Préparation du séjour</strong> (1-2 mois avant)
+                                <ul><li>Hébergements, JR Pass, activités, langue</li></ul>
+                            </li>
+                            <li><strong>✈️ Derniers préparatifs</strong> (1-2 semaines avant)
+                                <ul><li>Bagages, change, documents, apps</li></ul>
+                            </li>
+                        </ol>
+                        
+                        <h3>🧰 Balises avancées à maîtriser</h3>
+                        <div class="tag-grid">
+                            <div class="tag-item">
+                                <code>&lt;ol&gt;</code><br>
+                                <small>Étapes chronologiques</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;ul&gt;</code><br>
+                                <small>Sous-tâches imbriquées</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;strong&gt;</code><br>
+                                <small>Noms des étapes</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;em&gt;</code><br>
+                                <small>Délais et durées</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;mark&gt;</code><br>
+                                <small>Points cruciaux</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;small&gt;</code><br>
+                                <small>Notes et précisions</small>
+                            </div>
+                        </div>
+                        
+                        <div class="concept-box">
+                            <p><strong>🌟 Défis bonus :</strong></p>
+                            <ul>
+                                <li>Ajoutez une section "💡 Conseils bonus" avec liste non ordonnée</li>
+                                <li>Créez une section "📱 Applications indispensables" avec liste ordonnée</li>
+                                <li>Utilisez &lt;mark&gt; pour les informations cruciales</li>
+                                <li>Précisez les délais avec &lt;em&gt; : <em>(3-6 mois avant)</em></li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Exercice 03: Restaurant Menu -->
+                <section>
+                    <h2>📝 Exercice 03 : Menu Restaurant</h2>
+                    <div class="exercise-preview">
+                        <h3>🏆 Projet Final</h3>
+                        <p>Créez un menu de restaurant professionnel et complet avec tous types de listes</p>
+                        
+                        <h3>📋 Structure complète attendue</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+                            <div>
+                                <h4>📋 Sections avec listes UL :</h4>
+                                <ul style="text-align: left; font-size: 0.9em;">
+                                    <li><strong>🥗 Entrées</strong> - ul avec descriptions + prix</li>
+                                    <li><strong>🍖 Plats Principaux</strong> - ul avec spécialités</li>
+                                    <li><strong>🍰 Desserts</strong> - ul avec gourmandises</li>
+                                    <li><strong>🍷 Carte des Vins</strong> - ul imbriquées</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>📋 Sections avec listes OL :</h4>
+                                <ul style="text-align: left; font-size: 0.9em;">
+                                    <li><strong>📋 Menus</strong> - ol avec formules complètes</li>
+                                    <li><strong>🎉 Menus Spéciaux</strong> - ol Saint-Valentin, Fêtes</li>
+                                    <li><strong>ℹ️ Informations</strong> - dl pour légendes/allergènes</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <h3>🧰 Toutes les balises de listes utilisées</h3>
+                        <div class="tag-grid">
+                            <div class="tag-item">
+                                <code>&lt;ul&gt; &lt;li&gt;</code><br>
+                                <small>Plats à la carte</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;ol&gt; &lt;li&gt;</code><br>
+                                <small>Menus et formules</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;dl&gt; &lt;dt&gt; &lt;dd&gt;</code><br>
+                                <small>Glossaire allergènes</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>Listes imbriquées</code><br>
+                                <small>ul dans ol pour détails menus</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;strong&gt;</code><br>
+                                <small>Noms des plats</small>
+                            </div>
+                            <div class="tag-item">
+                                <code>&lt;em&gt;</code><br>
+                                <small>Prix et descriptions</small>
+                            </div>
+                        </div>
+                        
+                        <div class="concept-box">
+                            <p><strong>🌟 Défis avancés :</strong></p>
+                            <ul>
+                                <li><strong>Vins :</strong> ul avec sous-catégories (Rouges, Blancs) imbriquées</li>
+                                <li><strong>Menus :</strong> ol avec ul imbriquées pour les détails</li>
+                                <li><strong>Légende :</strong> dl pour expliquer les symboles (⭐ spécialité, 🌱 végétarien)</li>
+                                <li><strong>Formatage :</strong> &lt;mark&gt; pour points d'attention, &lt;small&gt; pour allergènes</li>
+                                <li><strong>Contact :</strong> Ajoutez horaires, réservation, réseaux sociaux</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tips-box">
+                            <p><strong>💡 Conseils de pro :</strong></p>
+                            <ul>
+                                <li>Utilisez les émojis pour catégoriser : ⭐ spécialité, 🌱 végétarien, 🔥 épicé</li>
+                                <li>Structure prix : <code>&lt;em&gt;(12€)&lt;/em&gt;</code></li>
+                                <li>Descriptions : italique avec &lt;em&gt;</li>
+                                <li>Mentions allergènes : &lt;small&gt; en fin de section</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Bonnes pratiques listes -->
+                <section>
+                    <h2>✅ Bonnes pratiques des listes</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="concept-box">
+                            <h4>🎯 À faire :</h4>
+                            <ul>
+                                <li>✅ Utilisez le bon type de liste selon le contexte</li>
+                                <li>✅ Imbriquez logiquement (max 3 niveaux)</li>
+                                <li>✅ Formatez le contenu des &lt;li&gt;</li>
+                                <li>✅ Ajoutez des titres avant les listes</li>
+                                <li>✅ Utilisez des listes pour les navigations</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="tips-box">
+                            <h4>❌ À éviter :</h4>
+                            <ul>
+                                <li>❌ &lt;li&gt; en dehors de &lt;ul&gt;/&lt;ol&gt;/&lt;dl&gt;</li>
+                                <li>❌ Trop de niveaux d'imbrication (>3)</li>
+                                <li>❌ ol pour des éléments sans ordre</li>
+                                <li>❌ ul pour des étapes séquentielles</li>
+                                <li>❌ Listes vides ou avec un seul élément</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="code-demo">
+                        <pre><code class="html">&lt;!-- ✅ Bon exemple de structure --&gt;
+&lt;h2&gt;Préparation du gâteau&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;&lt;strong&gt;Préparation&lt;/strong&gt; &lt;em&gt;(15 min)&lt;/em&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Préchauffer le four à &lt;mark&gt;180°C&lt;/mark&gt;&lt;/li&gt;
+      &lt;li&gt;Beurrer le moule&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Cuisson&lt;/strong&gt; &lt;em&gt;(30 min)&lt;/em&gt;&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+                    </div>
+                </section>
+
+                <!-- Récapitulatif du chapitre -->
+                <section>
+                    <h2>🎯 Récapitulatif Chapitre 2</h2>
+                    <div class="concept-box">
+                        <h3>🏆 Ce que vous maîtrisez maintenant :</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 20px;">
+                            <div>
+                                <h4>📋 Types de listes</h4>
+                                <ul>
+                                    <li>✅ &lt;ul&gt; pour éléments non ordonnés</li>
+                                    <li>✅ &lt;ol&gt; pour étapes et séquences</li>
+                                    <li>✅ &lt;dl&gt; pour définitions et glossaires</li>
+                                    <li>✅ Listes imbriquées complexes</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>⚙️ Attributs et formatage</h4>
+                                <ul>
+                                    <li>✅ type, start, reversed sur &lt;ol&gt;</li>
+                                    <li>✅ Formatage dans les &lt;li&gt;</li>
+                                    <li>✅ Structure sémantique correcte</li>
+                                    <li>✅ Projets complets et réalistes</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tips-box">
+                        <p><strong>🚀 Prêt pour la suite :</strong> Chapitre 3 - CSS Fondamentaux</p>
+                        <p>Vous allez apprendre à styliser vos listes et créer de beaux designs !</p>
+                    </div>
+                </section>
+
+                <!-- Checklist finale -->
+                <section>
+                    <h2>✅ Checklist de validation</h2>
+                    <div class="exercise-preview">
+                        <h3>🎯 Auto-évaluation avant le chapitre suivant</h3>
+                        <p>Vérifiez que vous maîtrisez tous ces éléments :</p>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                            <div>
+                                <h4>📋 Balises des listes</h4>
+                                <ul>
+                                    <li>☐ &lt;ul&gt; et &lt;li&gt; maîtrisés</li>
+                                    <li>☐ &lt;ol&gt; avec attributs (type, start)</li>
+                                    <li>☐ &lt;dl&gt;, &lt;dt&gt;, &lt;dd&gt; utilisés</li>
+                                    <li>☐ Listes imbriquées correctes</li>
+                                    <li>☐ Bon choix du type de liste</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>🎨 Contenu et structure</h4>
+                                <ul>
+                                    <li>☐ Titres avant les listes</li>
+                                    <li>☐ Formatage dans les &lt;li&gt;</li>
+                                    <li>☐ Contenu réaliste et détaillé</li>
+                                    <li>☐ Structure logique et claire</li>
+                                    <li>☐ Projets complets réalisés</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="concept-box" style="margin-top: 30px;">
+                            <h4>🧪 Test de validation final</h4>
+                            <p>Créez rapidement une page "Organiser une fête" avec :</p>
+                            <ul>
+                                <li><strong>ol :</strong> Étapes de préparation (3 étapes avec sous-tâches ul)</li>
+                                <li><strong>ul :</strong> Liste d'invités par catégorie</li>
+                                <li><strong>dl :</strong> Glossaire des termes de fête</li>
+                                <li><strong>Formatage :</strong> strong, em, mark dans les listes</li>
+                            </ul>
+                            <p><strong>⏱️ Temps limite :</strong> 20 minutes | <strong>🎯 Objectif :</strong> Structure parfaite</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Exemples d'erreurs courantes -->
+                <section>
+                    <h2>🚨 Erreurs courantes à éviter</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div>
+                            <h3>❌ Code incorrect</h3>
+                            <div class="code-demo">
+                                <pre><code class="html">&lt;!-- ERREUR: li en dehors de ul/ol --&gt;
+&lt;li&gt;Élément isolé&lt;/li&gt;
+
+&lt;!-- ERREUR: Mauvais type de liste --&gt;
+&lt;ul&gt;
+  &lt;li&gt;Étape 1&lt;/li&gt;
+  &lt;li&gt;Étape 2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- ERREUR: Imbrication trop profonde --&gt;
+&lt;ul&gt;
+  &lt;li&gt;Niveau 1
+    &lt;ul&gt;
+      &lt;li&gt;Niveau 2
+        &lt;ul&gt;
+          &lt;li&gt;Niveau 3
+            &lt;ul&gt;
+              &lt;li&gt;Niveau 4 (trop!)&lt;/li&gt;</code></pre>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3>✅ Code correct</h3>
+                            <div class="code-demo">
+                                <pre><code class="html">&lt;!-- CORRECT: li dans ul --&gt;
+&lt;ul&gt;
+  &lt;li&gt;Élément dans sa liste&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- CORRECT: ol pour les étapes --&gt;
+&lt;ol&gt;
+  &lt;li&gt;Première étape&lt;/li&gt;
+  &lt;li&gt;Deuxième étape&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;!-- CORRECT: Maximum 3 niveaux --&gt;
+&lt;ol&gt;
+  &lt;li&gt;Niveau 1
+    &lt;ul&gt;
+      &lt;li&gt;Niveau 2
+        &lt;ul&gt;
+          &lt;li&gt;Niveau 3 (max)&lt;/li&gt;</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tips-box">
+                        <p><strong>🔧 Conseil de debugging :</strong> Validez votre HTML avec le validateur W3C pour détecter les erreurs de structure !</p>
+                    </div>
+                </section>
+            </section>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/lib/js/head.min.js" integrity="sha512-8Nk/zoTKjNixnM15wXjpF26KR4Ln87cc5Yllc5xP54wwbcKnljAAn2JP+tYAS8+4e7s/XK8XTiDH0Ltw2fmoBQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/js/reveal.min.js"></script>
+    <script>
+        // Initialisation Reveal.js se fera par votre configuration
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+             dependencies: [
+                 { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/plugin/highlight/highlight.min.js', async: true }
+             ]
+         });
+    </script>
+</body>
+</html>

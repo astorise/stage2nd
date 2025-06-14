@@ -1,0 +1,214 @@
+{
+  "name": "HTML & CSS Learning Path",
+  "version": "1.0.0",
+  "description": "Apprentissage progressif de HTML et CSS",
+  "language": "web",
+  "author": "CodePlay",
+  "created": "2025-06-15",
+  "structure": {
+    "type": "progressive",
+    "chapters": 5,
+    "totalExercises": 13,
+    "estimatedDuration": "30-40 heures"
+  },
+  "chapters": [
+    {
+      "id": "01-html-fundamentals",
+      "title": "Fondamentaux HTML",
+      "description": "Bases essentielles du HTML",
+      "difficulty": "débutant",
+      "estimatedTime": "4-6 heures",
+      "prerequisites": [],
+      "exercises": [
+        {
+          "id": "01-first-page",
+          "title": "Votre Première Page",
+          "description": "Créez votre première page HTML",
+          "difficulty": "facile",
+          "files": ["README.md", "index.html", "solution.html", "hints.md", "test.js"],
+          "mainFile": "script.js",
+          "htmlFile": "index.html",
+          "testFile": "test.js",
+          "language": "web"
+        },
+        {
+          "id": "02-restaurant-page",
+          "title": "Page d'Accueil Restaurant",
+          "description": "Composez la page d'accueil d'un restaurant",
+          "difficulty": "facile",
+          "files": ["README.md", "index.html", "solution.html", "bonus.html", "hints.md"],
+          "mainFile": "script.js",
+          "htmlFile": "index.html",
+          "language": "web"
+        },
+        {
+          "id": "03-blog-article",
+          "title": "Article de Blog Structuré",
+          "description": "Structurez un article de blog complet",
+          "difficulty": "facile",
+          "files": ["README.md", "index.html", "solution.html", "hints.md"],
+          "mainFile": "script.js",
+          "htmlFile": "index.html",
+          "language": "web"
+        },
+        {
+          "id": "04-text-correction",
+          "title": "Corriger le Formatage",
+          "description": "Réparez une page HTML mal organisée",
+          "difficulty": "moyen",
+          "files": ["README.md", "index.html", "solution.html", "hints.md", "erreurs.md"],
+          "mainFile": "script.js",
+          "htmlFile": "index.html",
+          "language": "web"
+        }
+      ]
+    },
+    {
+      "id": "02-html-lists",
+      "title": "Listes HTML",
+      "description": "Création de listes ordonnées et non ordonnées",
+      "difficulty": "débutant",
+      "estimatedTime": "3-4 heures",
+      "prerequisites": ["01-html-fundamentals"],
+      "exercises": [
+        {
+          "id": "01-shopping-list",
+          "title": "Liste de Courses",
+          "description": "Organisez une liste de courses avec catégories",
+          "difficulty": "facile",
+          "files": ["README.md", "index.html", "solution.html", "hints.md"],
+          "mainFile": "script.js",
+          "htmlFile": "index.html",
+          "language": "web"
+        },
+        {
+          "id": "02-travel-guide",
+          "title": "Guide de Voyage",
+          "description": "Préparez un guide de voyage détaillé",
+          "difficulty": "moyen",
+          "files": ["README.md", "index.html", "solution.html", "hints.md"],
+          "mainFile": "script.js",
+          "htmlFile": "index.html",
+          "language": "web"
+        },
+        {
+          "id": "03-restaurant-menu",
+          "title": "Menu de Restaurant",
+          "description": "Créez un menu complet avec prix",
+          "difficulty": "moyen",
+          "files": ["README.md", "index.html", "solution.html", "bonus.html", "hints.md"],
+          "mainFile": "script.js",
+          "htmlFile": "index.html",
+          "language": "web"
+        }
+      ]
+    },
+    {
+      "id": "03-css-fundamentals",
+      "title": "Fondamentaux CSS",
+      "description": "Premiers pas avec la mise en forme CSS",
+      "difficulty": "débutant-intermédiaire",
+      "estimatedTime": "5-7 heures",
+      "prerequisites": ["01-html-fundamentals", "02-html-lists"],
+      "exercises": [
+        {
+          "id": "01-first-styles",
+          "title": "Premiers Styles CSS",
+          "description": "Appliquez vos premiers styles à une page",
+          "difficulty": "facile",
+          "files": ["README.md", "index.html", "solution.html", "advanced.html", "hints.md"],
+          "mainFile": "script.js",
+          "htmlFile": "index.html",
+          "language": "web"
+        },
+        {
+          "id": "02-color-palette",
+          "title": "Palette de Couleurs",
+          "description": "Réalisez une palette de couleurs interactive",
+          "difficulty": "moyen",
+          "files": ["README.md", "index.html", "solution.html", "interactive.html", "hints.md", "test.js"],
+          "mainFile": "script.js",
+          "htmlFile": "index.html",
+          "testFile": "test.js",
+          "language": "web"
+        },
+        {
+          "id": "03-typography-poster",
+          "title": "Poster Typographique",
+          "description": "Créez un poster avec différentes polices",
+          "difficulty": "moyen",
+          "files": ["README.md", "index.html", "collection.html", "hints.md"],
+          "mainFile": "script.js",
+          "htmlFile": "index.html",
+          "language": "web"
+        }
+      ]
+    },
+    {
+      "id": "04-css-box-model",
+      "title": "Modèle de Boîte CSS",
+      "description": "Comprendre le box model et ses propriétés",
+      "difficulty": "intermédiaire",
+      "estimatedTime": "3-4 heures",
+      "prerequisites": ["03-css-fundamentals"],
+      "exercises": [
+        {
+          "id": "01-product-cards",
+          "title": "Cartes Produits",
+          "description": "Mettez en page des cartes produit",
+          "difficulty": "moyen",
+          "files": ["README.md", "index.html", "hints.md"],
+          "mainFile": "script.js",
+          "htmlFile": "index.html",
+          "language": "web"
+        },
+        {
+          "id": "02-photo-gallery",
+          "title": "Galerie de Photos",
+          "description": "Créez une galerie d'images en grille",
+          "difficulty": "moyen",
+          "files": ["README.md", "index.html", "solution.html", "hints.md"],
+          "mainFile": "script.js",
+          "htmlFile": "index.html",
+          "language": "web"
+        }
+      ]
+    },
+    {
+      "id": "05-html5-semantic",
+      "title": "HTML5 Sémantique",
+      "description": "Structurer un site avec les balises sémantiques",
+      "difficulty": "intermédiaire",
+      "estimatedTime": "2-3 heures",
+      "prerequisites": ["04-css-box-model"],
+      "exercises": [
+        {
+          "id": "01-news-website",
+          "title": "Site d'Actualités",
+          "description": "Construisez un site d'actualités complet",
+          "difficulty": "moyen",
+          "files": ["README.md", "index.html", "solution.html", "hints.md"],
+          "mainFile": "script.js",
+          "htmlFile": "index.html",
+          "language": "web"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "autoSave": true,
+    "autoTest": false,
+    "showHints": true,
+    "allowSolution": true,
+    "progressTracking": true
+  },
+  "features": {
+    "codeExecution": true,
+    "testRunner": true,
+    "progressBar": true,
+    "hints": true,
+    "solutions": true,
+    "fileManager": true,
+    "console": true
+  }
+}

@@ -1,20 +1,19 @@
-import { EventEmitter } from 'eventemitter3';
-import { ModuleManager } from './ModuleManager';
-import { StorageService } from '@services/StorageService';
-import { UIManager } from './UIManager';
-import { LessonManager } from './LessonManager';
+import { EventEmitter } from "eventemitter3";
+import { ModuleManager } from "./ModuleManager";
+import { StorageService } from "@services/StorageService";
+import { UIManager } from "./UIManager";
+import { LessonManager } from "./LessonManager";
+import { CourseManager } from './CourseManager';
 
 export class CodePlayApp extends EventEmitter {
   constructor() {
     super();
     
+    this.courses = new CourseManager(this);  // Nouveau !
     this.modules = new ModuleManager(this);
     this.storage = new StorageService();
     this.ui = new UIManager(this);
     this.lessons = new LessonManager(this);
-    
-    this.currentLesson = null;
-    this.currentModule = null;
   }
   
   async init() {
@@ -28,56 +27,64 @@ export class CodePlayApp extends EventEmitter {
       // Charger les modules disponibles
       await this.modules.loadAvailableModules();
       
-      // Restaurer la session précédente
-      await this.restoreSession();
+      // Initialiser le gestionnaire de cours
+      await this.courses.init();  // Nouveau !
       
-      // Charger les leçons
-      await this.lessons.loadManifest();
+      // Vérifier les mises à jour périodiquement
+      setInterval(() => {
+        this.courses.checkForUpdates();
+      }, 300000); // Toutes les 5 minutes
       
       this.emit('app:ready');
-      console.log('✅ CodePlay initialized successfully');
       
     } catch (error) {
       console.error('❌ Failed to initialize CodePlay:', error);
       this.ui.showError('Erreur lors de l\'initialisation');
     }
   }
-  
+
+
   async loadConfig() {
     try {
-      const response = await fetch('/config.json');
+      const response = await fetch("/config.json");
       this.config = await response.json();
     } catch (error) {
       // Configuration par défaut
       this.config = {
-        modules: ['javascript', 'python', 'web'],
+        modules: ["javascript", "python", "web"],
         features: {
           github: false,
-          collaboration: false
+          collaboration: false,
         },
-        lessonsUrl: '/lessons/manifest.json'
+        lessonsUrl: "/lessons/manifest.json",
       };
     }
   }
-  
+
   async restoreSession() {
-    const lastSession = await this.storage.get('lastSession');
+    const lastSession = await this.storage.get("lastSession");
     if (lastSession) {
       if (lastSession.moduleId) {
         await this.modules.activateModule(lastSession.moduleId);
       }
       if (lastSession.lessonId) {
-        await this.lessons.loadExercise(lastSession.lessonId);
-        this.currentLesson = this.lessons.currentExercise;
+
+        try {
+          await this.lessons.loadExercise(lastSession.lessonId);
+          this.currentLesson = this.lessons.currentExercise;
+        } catch (err) {
+          console.warn("Could not restore lesson:", err);
+        }
+
       }
     }
   }
-  
+
   async saveSession() {
-    await this.storage.set('lastSession', {
+    await this.storage.set("lastSession", {
       moduleId: this.currentModule?.id,
-      lessonId: this.currentLesson?.id,
-      timestamp: Date.now()
+      lessonId: this.currentLesson?.fullId ?? this.currentLesson?.id, // full ID
+      timestamp: Date.now(),
     });
   }
 }

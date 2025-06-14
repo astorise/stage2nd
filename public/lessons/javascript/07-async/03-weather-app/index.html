@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Météo App</title>
+  <style>
+    body { 
+      font-family: 'Arial', sans-serif; 
+      margin: 0;
+      background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+      min-height: 100vh;
+      color: white;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .search-container {
+      background: rgba(255,255,255,0.1);
+      padding: 30px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      margin-bottom: 30px;
+    }
+    .search-form {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+    .search-input {
+      flex: 1;
+      padding: 15px;
+      border: none;
+      border-radius: 25px;
+      font-size: 16px;
+      outline: none;
+    }
+    .search-btn {
+      padding: 15px 30px;
+      background: #00b894;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+    .search-btn:hover { background: #00a085; }
+    .search-btn:disabled { background: #999; cursor: not-allowed; }
+    .quick-cities {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .quick-city {
+      padding: 8px 15px;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      border-radius: 15px;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .quick-city:hover { background: rgba(255,255,255,0.3); }
+    .weather-card {
+      background: rgba(255,255,255,0.1);
+      padding: 30px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .weather-main {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    .weather-temp {
+      font-size: 4em;
+      font-weight: bold;
+      margin: 0;
+    }
+    .weather-condition {
+      font-size: 1.5em;
+      margin: 10px 0;
+    }
+    .weather-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+    .weather-detail {
+      background: rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+    }
+    .weather-detail-label {
+      font-size: 0.9em;
+      opacity: 0.8;
+      margin-bottom: 5px;
+    }
+    .weather-detail-value {
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+    .loading {
+      text-align: center;
+      padding: 40px;
+      font-size: 1.2em;
+    }
+    .error {
+      background: rgba(231, 76, 60, 0.2);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      margin: 20px 0;
+    }
+    .hidden { display: none; }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-top: 3px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🌤️ Météo App</h1>
+      <p>Découvrez la météo de votre ville</p>
+    </div>
+    
+    <div class="search-container">
+      <form id="searchForm" class="search-form">
+        <input type="text" id="cityInput" class="search-input" 
+               placeholder="Entrez le nom d'une ville..." required>
+        <button type="submit" id="searchBtn" class="search-btn">
+          <span id="searchText">Rechercher</span>
+          <span id="searchSpinner" class="spinner hidden"></span>
+        </button>
+      </form>
+      
+      <div class="quick-cities">
+        <button class="quick-city" onclick="app.rechercherVille('Paris')">Paris</button>
+        <button class="quick-city" onclick="app.rechercherVille('Londres')">Londres</button>
+        <button class="quick-city" onclick="app.rechercherVille('Tokyo')">Tokyo</button>
+        <button class="quick-city" onclick="app.rechercherVille('New York')">New York</button>
+        <button class="quick-city" onclick="app.rechercherVille('Sydney')">Sydney</button>
+      </div>
+    </div>
+    
+    <div id="weatherResult"></div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>

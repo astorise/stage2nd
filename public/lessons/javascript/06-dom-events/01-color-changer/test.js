@@ -4,3 +4,4 @@ function testColorChanger() {
     { name: "Fonction changerCouleur existe", pass: typeof changerCouleur === 'function' }
   ];
 }
+return testColorChanger();

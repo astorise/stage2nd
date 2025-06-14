@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Todo App</title>
+  <style>
+    body { 
+      font-family: Arial, sans-serif; 
+      max-width: 600px; 
+      margin: 50px auto; 
+      padding: 20px;
+      background-color: #f5f5f5;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .todo-form {
+      display: flex;
+      margin-bottom: 30px;
+      gap: 10px;
+    }
+    .todo-input {
+      flex: 1;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    .btn {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.2s;
+    }
+    .btn-primary { background-color: #007bff; color: white; }
+    .btn-success { background-color: #28a745; color: white; }
+    .btn-danger { background-color: #dc3545; color: white; }
+    .btn:hover { opacity: 0.8; }
+    .todo-item { 
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      margin: 10px 0;
+      background: #f8f9fa;
+      border-radius: 5px;
+      border-left: 4px solid #007bff;
+    }
+    .todo-item.completed { 
+      opacity: 0.6;
+      border-left-color: #28a745;
+    }
+    .todo-text { 
+      flex: 1; 
+      margin-left: 15px;
+      font-size: 16px;
+    }
+    .completed .todo-text { 
+      text-decoration: line-through; 
+    }
+    .todo-actions {
+      display: flex;
+      gap: 10px;
+    }
+    .stats {
+      margin-top: 20px;
+      padding: 15px;
+      background: #e9ecef;
+      border-radius: 5px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Ma Liste de Tâches</h1>
+    
+    <form id="todoForm" class="todo-form">
+      <input type="text" id="todoInput" class="todo-input" placeholder="Nouvelle tâche..." required>
+      <button type="submit" class="btn btn-primary">Ajouter</button>
+    </form>
+    
+    <div id="todoList"></div>
+    
+    <div id="stats" class="stats">
+      <span id="totalTasks">0</span> tâche(s) • 
+      <span id="completedTasks">0</span> terminée(s) • 
+      <span id="pendingTasks">0</span> en cours
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>

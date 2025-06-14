@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Palette de couleurs</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            min-height: 100vh;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .color-box {
+            width: 180px;
+            height: 120px;
+            margin: 15px;
+            display: inline-block;
+            text-align: center;
+            line-height: 120px;
+            font-weight: bold;
+            font-size: 1.1em;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .color-box:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        
+        .rouge {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+        }
+        
+        .bleu {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+        }
+        
+        .vert {
+            background: linear-gradient(45deg, #27ae60, #229954);
+            color: white;
+        }
+        
+        .jaune {
+            background: linear-gradient(45deg, #f1c40f, #f39c12);
+            color: #2c3e50;
+        }
+        
+        .violet {
+            background: linear-gradient(45deg, #9b59b6, #8e44ad);
+            color: white;
+        }
+        
+        /* Effet de brillance au survol */
+        .color-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .color-box:hover::before {
+            left: 100%;
+        }
+        
+        .info {
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .color-codes {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .code {
+            background: #34495e;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 5px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Ma Palette de Couleurs</h1>
+        
+        <div class="color-box rouge">Rouge</div>
+        <div class="color-box bleu">Bleu</div>
+        <div class="color-box vert">Vert</div>
+        <div class="color-box jaune">Jaune</div>
+        <div class="color-box violet">Violet</div>
+        
+        <div class="info">
+            <h3>Codes couleurs utilisés</h3>
+            <div class="color-codes">
+                <span class="code">Rouge: #e74c3c</span>
+                <span class="code">Bleu: #3498db</span>
+                <span class="code">Vert: #27ae60</span>
+                <span class="code">Jaune: #f1c40f</span>
+                <span class="code">Violet: #9b59b6</span>
+            </div>
+            <p><em>Survolez les couleurs pour voir les effets d'animation !</em></p>
+        </div>
+    </div>
+</body>
+</html>

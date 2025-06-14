@@ -3,13 +3,17 @@ import { BaseModule } from '@core/BaseModule';
 export default class JavaScriptModule extends BaseModule {
   constructor() {
     super('javascript', 'JavaScript', '🟨');
-    
+
     this.capabilities = {
       console: true,
       preview: false,
       multiFile: false,
       packages: false
     };
+
+    this.worker = null;
+    this.callbacks = new Map();
+    this.msgId = 0;
   }
   
   async init() {
@@ -23,44 +27,34 @@ export default class JavaScriptModule extends BaseModule {
   }
   
   async execute(code, context = {}) {
-    const logs = [];
-    const errors = [];
-    
-    // Créer un environnement d'exécution isolé
-    const sandbox = this.createSandbox(logs, errors);
-    
-    try {
-      // Créer une fonction avec le code utilisateur
-      const AsyncFunction = Object.getPrototypeOf(async function(){}).constructor;
-      const userFunction = new AsyncFunction(...Object.keys(sandbox), code);
-      
-      // Exécuter avec timeout
-      const timeoutMs = context.timeout || 5000;
-      const result = await this.withTimeout(
-        userFunction(...Object.values(sandbox)),
-        timeoutMs
-      );
-      
-      return {
-        success: true,
-        logs,
-        errors,
-        result
-      };
-      
-    } catch (error) {
-      errors.push({
-        message: error.message,
-        stack: error.stack,
-        line: this.extractErrorLine(error)
+    if (!this.worker) {
+      this.worker = new Worker(new URL('./executor.worker.js', import.meta.url), {
+        type: 'module'
       });
-      
-      return {
-        success: false,
-        logs,
-        errors
-      };
+      this.worker.addEventListener('message', (e) => {
+        const { id, logs, errors, success } = e.data;
+        const cb = this.callbacks.get(id);
+        if (cb) {
+          cb({ success, logs, errors });
+          this.callbacks.delete(id);
+        }
+      });
     }
+
+    const id = ++this.msgId;
+    const promise = new Promise((resolve) => {
+      this.callbacks.set(id, resolve);
+    });
+
+    this.worker.postMessage({ id, code, options: { timeout: context.timeout } });
+
+    const result = await promise;
+
+    if (context.terminateWorker) {
+      await this.cleanup();
+    }
+
+    return result;
   }
   
   createSandbox(logs, errors) {
@@ -118,4 +112,13 @@ const doubles = nombres.map(n => n * 2);
 console.log("Nombres doublés:", doubles);
 `;
   }
+
+  async cleanup() {
+    if (this.worker) {
+      this.worker.terminate();
+      this.worker = null;
+      this.callbacks.clear();
+    }
+  }
 }
+

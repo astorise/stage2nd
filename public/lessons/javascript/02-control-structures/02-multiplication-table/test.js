@@ -4,3 +4,4 @@ function testMultiplicationTable() {
     { name: "Affiche 10 lignes", pass: true }
   ];
 }
+return testMultiplicationTable();

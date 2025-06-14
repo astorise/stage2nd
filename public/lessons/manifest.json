@@ -1,41 +1,39 @@
 {
-  "version": "1.0.0",
-  "lessons": [
+  "version": "2.0.0",
+  "lastUpdated": "2025-01-14",
+  "courses": [
     {
-      "id": "js-01-hello",
-      "title": "Hello World",
-      "description": "Ta première ligne de code JavaScript",
+      "id": "javascript",
+      "name": "JavaScript Fondamental",
+      "description": "Apprenez JavaScript de zéro jusqu'aux concepts avancés",
+      "icon": "🟨",
+      "language": "javascript",
       "module": "javascript",
-      "icon": "👋",
-      "duration": "10 min",
-      "difficulty": "débutant"
+      "level": "débutant à avancé",
+      "duration": "40-60 heures",
+      "url": "./javascript/manifest.json",
+      "enabled": true,
+      "featured": true,
+      "tags": ["programmation", "web", "frontend", "backend"]
     },
     {
-      "id": "js-02-variables",
-      "title": "Les Variables",
-      "description": "Apprends à stocker des informations",
-      "module": "javascript",
-      "icon": "📦",
-      "duration": "15 min",
-      "difficulty": "débutant"
-    },
-    {
-      "id": "web-01-intro",
-      "title": "Ma première page web",
-      "description": "Crée une page HTML simple",
+      "id": "html-css",
+      "name": "HTML & CSS",
+      "description": "Créez des sites web modernes et responsives",
+      "icon": "🎨",
+      "language": "web",
       "module": "web",
-      "icon": "🌐",
-      "duration": "20 min",
-      "difficulty": "débutant"
-    },
-    {
-      "id": "py-01-hello",
-      "title": "Python : Les bases",
-      "description": "Découvre Python",
-      "module": "python",
-      "icon": "🐍",
-      "duration": "15 min",
-      "difficulty": "débutant"
+      "level": "débutant à intermédiaire",
+      "duration": "30-40 heures",
+      "url": "./html-css/manifest.json",
+      "enabled": true,
+      "featured": true,
+      "tags": ["web", "frontend", "design", "responsive"]
     }
-  ]
+  ],
+  "settings": {
+    "allowExternalCourses": true,
+    "cacheManifests": true,
+    "checkForUpdates": true
+  }
 }

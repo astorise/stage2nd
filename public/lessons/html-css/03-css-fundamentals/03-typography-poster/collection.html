@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Collection de Posters</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+            background: #1a1a1a;
+            font-family: Arial, sans-serif;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .header h1 {
+            font-size: 3em;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+        
+        .posters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+        }
+        
+        .poster {
+            aspect-ratio: 3/4;
+            border-radius: 20px;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .poster:hover {
+            transform: scale(1.02);
+        }
+        
+        .poster-1 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .poster-2 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+        
+        .poster-3 {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: #1a1a1a;
+        }
+        
+        .poster-4 {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: #1a1a1a;
+        }
+        
+        .poster-title {
+            font-size: 3.5em;
+            font-weight: 900;
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        
+        .poster-subtitle {
+            font-size: 1.2em;
+            font-weight: 300;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .poster-quote {
+            font-size: 1.5em;
+            font-style: italic;
+            font-family: Georgia, serif;
+            line-height: 1.4;
+            margin-bottom: 20px;
+        }
+        
+        .poster-author {
+            font-size: 1em;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Galerie de Posters Typographiques</h1>
+            <p style="color: #888; font-size: 1.2em;">Explorez différents styles typographiques</p>
+        </div>
+        
+        <div class="posters-grid">
+            <div class="poster poster-1">
+                <div class="poster-title">INNOVATION</div>
+                <div class="poster-subtitle">Repenser le futur</div>
+                <div class="poster-quote">"L'innovation distingue un leader d'un suiveur"</div>
+                <div class="poster-author">- Steve Jobs</div>
+            </div>
+            
+            <div class="poster poster-2">
+                <div class="poster-title">PASSION</div>
+                <div class="poster-subtitle">Le moteur du succès</div>
+                <div class="poster-quote">"Rien de grand ne s'est accompli sans passion"</div>
+                <div class="poster-author">- Georg Wilhelm</div>
+            </div>
+            
+            <div class="poster poster-3">
+                <div class="poster-title">RÊVES</div>
+                <div class="poster-subtitle">Construire l'impossible</div>
+                <div class="poster-quote">"Tous nos rêves peuvent devenir réalité"</div>
+                <div class="poster-author">- Walt Disney</div>
+            </div>
+            
+            <div class="poster poster-4">
+                <div class="poster-title">LIBERTÉ</div>
+                <div class="poster-subtitle">L'essence de l'être</div>
+                <div class="poster-quote">"La liberté, c'est la responsabilité"</div>
+                <div class="poster-author">- George B. Shaw</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
