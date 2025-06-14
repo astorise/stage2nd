@@ -11,7 +11,7 @@ export class CourseManager {
   async init() {
     try {
       // Charger le manifest racine
-      const response = await fetch('/lessons/manifest.json');
+      const response = await fetch('lessons/manifest.json');
       if (!response.ok) {
         throw new Error('Impossible de charger le catalogue des cours');
       }
@@ -123,8 +123,8 @@ export class CourseManager {
       return url;
     }
     
-    // Sinon, la résoudre par rapport à /lessons/
-    return new URL(url, window.location.origin + '/lessons/').href;
+    // Sinon, la résoudre par rapport au chemin de base
+    return new URL(url, import.meta.env.BASE_URL + 'lessons/').href;
   }
   
   updateCourseUI() {
@@ -145,7 +145,7 @@ export class CourseManager {
     if (!this.rootManifest?.settings?.checkForUpdates) return;
     
     try {
-      const response = await fetch('/lessons/manifest.json?t=' + Date.now());
+      const response = await fetch('lessons/manifest.json?t=' + Date.now());
       const newManifest = await response.json();
       
       if (newManifest.lastUpdated !== this.rootManifest.lastUpdated) {
