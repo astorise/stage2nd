@@ -78,8 +78,10 @@ export class ModuleManager extends EventEmitter {
     const config = await module.getEditorConfig();
     this.app.ui.editor.setLanguage(config.language);
     
-    // Mettre à jour l'interface
-    this.app.ui.setActiveModule(moduleId);
+    // Mettre à jour l'interface si nécessaire
+    if (typeof this.app.ui.setActiveModule === 'function') {
+      this.app.ui.setActiveModule(moduleId);
+    }
     
     // Sauvegarder le choix
     await this.app.saveSession();
