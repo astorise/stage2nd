@@ -36,3 +36,10 @@ npm run deploy
 ```
 
 This builds the project and publishes the `dist` folder using the `gh-pages` package.
+
+## Collaboration Chat
+
+The app ships with a small chat widget powered by [PeerJS](https://peerjs.com/).
+To enable it, set `"collaboration": true` in `public/config.json` (or `"chat"` if
+present). After rebuilding, a chat panel will appear at the bottom of the UI
+allowing connected peers to exchange short messages.
