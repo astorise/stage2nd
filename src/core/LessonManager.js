@@ -367,12 +367,6 @@ ${exercise.difficulty}
     }
   }
   
-  async saveProgress() {
-    await this.app.storage.set('completedExercises', Array.from(this.completedExercises));
-    await this.app.storage.set('lastCompletedDate', new Date().toISOString());
-    await this.app.storage.set('currentPath', this.manifest.name);
-  }
-  
   async loadProgress() {
     const saved = await this.app.storage.get('completedExercises');
     if (saved) {
