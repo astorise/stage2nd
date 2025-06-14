@@ -4,3 +4,4 @@ function testGradeCalculator() {
     { name: "Fonction convertirNote existe", pass: typeof convertirNote === 'function' }
   ];
 }
+return testGradeCalculator();

@@ -5,3 +5,4 @@ function testLibrarySystem() {
     { name: "Module utilisateur chargé", pass: true }
   ];
 }
+return testLibrarySystem();

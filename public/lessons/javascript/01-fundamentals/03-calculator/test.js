@@ -6,3 +6,4 @@ function testCalculatrice() {
     { name: "Division correcte", pass: division === 3 }
   ];
 }
+return testCalculatrice();
