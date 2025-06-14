@@ -180,6 +180,9 @@ async loadCourse(course) {
         testCode: files[exercise.testFile] || 'return true;',
         solutionCode: files['solution.js'] || ''
       };
+
+      // Mettre à jour la référence dans l'application
+      this.app.currentLesson = this.currentExercise;
       
       // Mettre à jour la référence dans l'application
       this.app.currentLesson = this.currentExercise;

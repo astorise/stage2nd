@@ -68,12 +68,14 @@ export class CodePlayApp extends EventEmitter {
         await this.modules.activateModule(lastSession.moduleId);
       }
       if (lastSession.lessonId) {
+
         try {
           await this.lessons.loadExercise(lastSession.lessonId);
           this.currentLesson = this.lessons.currentExercise;
         } catch (err) {
           console.warn("Could not restore lesson:", err);
         }
+
       }
     }
   }
