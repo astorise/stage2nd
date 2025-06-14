@@ -5,3 +5,4 @@ function testBankAccount() {
     { name: "Méthode deposer existe", pass: typeof compte.deposer === 'function' }
   ];
 }
+return testBankAccount();

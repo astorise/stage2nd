@@ -26,5 +26,6 @@ export class TestRunner {
     if (this.listEl) {
       this.listEl.innerHTML = '';
     }
+
   }
 }

@@ -5,3 +5,4 @@ function testStudentGrades() {
     { name: "Conversion en lettres", pass: Array.isArray(lettres) }
   ];
 }
+return testStudentGrades();

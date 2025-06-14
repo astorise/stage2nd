@@ -6,3 +6,4 @@ function testCalculatorFunctions() {
     { name: "Division gère zéro", pass: diviser(10, 0).includes('Erreur') }
   ];
 }
+return testCalculatorFunctions();

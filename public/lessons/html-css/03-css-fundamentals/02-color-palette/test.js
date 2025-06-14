@@ -6,3 +6,4 @@ function testColorPalette() {
     { name: "Border-radius appliqué", pass: getComputedStyle(document.querySelector('.color-box')).borderRadius !== '0px' }
   ];
 }
+return testColorPalette();

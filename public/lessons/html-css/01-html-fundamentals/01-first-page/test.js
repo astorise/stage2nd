@@ -6,3 +6,4 @@ function testPremierePage() {
     { name: "Utilise strong", pass: document.querySelector('strong') !== null }
   ];
 }
+return testPremierePage();

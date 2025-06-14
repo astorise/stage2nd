@@ -5,3 +5,4 @@ function testTodoApp() {
     { name: "Interface créée", pass: document.getElementById('todoList') !== null }
   ];
 }
+return testTodoApp();
