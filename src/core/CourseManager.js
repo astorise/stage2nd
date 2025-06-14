@@ -122,9 +122,10 @@ export class CourseManager {
     if (url.startsWith('http://') || url.startsWith('https://')) {
       return url;
     }
-    
+
     // Sinon, la résoudre par rapport au chemin de base
-    return new URL(url, import.meta.env.BASE_URL + 'lessons/').href;
+    const base = new URL(import.meta.env.BASE_URL + 'lessons/', window.location.origin);
+    return new URL(url, base).href;
   }
   
   updateCourseUI() {
