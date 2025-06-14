@@ -188,11 +188,21 @@ this.setupOutputTabs();
       
       // Vérifier si l'exercice est réussi
       if (this.app.currentLesson) {
-        const success = await this.app.lessons.checkExercise(
+        const { success, tests } = await this.app.lessons.checkExercise(
           code,
           result
         );
-        
+
+        if (Array.isArray(tests)) {
+          tests.forEach(t => {
+            if (t.pass) {
+              this.console.log(`✅ ${t.name}`);
+            } else {
+              this.console.error(`❌ ${t.name}`);
+            }
+          });
+        }
+
         if (success) {
           this.showSuccess('Exercice réussi ! 🎉');
           this.app.lessons.completeExercise(this.app.currentLesson.fullId);
