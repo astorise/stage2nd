@@ -669,3 +669,31 @@ body {
   font-family: 'Consolas', 'Monaco', monospace;
 }
 
+/* Test Runner */
+.test-result-list {
+  list-style: none;
+  padding: 10px;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 14px;
+}
+
+.test-result {
+  margin-bottom: 4px;
+}
+
+.test-result.pass {
+  color: var(--color-success);
+}
+
+.test-result.fail {
+  color: var(--color-danger);
+}
+
+.test-result.pass::before {
+  content: '✅ ';
+}
+
+.test-result.fail::before {
+  content: '❌ ';
+}
+
