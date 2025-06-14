@@ -123,8 +123,15 @@ export class CourseManager {
       return url;
     }
     
-    // Sinon, la résoudre par rapport au chemin de base
-    return new URL(url, import.meta.env.BASE_URL + 'lessons/').href;
+    // Sinon, la résoudre par rapport au chemin de base. `import.meta.env.BASE_URL`
+    // peut être un chemin relatif (par exemple "/stage2nd/") qui n'est pas un
+    // point de base valide pour le constructeur `URL`. On utilise donc
+    // `window.location.origin` pour obtenir un chemin absolu et garantir que la
+    // résolution fonctionne quel que soit le sous-répertoire de déploiement.
+    return new URL(
+      url,
+      window.location.origin + import.meta.env.BASE_URL + 'lessons/'
+    ).href;
   }
   
   updateCourseUI() {
