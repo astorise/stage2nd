@@ -671,33 +671,31 @@ body {
 }
 
 /* Test Runner */
-.test-runner {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  background: var(--bg-primary);
-  color: var(--text-primary);
-}
-
-.test-results {
+.test-result-list {
   list-style: none;
   padding: 10px;
-  margin: 0;
-  overflow-y: auto;
-  flex: 1;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 14px;
 }
 
-.test-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.test-result {
   margin-bottom: 4px;
 }
 
-.test-item.pass .result-icon {
+.test-result.pass {
   color: var(--color-success);
 }
 
-.test-item.fail .result-icon {
+.test-result.fail {
   color: var(--color-danger);
 }
+
+.test-result.pass::before {
+  content: '✅ ';
+}
+
+.test-result.fail::before {
+  content: '❌ ';
+}
+
+
