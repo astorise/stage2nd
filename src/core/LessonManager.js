@@ -103,7 +103,7 @@ export class LessonManager {
           <div class="exercise-info">
             <h4>${exercise.title}</h4>
             <p>${exercise.description}</p>
-            <span class="exercise-meta">${exercise.difficulty} • ${exercise.type}</span>
+            <span class="exercise-meta">${exercise.difficulty} • ${exercise.language}</span>
           </div>
         `;
         
@@ -188,11 +188,11 @@ async loadCourse(course) {
       this.displayExercise();
       
       // Activer le bon module
-      const moduleType = exercise.type === 'web' ? 'web' : 'javascript';
+      const moduleType = exercise.language === 'web' ? 'web' : 'javascript';
       await this.app.modules.activateModule(moduleType);
       
       // Si c'est un exercice web, charger aussi le HTML
-      if (exercise.type === 'web' && exercise.htmlFile) {
+      if (exercise.language === 'web' && exercise.htmlFile) {
         const webModule = this.app.modules.getActiveModule();
         if (webModule && webModule.id === 'web') {
           webModule.files.set('index.html', { 

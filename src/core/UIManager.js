@@ -21,7 +21,6 @@ export class UIManager {
       lessonsList: document.getElementById('lessons-list'),
       lessonInfo: document.getElementById('lesson-info'),
       courseSelector: document.getElementById('course-selector'),
-      moduleSelector: document.getElementById('module-selector'),
       runButton: document.getElementById('btn-run'),
       resetButton: document.getElementById('btn-reset'),
       progressFill: document.getElementById('progress-fill')
@@ -50,8 +49,6 @@ this.setupOutputTabs();
       // Configurer les événements
       this.setupEventListeners();
       
-      // Initialiser le sélecteur de modules
-      this.initModuleSelector();
       
     } catch (error) {
       console.error('Failed to initialize UI components:', error);
@@ -75,7 +72,6 @@ this.setupOutputTabs();
         </div>
         <nav class="header-nav">
           <div id="course-selector" class="course-selector"></div>
-          <div class="module-selector" id="module-selector"></div>
           <button class="btn-icon" id="btn-settings" title="Paramètres">⚙️</button>
         </nav>
       </header>
@@ -222,39 +218,6 @@ this.setupOutputTabs();
     }
   }
   
-  initModuleSelector() {
-    // Créer le sélecteur de modules
-    const selector = document.createElement('select');
-    selector.className = 'module-select';
-    
-    // Écouter les modules chargés
-    this.app.modules.on('modules:loaded', (modules) => {
-      selector.innerHTML = modules.map(module => `
-        <option value="${module.id}">
-          ${module.icon} ${module.name}
-        </option>
-      `).join('');
-      
-      // Sélectionner le module actif
-      if (this.app.currentModule) {
-        selector.value = this.app.currentModule.id;
-      }
-    });
-    
-    // Gérer le changement de module
-    selector.addEventListener('change', (e) => {
-      this.app.modules.activateModule(e.target.value);
-    });
-    
-    this.elements.moduleSelector.appendChild(selector);
-  }
-  
-  setActiveModule(moduleId) {
-    const selector = this.elements.moduleSelector.querySelector('select');
-    if (selector) {
-      selector.value = moduleId;
-    }
-  }
   
   showLesson(lesson) {
     if (!lesson) {
