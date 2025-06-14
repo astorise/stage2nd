@@ -29,7 +29,7 @@
           "mainFile": "script.js",
           "htmlFile": "index.html",
           "testFile": "test.js",
-          "type": "web"
+          "language": "web"
         },
         {
           "id": "02-restaurant-page",
@@ -39,7 +39,7 @@
           "files": ["README.md", "index.html", "solution.html", "bonus.html", "hints.md"],
           "mainFile": "script.js",
           "htmlFile": "index.html",
-          "type": "web"
+          "language": "web"
         },
         {
           "id": "03-blog-article",
@@ -49,7 +49,7 @@
           "files": ["README.md", "index.html", "solution.html", "hints.md"],
           "mainFile": "script.js",
           "htmlFile": "index.html",
-          "type": "web"
+          "language": "web"
         },
         {
           "id": "04-text-correction",
@@ -59,7 +59,7 @@
           "files": ["README.md", "index.html", "solution.html", "hints.md", "erreurs.md"],
           "mainFile": "script.js",
           "htmlFile": "index.html",
-          "type": "web"
+          "language": "web"
         }
       ]
     },
@@ -79,7 +79,7 @@
           "files": ["README.md", "index.html", "solution.html", "hints.md"],
           "mainFile": "script.js",
           "htmlFile": "index.html",
-          "type": "web"
+          "language": "web"
         },
         {
           "id": "02-travel-guide",
@@ -89,7 +89,7 @@
           "files": ["README.md", "index.html", "solution.html", "hints.md"],
           "mainFile": "script.js",
           "htmlFile": "index.html",
-          "type": "web"
+          "language": "web"
         },
         {
           "id": "03-restaurant-menu",
@@ -99,7 +99,7 @@
           "files": ["README.md", "index.html", "solution.html", "bonus.html", "hints.md"],
           "mainFile": "script.js",
           "htmlFile": "index.html",
-          "type": "web"
+          "language": "web"
         }
       ]
     },
@@ -119,7 +119,7 @@
           "files": ["README.md", "index.html", "solution.html", "advanced.html", "hints.md"],
           "mainFile": "script.js",
           "htmlFile": "index.html",
-          "type": "web"
+          "language": "web"
         },
         {
           "id": "02-color-palette",
@@ -130,7 +130,7 @@
           "mainFile": "script.js",
           "htmlFile": "index.html",
           "testFile": "test.js",
-          "type": "web"
+          "language": "web"
         },
         {
           "id": "03-typography-poster",
@@ -140,7 +140,7 @@
           "files": ["README.md", "index.html", "collection.html", "hints.md"],
           "mainFile": "script.js",
           "htmlFile": "index.html",
-          "type": "web"
+          "language": "web"
         }
       ]
     },
@@ -160,7 +160,7 @@
           "files": ["README.md", "index.html", "hints.md"],
           "mainFile": "script.js",
           "htmlFile": "index.html",
-          "type": "web"
+          "language": "web"
         },
         {
           "id": "02-photo-gallery",
@@ -170,7 +170,7 @@
           "files": ["README.md", "index.html", "solution.html", "hints.md"],
           "mainFile": "script.js",
           "htmlFile": "index.html",
-          "type": "web"
+          "language": "web"
         }
       ]
     },
@@ -190,7 +190,7 @@
           "files": ["README.md", "index.html", "solution.html", "hints.md"],
           "mainFile": "script.js",
           "htmlFile": "index.html",
-          "type": "web"
+          "language": "web"
         }
       ]
     }
