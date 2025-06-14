@@ -7,7 +7,8 @@ export default defineConfig({
   plugins: [
     monacoEditorPlugin({})
   ],
-  base: process.env.NODE_ENV === 'production' ? '/codeplay-core/' : '/',
+  // Use a relative base path in production that matches the repository name
+  base: process.env.NODE_ENV === 'production' ? '/stage2nd/' : '/',
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),

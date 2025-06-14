@@ -46,7 +46,7 @@ export class CodePlayApp extends EventEmitter {
 
   async loadConfig() {
     try {
-      const response = await fetch("/config.json");
+      const response = await fetch("config.json");
       this.config = await response.json();
     } catch (error) {
       // Configuration par défaut
@@ -56,7 +56,7 @@ export class CodePlayApp extends EventEmitter {
           github: false,
           collaboration: false,
         },
-        lessonsUrl: "/lessons/manifest.json",
+        lessonsUrl: "lessons/manifest.json",
       };
     }
   }
