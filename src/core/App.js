@@ -18,11 +18,11 @@ export class CodePlayApp extends EventEmitter {
   
   async init() {
     try {
-      // Initialiser l'interface
-      await this.ui.init();
-      
       // Charger la configuration
       await this.loadConfig();
+
+      // Initialiser l'interface
+      await this.ui.init();
       
       // Charger les modules disponibles
       await this.modules.loadAvailableModules();

@@ -2,6 +2,7 @@ import { Editor } from "@components/Editor/Editor";
 import { Console } from "@components/Console/Console";
 import { NetworkMonitor } from "@components/NetworkMonitor/NetworkMonitor";
 import { TestRunner } from "@components/TestRunner/TestRunner";
+import { ChatWidget } from "@components/ChatWidget/ChatWidget";
 
 export class UIManager {
   constructor(app) {
@@ -27,6 +28,7 @@ export class UIManager {
       resetButton: document.getElementById("btn-reset"),
       progressFill: document.getElementById("progress-fill"),
       testRunner: document.getElementById("test-runner"),
+      chatWidget: document.getElementById("chat-widget"),
     };
 
     // Vérifier que les éléments critiques existent
@@ -50,6 +52,10 @@ export class UIManager {
 
       // Initialiser le Test Runner
       this.testRunner = new TestRunner(document.getElementById("test-runner"));
+
+      if (this.app.config?.features?.collaboration) {
+        this.chatWidget = new ChatWidget(this.elements.chatWidget);
+      }
 
       // Gérer les onglets
       this.setupOutputTabs();
@@ -130,11 +136,12 @@ export class UIManager {
     <div class="output-panel" id="network-panel">
       <div id="network-monitor"></div>
     </div>
-    <div class="output-panel" id="tests-panel">
+  <div class="output-panel" id="tests-panel">
       <div id="test-runner"></div>
     </div>
   </div>
 </div>
+          <div id="chat-widget"></div>
         </section>
       </main>
     `;

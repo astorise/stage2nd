@@ -5,6 +5,7 @@
   "features": {
     "github": false,
     "collaboration": false,
+    "chat": false,
     "analytics": false
   },
   "lessonsUrl": "/lessons/manifest.json",
