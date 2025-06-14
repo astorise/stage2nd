@@ -5,3 +5,4 @@ function testTimerApp() {
     { name: "Interface utilisateur", pass: document.getElementById('display') !== null }
   ];
 }
+return testTimerApp();

@@ -5,3 +5,4 @@ function testArrowFunctions() {
     { name: "majuscules fonctionne", pass: majuscules("test") === "TEST" }
   ];
 }
+return testArrowFunctions();

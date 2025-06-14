@@ -6,3 +6,4 @@ function testVariables() {
     { name: "Variable ville est un string", pass: typeof ville === 'string' }
   ];
 }
+return testVariables();

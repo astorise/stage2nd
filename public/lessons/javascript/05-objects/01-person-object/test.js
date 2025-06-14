@@ -5,3 +5,4 @@ function testPersonObject() {
     { name: "Méthode calculerMoyenne existe", pass: typeof etudiant.calculerMoyenne === 'function' }
   ];
 }
+return testPersonObject();

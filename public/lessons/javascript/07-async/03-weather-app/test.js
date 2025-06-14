@@ -5,3 +5,4 @@ function testWeatherApp() {
     { name: "Interface météo présente", pass: document.getElementById('weatherResult') !== null }
   ];
 }
+return testWeatherApp();
