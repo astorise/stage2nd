@@ -295,11 +295,14 @@ ${exercise.difficulty}
       const fnMatch = testCode.match(/function\s+(test\w+)\s*\(/);
       if (fnMatch) {
         const fnName = fnMatch[1];
-        testCode += `\nreturn ${fnName}(code, output, results);`;
+        testCode += `\nreturn ${fnName}(output, results);`;
       }
 
-      // Créer une fonction de test
-      const testFunction = new Function('code', 'output', 'results', testCode);
+      // Combiner le code de l'utilisateur et les tests
+      const combined = `${code}\n${testCode}`;
+
+      // Créer une fonction de test exécutant d'abord le code puis les tests
+      const testFunction = new Function('output', 'results', combined);
 
       // Formatter la sortie
       const output = (executionResult.logs || [])
@@ -308,7 +311,7 @@ ${exercise.difficulty}
         .join('\n');
 
       // Exécuter les tests
-      const result = testFunction(code, output, executionResult);
+      const result = testFunction(output, executionResult);
 
       let tests, success;
       if (Array.isArray(result)) {
