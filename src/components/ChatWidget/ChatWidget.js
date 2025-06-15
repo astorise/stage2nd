@@ -95,8 +95,10 @@ export class ChatWidget {
     const peers = Array.from(this.connectedPeers);
     if (peers.length === 0) {
       this.statusEl.textContent = 'Aucun autre utilisateur en ligne';
-    } else {
+    } else if (peers.length <= 3) {
       this.statusEl.textContent = `Connectés: ${peers.join(', ')}`;
+    } else {
+      this.statusEl.textContent = `${peers.length} utilisateurs en ligne`;
     }
   }
 
