@@ -54,7 +54,10 @@ export class UIManager {
       this.testRunner = new TestRunner(document.getElementById("test-runner"));
 
       if (this.app.config?.features?.collaboration) {
-        this.chatWidget = new ChatWidget(this.elements.chatWidget);
+        this.chatWidget = new ChatWidget(
+          this.elements.chatWidget,
+          this.app.config.peerServer,
+        );
       }
 
       // Gérer les onglets

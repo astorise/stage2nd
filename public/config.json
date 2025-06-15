@@ -10,5 +10,10 @@
   },
   "lessonsUrl": "/lessons/manifest.json",
   "theme": "dark",
-  "locale": "fr"
+  "locale": "fr",
+  "peerServer": {
+    "host": "0.peerjs.com",
+    "port": 443,
+    "secure": true
+  }
 }

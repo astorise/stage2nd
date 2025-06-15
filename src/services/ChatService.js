@@ -2,11 +2,11 @@ import Peer from 'peerjs';
 import { EventEmitter } from 'eventemitter3';
 
 export class ChatService extends EventEmitter {
-  constructor() {
+  constructor(options = { host: '0.peerjs.com', secure: true, port: 443 }) {
     super();
     this.peer = null;
     this.conns = new Map();
-    this.options = { host: '0.peerjs.com', secure: true, port: 443 };
+    this.options = options;
   }
 
   register(username) {
