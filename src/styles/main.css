@@ -714,6 +714,13 @@ body {
   flex-direction: column;
 }
 
+.chat-status {
+  padding: 4px 8px;
+  font-size: 12px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-tertiary);
+}
+
 .chat-messages {
   flex: 1;
   overflow-y: auto;
