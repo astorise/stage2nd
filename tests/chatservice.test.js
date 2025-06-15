@@ -134,6 +134,12 @@ describe('ChatService', () => {
     expect(peers).toEqual(['a', 'b']);
   });
 
+  it('listPeers returns empty array on 404', async () => {
+    global.fetch.mockResolvedValueOnce({ ok: false, status: 404 });
+    service.options = { host: 'host', secure: false, port: 80 };
+    await expect(service.listPeers()).resolves.toEqual([]);
+  });
+
   it('auto connects to peers on open', async () => {
     const connectSpy = vi.spyOn(service, 'connect');
     service.register('me');
