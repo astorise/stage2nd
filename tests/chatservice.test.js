@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { EventEmitter } from 'events';
 import { ChatService } from '@/services/ChatService';
 
@@ -24,13 +24,20 @@ class MockPeer extends EventEmitter {
   destroy() {}
 }
 
-vi.mock('peerjs', () => ({ default: vi.fn((id) => new MockPeer(id)) }));
+vi.mock('peerjs', () => ({ default: vi.fn(id => new MockPeer(id)) }));
 
 describe('ChatService', () => {
   let service;
 
   beforeEach(() => {
     service = new ChatService();
+    global.fetch = vi.fn(() =>
+      Promise.resolve({ ok: true, json: () => Promise.resolve([]) })
+    );
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
   it('register creates Peer with username', () => {
@@ -73,5 +80,34 @@ describe('ChatService', () => {
     service.onLeave(handler);
     service.leave();
     expect(handler).toHaveBeenCalled();
+  });
+
+  it('listPeers fetches from server', async () => {
+    global.fetch.mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve(['a', 'b'])
+    });
+    service.options = { host: 'host', secure: false, port: 80 };
+    const peers = await service.listPeers();
+    expect(fetch).toHaveBeenCalledWith('http://host:80/peers');
+    expect(peers).toEqual(['a', 'b']);
+  });
+
+  it('auto connects to peers on open', async () => {
+    const connectSpy = vi.spyOn(service, 'connect');
+    service.register('me');
+    vi.spyOn(service, 'listPeers').mockResolvedValue(['me', 'other1']);
+    service.peer.emit('open', 'me');
+    await new Promise(resolve => setImmediate(resolve));
+    expect(connectSpy).toHaveBeenCalledWith('other1');
+  });
+
+  it('emits connected with peer id', () => {
+    service.register('x');
+    const conn = service.connect('y');
+    const handler = vi.fn();
+    service.on('connected', handler);
+    conn.emit('open');
+    expect(handler).toHaveBeenCalledWith('y');
   });
 });

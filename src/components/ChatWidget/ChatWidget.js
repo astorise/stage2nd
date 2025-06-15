@@ -6,6 +6,8 @@ export class ChatWidget {
     this.service = new ChatService(options);
     this.messagesEl = null;
     this.inputEl = null;
+    this.statusEl = null;
+    this.connectedPeers = new Set();
     this.id = this.generateId();
     this.render();
     this.register(this.id);
@@ -20,6 +22,7 @@ export class ChatWidget {
   render() {
     this.container.innerHTML = `
       <div class="chat-widget">
+        <div class="chat-status"></div>
         <div class="chat-messages"></div>
         <div class="chat-input">
           <input type="text" class="chat-text" placeholder="Message..." />
@@ -28,6 +31,7 @@ export class ChatWidget {
       </div>
     `;
     this.messagesEl = this.container.querySelector('.chat-messages');
+    this.statusEl = this.container.querySelector('.chat-status');
     this.inputEl = this.container.querySelector('.chat-text');
     this.container
       .querySelector('.chat-send')
@@ -44,6 +48,15 @@ export class ChatWidget {
     this.service.on('open', () => {
       this.service.sendMessage(`${username} a rejoint le chat`);
       this.addSystemMessage(`Connecté en tant que ${username}`);
+      this.updateStatus();
+    });
+    this.service.on('connected', id => {
+      this.connectedPeers.add(id);
+      this.updateStatus();
+    });
+    this.service.on('disconnected', id => {
+      this.connectedPeers.delete(id);
+      this.updateStatus();
     });
   }
 
@@ -73,6 +86,16 @@ export class ChatWidget {
     div.textContent = msg;
     this.messagesEl.appendChild(div);
     this.messagesEl.scrollTop = this.messagesEl.scrollHeight;
+  }
+
+  updateStatus() {
+    if (!this.statusEl) return;
+    const peers = Array.from(this.connectedPeers);
+    if (peers.length === 0) {
+      this.statusEl.textContent = 'Aucun autre utilisateur en ligne';
+    } else {
+      this.statusEl.textContent = `Connectés: ${peers.join(', ')}`;
+    }
   }
 
   onMessage(cb) {
