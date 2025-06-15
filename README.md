@@ -47,4 +47,7 @@ allowing connected peers to exchange short messages.
 The chat widget connects to the public PeerServer at `0.peerjs.com` by default.
 You can override the `host`, `port` and `path` via the `peerServer` section of
 `public/config.json`, or point these settings at your own PeerServer instance if
-you prefer to run one privately.
+you prefer to run one privately. The `peerServer` section also accepts an
+optional `rtcConfig` object which is passed directly to
+`RTCPeerConnection` when establishing WebRTC connections (e.g. to specify custom
+`iceServers`).

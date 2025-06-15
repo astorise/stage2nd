@@ -157,4 +157,11 @@ describe('ChatService', () => {
     conn.emit('open');
     expect(handler).toHaveBeenCalledWith('y');
   });
+
+  it('creates RTCPeerConnection with config', () => {
+    service.register('p');
+    const conn = service.connect('z');
+    conn.emit('open');
+    expect(global.RTCPeerConnection).toHaveBeenCalledWith(expect.any(Object));
+  });
 });
