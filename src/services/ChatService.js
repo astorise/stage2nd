@@ -1,166 +1,106 @@
-import Peer from 'peerjs';
+import Peer from 'simple-peer';
 import { EventEmitter } from 'eventemitter3';
 
 export class ChatService extends EventEmitter {
-  constructor(options = { host: '0.peerjs.com', secure: true, port: 443, rtcConfig: null }) {
+  constructor(options = { registerUrl: '', rtcConfig: null }) {
     super();
-    this.peer = null;
     this.options = options;
-    this.signalConns = new Map();
-    this.rtcPeers = new Map();
-    this.channels = new Map();
+    this.id = null;
+    this.peers = new Map();
   }
 
   async listPeers() {
-    const protocol = this.options.secure ? 'https' : 'http';
-    const port = this.options.port ? `:${this.options.port}` : '';
-    const basePath = this.options.path || '/';
-    const url = `${protocol}://${this.options.host}${port}${basePath.replace(/\/$/, '')}/peers`;
-    const res = await fetch(url);
-    if (res.status === 404) {
-      return [];
-    }
-    if (!res.ok) {
-      throw new Error(`Failed to fetch peers: ${res.status}`);
-    }
+    if (!this.options.registerUrl) return [];
+    const base = this.options.registerUrl.replace(/\/$/, '');
+    const res = await fetch(`${base}/peers`);
+    if (res.status === 404) return [];
+    if (!res.ok) throw new Error(`Failed to fetch peers: ${res.status}`);
     return res.json();
   }
 
-  register(username) {
-    if (this.peer) this.peer.destroy?.();
-    this.signalConns.clear();
-    this._closeAllRtc();
-    this.peer = new Peer(username, this.options);
-    this.peer.on('connection', conn => this._setupSignalConnection(conn, false));
-    this.peer.on('open', async id => {
-      this.emit('open', id);
+  async register(username) {
+    this.leave();
+    this.id = username;
+    if (this.options.registerUrl) {
+      const base = this.options.registerUrl.replace(/\/$/, '');
       try {
-        const peers = await this.listPeers();
-        peers
-          .filter(p => p !== id)
-          .forEach(p => {
-            try {
-              this.connect(p);
-            } catch {}
-          });
-      } catch (err) {
-        // eslint-disable-next-line no-console
-        console.error('Failed to auto-connect peers', err);
-      }
-    });
-    this.peer.on('close', () => this.emit('close'));
-    return this.peer;
+        await fetch(`${base}/register`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: username })
+        });
+      } catch {}
+    }
+    this.emit('open', username);
+    try {
+      const peers = await this.listPeers();
+      peers.filter(p => p !== username).forEach(p => {
+        try { this.connect(p); } catch {}
+      });
+    } catch (err) {
+      console.error('Failed to auto-connect peers', err);
+    }
   }
 
   connect(peerId) {
-    if (!this.peer) {
-      this.peer = new Peer(this.options);
-      this.peer.on('connection', c => this._setupSignalConnection(c, false));
-      this.peer.on('open', id => this.emit('open', id));
-      this.peer.on('close', () => this.emit('close'));
-    }
-    if (this.signalConns.has(peerId)) return this.signalConns.get(peerId);
-    const conn = this.peer.connect(peerId);
-    this._setupSignalConnection(conn, true);
-    return conn;
-  }
-
-  _setupSignalConnection(conn, initiator) {
-    if (!conn) return;
-    this.signalConns.set(conn.peer, conn);
-    conn.on('data', data => this._handleSignal(conn.peer, data));
-    conn.on('open', async () => {
-      this.emit('connected', conn.peer);
-      if (initiator) {
-        const pc = this._createPeerConnection(conn.peer);
-        const channel = pc.createDataChannel('chat');
-        this._setupDataChannel(conn.peer, channel);
-        const offer = await pc.createOffer();
-        await pc.setLocalDescription(offer);
-        conn.send({ type: 'offer', sdp: pc.localDescription });
+    if (this.peers.has(peerId)) return this.peers.get(peerId);
+    const peer = new Peer({
+      initiator: true,
+      trickle: true,
+      config: this.options.rtcConfig || {
+        iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
       }
     });
-    conn.on('close', () => {
-      this.signalConns.delete(conn.peer);
-      this._closePeer(conn.peer);
-      this.emit('disconnected', conn.peer);
+    this._setupPeer(peerId, peer);
+    return peer;
+  }
+
+  _setupPeer(peerId, peer) {
+    this.peers.set(peerId, peer);
+    peer.on('signal', data => this._sendSignal(peerId, data));
+    peer.on('connect', () => {
+      peer.connected = true;
+      this.emit('connected', peerId);
+    });
+    peer.on('data', d => this.emit('message', d.toString()));
+    peer.on('close', () => {
+      peer.connected = false;
+      this.peers.delete(peerId);
+      this.emit('disconnected', peerId);
     });
   }
 
-  _createPeerConnection(peerId) {
-    if (this.rtcPeers.has(peerId)) return this.rtcPeers.get(peerId);
-    const config = this.options.rtcConfig || {
-      iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
-    };
-    const pc = new RTCPeerConnection(config);
-    pc.onicecandidate = e => {
-      if (e.candidate) {
-        const conn = this.signalConns.get(peerId);
-        conn?.open && conn.send({ type: 'candidate', candidate: e.candidate });
-      }
-    };
-    pc.oniceconnectionstatechange = () => {
-      // eslint-disable-next-line no-console
-      console.debug(
-        `ICE ${peerId} ${pc.iceConnectionState}`
-      );
-    };
-    pc.ondatachannel = e => this._setupDataChannel(peerId, e.channel);
-    this.rtcPeers.set(peerId, pc);
-    return pc;
+  async _sendSignal(peerId, data) {
+    if (!this.options.registerUrl) return;
+    const base = this.options.registerUrl.replace(/\/$/, '');
+    try {
+      await fetch(`${base}/signal`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ from: this.id, to: peerId, signal: data })
+      });
+    } catch {}
   }
 
-  _setupDataChannel(peerId, channel) {
-    this.channels.set(peerId, channel);
-    channel.onmessage = e => this.emit('message', e.data);
-    channel.onclose = () => {
-      this.channels.delete(peerId);
-    };
-  }
-
-  async _handleSignal(peerId, data) {
-    if (!data || typeof data !== 'object') return;
-    const pc = this._createPeerConnection(peerId);
-    if (data.type === 'offer') {
-      await pc.setRemoteDescription(data.sdp);
-      const answer = await pc.createAnswer();
-      await pc.setLocalDescription(answer);
-      const conn = this.signalConns.get(peerId);
-      conn?.open && conn.send({ type: 'answer', sdp: pc.localDescription });
-    } else if (data.type === 'answer') {
-      await pc.setRemoteDescription(data.sdp);
-    } else if (data.type === 'candidate') {
-      try {
-        await pc.addIceCandidate(data.candidate);
-      } catch {}
-    } else if (data.type === 'leave') {
-      this._closePeer(peerId);
+  async handleSignal(from, data) {
+    let peer = this.peers.get(from);
+    if (!peer) {
+      peer = new Peer({
+        initiator: false,
+        trickle: true,
+        config: this.options.rtcConfig || {
+          iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
+        }
+      });
+      this._setupPeer(from, peer);
     }
-  }
-
-  _closePeer(peerId) {
-    const pc = this.rtcPeers.get(peerId);
-    if (pc) {
-      pc.close();
-      this.rtcPeers.delete(peerId);
-    }
-    const channel = this.channels.get(peerId);
-    if (channel) {
-      channel.close();
-      this.channels.delete(peerId);
-    }
-  }
-
-  _closeAllRtc() {
-    for (const id of Array.from(this.rtcPeers.keys())) {
-      this._closePeer(id);
-    }
+    peer.signal(data);
   }
 
   sendMessage(msg) {
-    for (const channel of this.channels.values()) {
-      if (channel.readyState === 'open') {
-        channel.send(msg);
+    for (const peer of this.peers.values()) {
+      if (peer.connected) {
+        peer.send(msg);
       }
     }
   }
@@ -170,9 +110,10 @@ export class ChatService extends EventEmitter {
   }
 
   leave() {
-    for (const conn of this.signalConns.values()) {
-      conn.send({ type: 'leave' });
+    for (const peer of this.peers.values()) {
+      peer.destroy?.();
     }
+    this.peers.clear();
     this.emit('leave');
   }
 

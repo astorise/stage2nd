@@ -17,7 +17,7 @@
     "eventemitter3": "^5.0.1",
     "localforage": "^1.10.0",
     "monaco-editor": "^0.44.0",
-    "peerjs": "^1.5.2",
+    "simple-peer": "^9.11.1",
     "vite-plugin-monaco-editor": "^1.1.0"
   },
   "devDependencies": {

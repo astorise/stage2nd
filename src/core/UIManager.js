@@ -56,7 +56,7 @@ export class UIManager {
       if (this.app.config?.features?.collaboration) {
         this.chatWidget = new ChatWidget(
           this.elements.chatWidget,
-          this.app.config.peerServer,
+          this.app.config.registerServer,
         );
       }
 
