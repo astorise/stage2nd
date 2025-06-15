@@ -5,12 +5,13 @@ export class ChatService extends EventEmitter {
   constructor() {
     super();
     this.peer = null;
-    this.conn = null;
+    this.conns = new Map();
     this.options = { host: '0.peerjs.com', secure: true, port: 443 };
   }
 
   register(username) {
     if (this.peer) this.peer.destroy?.();
+    this.conns.clear();
     this.peer = new Peer(username, this.options);
     this.peer.on('connection', conn => this._setupConnection(conn));
     this.peer.on('open', id => this.emit('open', id));
@@ -25,22 +26,28 @@ export class ChatService extends EventEmitter {
       this.peer.on('open', id => this.emit('open', id));
       this.peer.on('close', () => this.emit('close'));
     }
+    if (this.conns.has(peerId)) return this.conns.get(peerId);
     const conn = this.peer.connect(peerId);
     this._setupConnection(conn);
     return conn;
   }
 
   _setupConnection(conn) {
-    this.conn = conn;
     if (!conn) return;
+    this.conns.set(conn.peer, conn);
     conn.on('data', data => this.emit('message', data));
     conn.on('open', () => this.emit('connected'));
-    conn.on('close', () => this.emit('disconnected'));
+    conn.on('close', () => {
+      this.conns.delete(conn.peer);
+      this.emit('disconnected');
+    });
   }
 
   sendMessage(msg) {
-    if (this.conn && this.conn.open) {
-      this.conn.send(msg);
+    for (const conn of this.conns.values()) {
+      if (conn && conn.open) {
+        conn.send(msg);
+      }
     }
   }
 

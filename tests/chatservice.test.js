@@ -3,9 +3,10 @@ import { EventEmitter } from 'events';
 import { ChatService } from '@/services/ChatService';
 
 class MockConn extends EventEmitter {
-  constructor() {
+  constructor(peer) {
     super();
     this.open = true;
+    this.peer = peer;
   }
   send = vi.fn();
 }
@@ -15,9 +16,10 @@ class MockPeer extends EventEmitter {
     super();
     this.id = id;
   }
-  connect() {
-    this.conn = new MockConn();
-    return this.conn;
+  connect(peerId) {
+    const conn = new MockConn(peerId);
+    this.conn = conn;
+    return conn;
   }
   destroy() {}
 }
@@ -45,5 +47,24 @@ describe('ChatService', () => {
     expect(handler).toHaveBeenCalledWith('hi');
     service.sendMessage('hello');
     expect(conn.send).toHaveBeenCalledWith('hello');
+  });
+
+  it('broadcasts to multiple peers and removes closed connections', () => {
+    service.register('carol');
+    const c1 = service.connect('peer1');
+    const c2 = service.connect('peer2');
+    const handler = vi.fn();
+    service.onMessage(handler);
+    c1.emit('data', 'msg1');
+    c2.emit('data', 'msg2');
+    expect(handler).toHaveBeenCalledWith('msg1');
+    expect(handler).toHaveBeenCalledWith('msg2');
+    service.sendMessage('hi all');
+    expect(c1.send).toHaveBeenCalledWith('hi all');
+    expect(c2.send).toHaveBeenCalledWith('hi all');
+    c1.emit('close');
+    service.sendMessage('bye');
+    expect(c1.send).toHaveBeenCalledTimes(1);
+    expect(c2.send).toHaveBeenCalledTimes(2);
   });
 });
