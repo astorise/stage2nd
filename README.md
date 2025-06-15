@@ -43,3 +43,8 @@ The app ships with a small chat widget powered by [PeerJS](https://peerjs.com/).
 To enable it, set `"collaboration": true` in `public/config.json` (or `"chat"` if
 present). After rebuilding, a chat panel will appear at the bottom of the UI
 allowing connected peers to exchange short messages.
+
+The chat widget connects to the public PeerServer at `0.peerjs.com` by default.
+You can override the `host`, `port` and `path` via the `peerServer` section of
+`public/config.json`, or point these settings at your own PeerServer instance if
+you prefer to run one privately.

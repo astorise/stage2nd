@@ -17,6 +17,9 @@ export class ChatService extends EventEmitter {
     const basePath = this.options.path || '/';
     const url = `${protocol}://${this.options.host}${port}${basePath.replace(/\/$/, '')}/peers`;
     const res = await fetch(url);
+    if (res.status === 404) {
+      return [];
+    }
     if (!res.ok) {
       throw new Error(`Failed to fetch peers: ${res.status}`);
     }
