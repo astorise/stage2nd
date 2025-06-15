@@ -67,4 +67,11 @@ describe('ChatService', () => {
     expect(c1.send).toHaveBeenCalledTimes(1);
     expect(c2.send).toHaveBeenCalledTimes(2);
   });
+
+  it('emits leave event', () => {
+    const handler = vi.fn();
+    service.onLeave(handler);
+    service.leave();
+    expect(handler).toHaveBeenCalled();
+  });
 });
