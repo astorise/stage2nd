@@ -11,12 +11,14 @@ export class ChatWidget {
     this.id = this.generateId();
     this.render();
     this.register(this.id);
-    window.addEventListener('beforeunload', async () => {
-      this.service.leave();
-      this.service.sendMessage(`${this.id} a quitté le chat`);
-      await new Promise(r => setTimeout(r, 50));
-      this.service.peer?.destroy?.();
-    });
+    window.addEventListener('beforeunload', () => this.handleUnload());
+  }
+
+  async handleUnload() {
+    this.service.leave();
+    this.service.sendMessage(`${this.id} a quitté le chat`);
+    await new Promise(r => setTimeout(r, 50));
+    this.service.peer?.destroy?.();
   }
 
   render() {
