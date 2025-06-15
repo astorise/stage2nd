@@ -2,7 +2,7 @@ import Peer from 'peerjs';
 import { EventEmitter } from 'eventemitter3';
 
 export class ChatService extends EventEmitter {
-  constructor(options = { host: '0.peerjs.com', secure: true, port: 443 }) {
+  constructor(options = { host: '0.peerjs.com', secure: true, port: 443, rtcConfig: null }) {
     super();
     this.peer = null;
     this.options = options;
@@ -89,12 +89,21 @@ export class ChatService extends EventEmitter {
 
   _createPeerConnection(peerId) {
     if (this.rtcPeers.has(peerId)) return this.rtcPeers.get(peerId);
-    const pc = new RTCPeerConnection();
+    const config = this.options.rtcConfig || {
+      iceServers: [{ urls: 'stun:stun.l.google.com:19302' }]
+    };
+    const pc = new RTCPeerConnection(config);
     pc.onicecandidate = e => {
       if (e.candidate) {
         const conn = this.signalConns.get(peerId);
         conn?.open && conn.send({ type: 'candidate', candidate: e.candidate });
       }
+    };
+    pc.oniceconnectionstatechange = () => {
+      // eslint-disable-next-line no-console
+      console.debug(
+        `ICE ${peerId} ${pc.iceConnectionState}`
+      );
     };
     pc.ondatachannel = e => this._setupDataChannel(peerId, e.channel);
     this.rtcPeers.set(peerId, pc);

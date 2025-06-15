@@ -48,7 +48,7 @@ export class CodePlayApp extends EventEmitter {
     try {
       const response = await fetch("config.json");
       this.config = await response.json();
-      const defaults = { host: '0.peerjs.com', port: 443, secure: true };
+      const defaults = { host: '0.peerjs.com', port: 443, secure: true, rtcConfig: null };
       const { peerServer = {} } = this.config;
       this.config.peerServer = {
         ...defaults,
@@ -63,7 +63,7 @@ export class CodePlayApp extends EventEmitter {
           collaboration: false,
         },
         lessonsUrl: "lessons/manifest.json",
-        peerServer: { host: '0.peerjs.com', port: 443, secure: true },
+        peerServer: { host: '0.peerjs.com', port: 443, secure: true, rtcConfig: null },
       };
     }
   }
