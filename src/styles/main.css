@@ -742,4 +742,9 @@ body {
   cursor: pointer;
 }
 
+.chat-message.system {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
 

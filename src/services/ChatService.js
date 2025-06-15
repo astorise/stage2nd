@@ -13,6 +13,8 @@ export class ChatService extends EventEmitter {
     if (this.peer) this.peer.destroy?.();
     this.peer = new Peer(username, this.options);
     this.peer.on('connection', conn => this._setupConnection(conn));
+    this.peer.on('open', id => this.emit('open', id));
+    this.peer.on('close', () => this.emit('close'));
     return this.peer;
   }
 
@@ -20,6 +22,8 @@ export class ChatService extends EventEmitter {
     if (!this.peer) {
       this.peer = new Peer(this.options);
       this.peer.on('connection', conn => this._setupConnection(conn));
+      this.peer.on('open', id => this.emit('open', id));
+      this.peer.on('close', () => this.emit('close'));
     }
     const conn = this.peer.connect(peerId);
     this._setupConnection(conn);
@@ -30,6 +34,8 @@ export class ChatService extends EventEmitter {
     this.conn = conn;
     if (!conn) return;
     conn.on('data', data => this.emit('message', data));
+    conn.on('open', () => this.emit('connected'));
+    conn.on('close', () => this.emit('disconnected'));
   }
 
   sendMessage(msg) {
