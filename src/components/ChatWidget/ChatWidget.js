@@ -1,9 +1,9 @@
 import { ChatService } from '@services/ChatService';
 
 export class ChatWidget {
-  constructor(container) {
+  constructor(container, options) {
     this.container = container;
-    this.service = new ChatService();
+    this.service = new ChatService(options);
     this.messagesEl = null;
     this.inputEl = null;
     this.id = this.generateId();
