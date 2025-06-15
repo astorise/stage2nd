@@ -26,6 +26,41 @@ class MockPeer extends EventEmitter {
 
 vi.mock('peerjs', () => ({ default: vi.fn(id => new MockPeer(id)) }));
 
+class MockDataChannel {
+  constructor() {
+    this.readyState = 'open';
+    this.send = vi.fn();
+    this.onmessage = null;
+    this.onclose = null;
+  }
+  close() {
+    this.readyState = 'closed';
+    this.onclose && this.onclose();
+  }
+}
+
+class MockRTC extends EventEmitter {
+  constructor() {
+    super();
+    this.onicecandidate = null;
+    this.ondatachannel = null;
+  }
+  createDataChannel() {
+    this.channel = new MockDataChannel();
+    return this.channel;
+  }
+  async createOffer() { return { type: 'offer', sdp: 'offer' }; }
+  async createAnswer() { return { type: 'answer', sdp: 'answer' }; }
+  async setLocalDescription(desc) { this.local = desc; }
+  async setRemoteDescription(desc) { this.remote = desc; }
+  async addIceCandidate() {}
+  close() {}
+}
+
+beforeEach(() => {
+  global.RTCPeerConnection = vi.fn(() => new MockRTC());
+});
+
 describe('ChatService', () => {
   let service;
 
@@ -45,34 +80,40 @@ describe('ChatService', () => {
     expect(service.peer.id).toBe('alice');
   });
 
-  it('dispatches received messages', () => {
+  it('dispatches received messages', async () => {
     service.register('bob');
     const conn = service.connect('remote');
     const handler = vi.fn();
     service.onMessage(handler);
-    conn.emit('data', 'hi');
+    conn.emit('open');
+    await Promise.resolve();
+    const channel = service.channels.get('remote');
+    channel.onmessage({ data: 'hi' });
     expect(handler).toHaveBeenCalledWith('hi');
     service.sendMessage('hello');
-    expect(conn.send).toHaveBeenCalledWith('hello');
+    expect(channel.send).toHaveBeenCalledWith('hello');
   });
 
-  it('broadcasts to multiple peers and removes closed connections', () => {
+  it('broadcasts to multiple peers and removes closed connections', async () => {
     service.register('carol');
     const c1 = service.connect('peer1');
     const c2 = service.connect('peer2');
     const handler = vi.fn();
     service.onMessage(handler);
-    c1.emit('data', 'msg1');
-    c2.emit('data', 'msg2');
+    c1.emit('open');
+    c2.emit('open');
+    await Promise.resolve();
+    service.channels.get('peer1').onmessage({ data: 'msg1' });
+    service.channels.get('peer2').onmessage({ data: 'msg2' });
     expect(handler).toHaveBeenCalledWith('msg1');
     expect(handler).toHaveBeenCalledWith('msg2');
     service.sendMessage('hi all');
-    expect(c1.send).toHaveBeenCalledWith('hi all');
-    expect(c2.send).toHaveBeenCalledWith('hi all');
+    expect(service.channels.get('peer1').send).toHaveBeenCalledWith('hi all');
+    expect(service.channels.get('peer2').send).toHaveBeenCalledWith('hi all');
     c1.emit('close');
     service.sendMessage('bye');
-    expect(c1.send).toHaveBeenCalledTimes(1);
-    expect(c2.send).toHaveBeenCalledTimes(2);
+    expect(service.channels.get('peer1')).toBeUndefined();
+    expect(service.channels.get('peer2').send).toHaveBeenCalledTimes(2);
   });
 
   it('emits leave event', () => {
