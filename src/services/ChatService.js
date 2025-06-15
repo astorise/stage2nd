@@ -54,4 +54,12 @@ export class ChatService extends EventEmitter {
   onMessage(cb) {
     this.on('message', cb);
   }
+
+  leave() {
+    this.emit('leave');
+  }
+
+  onLeave(cb) {
+    this.on('leave', cb);
+  }
 }
