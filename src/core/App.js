@@ -48,9 +48,11 @@ export class CodePlayApp extends EventEmitter {
     try {
       const response = await fetch("config.json");
       this.config = await response.json();
-      if (!this.config.peerServer) {
-        this.config.peerServer = { host: '0.peerjs.com', port: 443, secure: true };
-      }
+      const defaults = { host: '0.peerjs.com', port: 443, secure: true };
+      this.config.peerServer = {
+        ...defaults,
+        ...(this.config.peerServer || {}),
+      };
     } catch (error) {
       // Configuration par défaut
       this.config = {
