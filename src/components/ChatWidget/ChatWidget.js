@@ -6,7 +6,12 @@ export class ChatWidget {
     this.service = new ChatService();
     this.messagesEl = null;
     this.inputEl = null;
+    this.id = this.generateId();
     this.render();
+    this.register(this.id);
+    window.addEventListener('beforeunload', () => {
+      this.service.sendMessage(`${this.id} a quitté le chat`);
+    });
   }
 
   render() {
@@ -26,9 +31,17 @@ export class ChatWidget {
       .addEventListener('click', () => this.handleSend());
   }
 
+  generateId() {
+    return `user-${Math.random().toString(36).slice(2, 8)}`;
+  }
+
   async register(username) {
     this.service.register(username);
     this.service.onMessage(msg => this.addMessage(msg));
+    this.service.on('open', () => {
+      this.service.sendMessage(`${username} a rejoint le chat`);
+      this.addSystemMessage(`Connecté en tant que ${username}`);
+    });
   }
 
   connect(peerId) {
@@ -46,6 +59,14 @@ export class ChatWidget {
   addMessage(msg) {
     const div = document.createElement('div');
     div.className = 'chat-message';
+    div.textContent = msg;
+    this.messagesEl.appendChild(div);
+    this.messagesEl.scrollTop = this.messagesEl.scrollHeight;
+  }
+
+  addSystemMessage(msg) {
+    const div = document.createElement('div');
+    div.className = 'chat-message system';
     div.textContent = msg;
     this.messagesEl.appendChild(div);
     this.messagesEl.scrollTop = this.messagesEl.scrollHeight;
