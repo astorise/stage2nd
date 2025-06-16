@@ -123,9 +123,12 @@ export class CourseManager {
       return url;
     }
 
+    
+
     // Sinon, la résoudre par rapport au chemin de base
     const base = new URL(import.meta.env.BASE_URL + 'lessons/', window.location.origin);
     return new URL(url, base).href;
+
   }
   
   updateCourseUI() {
