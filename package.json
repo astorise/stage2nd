@@ -16,7 +16,7 @@
     "@octokit/rest": "^22.0.0",
     "eventemitter3": "^5.0.1",
     "localforage": "^1.10.0",
-    "monaco-editor": "^0.44.0",
+    "monaco-editor": "^0.52.0",
     "simple-peer": "^9.11.1",
     "vite-plugin-monaco-editor": "^1.1.0"
   },
