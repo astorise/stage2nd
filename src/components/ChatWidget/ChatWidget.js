@@ -18,7 +18,6 @@ export class ChatWidget {
     this.service.leave();
     this.service.sendMessage(`${this.id} a quitté le chat`);
     await new Promise(r => setTimeout(r, 50));
-    this.service.peer?.destroy?.();
   }
 
   render() {

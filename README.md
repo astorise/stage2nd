@@ -39,15 +39,20 @@ This builds the project and publishes the `dist` folder using the `gh-pages` pac
 
 ## Collaboration Chat
 
-The app ships with a small chat widget powered by [PeerJS](https://peerjs.com/).
-To enable it, set `"collaboration": true` in `public/config.json` (or `"chat"` if
-present). After rebuilding, a chat panel will appear at the bottom of the UI
-allowing connected peers to exchange short messages.
+The app ships with a small chat widget powered by [simple-peer](https://github.com/feross/simple-peer).
+Enable it by setting `"collaboration": true` in `public/config.json` (or `"chat"` if present).
+Once enabled, a chat panel appears at the bottom of the UI allowing connected peers to exchange short messages.
 
-The chat widget connects to the public PeerServer at `0.peerjs.com` by default.
-You can override the `host`, `port` and `path` via the `peerServer` section of
-`public/config.json`, or point these settings at your own PeerServer instance if
-you prefer to run one privately. The `peerServer` section also accepts an
-optional `rtcConfig` object which is passed directly to
-`RTCPeerConnection` when establishing WebRTC connections (e.g. to specify custom
-`iceServers`).
+Peers discover each other and exchange WebRTC signals through a small Cloudflare Worker.
+Configure its endpoint using the `registerServer` section of `public/config.json`:
+
+```json
+{
+  "registerServer": {
+    "registerUrl": "https://your-worker.example.com",
+    "rtcConfig": { "iceServers": [{ "urls": "stun:stun.l.google.com:19302" }] }
+  }
+}
+```
+
+`rtcConfig` is passed directly to `simple-peer` when creating the `RTCPeerConnection` and can be used to specify custom ICE servers.
