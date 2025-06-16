@@ -8,6 +8,11 @@
 	"main": "src/index.js",
 	"workers_dev": true,
 	"compatibility_date": "2025-06-14",
+	  "routes": [
+    "*/register*",
+    "*/signal*",
+    "*/peers*"
+  ],
 	"observability": {
 		"enabled": true
 	}
