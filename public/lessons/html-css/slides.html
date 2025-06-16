@@ -1436,6 +1436,1394 @@
                     </div>
                 </section>
             </section>
+                <!-- ====== CHAPITRE 3: CSS FUNDAMENTALS ====== -->
+            <section>
+                <!-- Intro Chapitre 3 -->
+                <section data-background-gradient="linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%)">
+                    <h1>🎨 Chapitre 3</h1>
+                    <h2>CSS - Les Fondamentaux</h2>
+                    <p><em>Donner du style à vos pages</em></p>
+                    <div style="margin-top: 40px;">
+                        <h3>📚 Au programme :</h3>
+                        <ul>
+                            <li>🎯 Introduction et sélecteurs CSS</li>
+                            <li>🎨 Premiers styles</li>
+                            <li>🌈 Couleurs et formats</li>
+                            <li>📝 Typographie avancée</li>
+                            <li>✍️ Poster typographique</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Introduction CSS -->
+                <section>
+                    <h2>🎨 Qu'est-ce que le CSS ?</h2>
+                    <div class="concept-box">
+                        <p><strong>CSS</strong> = <strong>C</strong>ascading <strong>S</strong>tyle <strong>S</strong>heets</p>
+                        <p>Contrôle l'<span class="highlight">apparence</span> et la <span class="highlight">mise en forme</span> des pages HTML</p>
+                    </div>
+                    
+                    <div class="fragment">
+                        <h3>📝 Structure d'une règle CSS</h3>
+                        <div class="code-demo">
+                            <pre><code class="css">sélecteur {
+    propriété: valeur;
+    autre-propriété: autre-valeur;
+}
+
+/* Exemple concret */
+h1 {
+    color: blue;
+    font-size: 2em;
+    text-align: center;
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Méthodes d'ajout CSS -->
+                <section>
+                    <h2>📋 Comment ajouter du CSS ?</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px;">
+                        <div class="concept-box">
+                            <h3>🔗 CSS Externe</h3>
+                            <div class="code-demo">
+                                <pre><code class="html">&lt;head&gt;
+  &lt;link rel="stylesheet" 
+        href="style.css"&gt;
+&lt;/head&gt;</code></pre>
+                            </div>
+                            <p><strong>✅ Recommandé</strong><br>Fichier séparé, réutilisable</p>
+                        </div>
+                        
+                        <div class="concept-box">
+                            <h3>📄 CSS Interne</h3>
+                            <div class="code-demo">
+                                <pre><code class="html">&lt;head&gt;
+  &lt;style&gt;
+    h1 { color: blue; }
+  &lt;/style&gt;
+&lt;/head&gt;</code></pre>
+                            </div>
+                            <p><strong>⚠️ Pour tests</strong><br>Dans le &lt;head&gt;</p>
+                        </div>
+                        
+                        <div class="concept-box">
+                            <h3>🏷️ CSS en ligne</h3>
+                            <div class="code-demo">
+                                <pre><code class="html">&lt;h1 style="color: blue;"&gt;
+  Titre
+&lt;/h1&gt;</code></pre>
+                            </div>
+                            <p><strong>❌ À éviter</strong><br>Difficile à maintenir</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Sélecteurs CSS complets -->
+                <section>
+                    <h2>🎯 Tous les sélecteurs CSS</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="code-demo">
+                            <pre><code class="css">/* Sélecteurs de base */
+p { color: blue; }                /* Élément */
+.important { font-weight: bold; } /* Classe */
+#header { background: gray; }     /* ID */
+* { margin: 0; }                  /* Universel */
+
+/* Sélecteurs combinés */
+div p { color: red; }             /* Descendant */
+div > p { color: green; }         /* Enfant direct */
+h1 + p { margin-top: 0; }         /* Frère adjacent */
+h1 ~ p { color: blue; }           /* Frères suivants */</code></pre>
+                        </div>
+                        <div class="code-demo">
+                            <pre><code class="css">/* Pseudo-classes */
+a:hover { color: red; }           /* Survol */
+a:visited { color: purple; }      /* Visité */
+a:active { color: orange; }       /* Actif */
+input:focus { border: 2px blue; } /* Focus */
+li:first-child { font-weight: bold; }
+li:last-child { margin-bottom: 0; }
+li:nth-child(odd) { background: #f0f0f0; }
+
+/* Attributs */
+[href] { color: blue; }           /* Avec attribut */
+[href^="https"] { color: green; } /* Commence par */
+[href$=".pdf"] { color: red; }    /* Finit par */</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Priorité CSS -->
+                <section>
+                    <h2>⚖️ Priorité des sélecteurs</h2>
+                    <div class="concept-box">
+                        <h3>📊 Ordre de priorité (du plus faible au plus fort) :</h3>
+                        <ol style="font-size: 1.1em; line-height: 1.8;">
+                            <li><strong>Sélecteurs d'élément</strong> : p, h1, div</li>
+                            <li><strong>Sélecteurs de classe</strong> : .ma-classe</li>
+                            <li><strong>Sélecteurs d'ID</strong> : #mon-id</li>
+                            <li><strong>Styles en ligne</strong> : style="..."</li>
+                            <li><strong>!important</strong> : color: red !important;</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="tips-box">
+                        <p><strong>💡 Conseil :</strong> Évitez !important, préférez des sélecteurs plus spécifiques</p>
+                    </div>
+                </section>
+
+                <!-- Exercice 01: First Styles -->
+                <section>
+                    <h2>📝 Exercice 01 : Premiers Styles</h2>
+                    <div class="exercise-preview">
+                        <h3>🎯 Objectif</h3>
+                        <p>Découvrez les bases du CSS en stylisant une page simple</p>
+                        
+                        <h3>📋 À styliser</h3>
+                        <ul>
+                            <li>🎨 <strong>Body</strong> : police, couleur de fond, espacement</li>
+                            <li>📝 <strong>h1</strong> : couleur, centrage, taille</li>
+                            <li>📄 <strong>Paragraphes</strong> : couleur, espacement, taille</li>
+                            <li>⭐ <strong>Classe .special</strong> : mise en valeur</li>
+                            <li>🦶 <strong>ID #footer</strong> : style de pied de page</li>
+                        </ul>
+                        
+                        <div class="tips-box">
+                            <p><strong>💡 Conseil :</strong> Commencez par des couleurs simples et des polices lisibles !</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Propriétés CSS essentielles -->
+                <section>
+                    <h2>🎨 Propriétés CSS essentielles</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="code-demo">
+                            <pre><code class="css">/* Couleurs et arrière-plan */
+color: #333;
+background-color: #f0f0f0;
+background-image: url('image.jpg');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+
+/* Bordures */
+border: 2px solid #333;
+border-width: 2px;
+border-style: solid; /* dashed, dotted */
+border-color: #333;
+border-radius: 10px;</code></pre>
+                        </div>
+                        <div class="code-demo">
+                            <pre><code class="css">/* Dimensions et espacement */
+width: 300px;
+height: 200px;
+max-width: 100%;
+min-height: 100px;
+
+/* Modèle de boîte */
+margin: 10px;
+padding: 15px;
+box-sizing: border-box;
+
+/* Effets visuels */
+opacity: 0.8;
+box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+transform: rotate(45deg);
+transition: all 0.3s ease;</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Couleurs complètes -->
+                <section>
+                    <h2>🌈 Tous les formats de couleurs</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="code-demo">
+                            <pre><code class="css">/* Noms de couleurs */
+color: red; color: blue; color: green;
+color: orange; color: purple; color: pink;
+color: black; color: white; color: gray;
+
+/* Hexadécimal */
+color: #ff0000; /* Rouge */
+color: #00ff00; /* Vert */
+color: #0000ff; /* Bleu */
+color: #333;    /* Gris foncé */
+color: #f0f0f0; /* Gris clair */
+
+/* RGB et RGBA */
+color: rgb(255, 0, 0);      /* Rouge */
+color: rgba(255, 0, 0, 0.5); /* Rouge 50% transparent */</code></pre>
+                        </div>
+                        <div>
+                            <div class="code-demo">
+                                <pre><code class="css">/* HSL et HSLA */
+color: hsl(0, 100%, 50%);     /* Rouge */
+color: hsl(120, 100%, 50%);   /* Vert */
+color: hsl(240, 100%, 50%);   /* Bleu */
+color: hsla(0, 100%, 50%, 0.5); /* Rouge transparent */
+
+/* Couleurs système */
+color: currentColor; /* Couleur héritée */
+color: transparent;  /* Transparent */</code></pre>
+                            </div>
+                            <div style="margin-top: 15px;">
+                                <div style="background: red; padding: 8px; margin: 3px; border-radius: 3px; color: white; text-align: center; font-size: 0.8em;">red / #ff0000</div>
+                                <div style="background: rgba(255, 0, 0, 0.5); padding: 8px; margin: 3px; border-radius: 3px; text-align: center; font-size: 0.8em;">rgba(255, 0, 0, 0.5)</div>
+                                <div style="background: #3498db; padding: 8px; margin: 3px; border-radius: 3px; color: white; text-align: center; font-size: 0.8em;">#3498db</div>
+                                <div style="background: hsl(120, 100%, 50%); padding: 8px; margin: 3px; border-radius: 3px; text-align: center; font-size: 0.8em;">hsl(120, 100%, 50%)</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Dégradés CSS -->
+                <section>
+                    <h2>🌈 Dégradés CSS</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="code-demo">
+                            <pre><code class="css">/* Dégradé linéaire */
+background: linear-gradient(to right, red, blue);
+background: linear-gradient(45deg, #667eea, #764ba2);
+background: linear-gradient(
+    135deg, 
+    #667eea 0%, 
+    #764ba2 100%
+);
+
+/* Dégradé radial */
+background: radial-gradient(circle, red, blue);
+background: radial-gradient(
+    ellipse at center,
+    #667eea 0%,
+    #764ba2 100%
+);</code></pre>
+                        </div>
+                        <div>
+                            <div style="background: linear-gradient(45deg, #667eea, #764ba2); padding: 15px; margin: 5px; border-radius: 5px; color: white; text-align: center;">Dégradé linéaire 45°</div>
+                            <div style="background: linear-gradient(to right, #ff6b6b, #feca57); padding: 15px; margin: 5px; border-radius: 5px; color: white; text-align: center;">Dégradé horizontal</div>
+                            <div style="background: radial-gradient(circle, #667eea, #764ba2); padding: 15px; margin: 5px; border-radius: 5px; color: white; text-align: center;">Dégradé radial</div>
+                            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); padding: 15px; margin: 5px; border-radius: 5px; color: white; text-align: center;">3 couleurs</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Exercice 02: Color Palette -->
+                <section>
+                    <h2>📝 Exercice 02 : Palette de Couleurs</h2>
+                    <div class="exercise-preview">
+                        <h3>🎯 Défi</h3>
+                        <p>Créez une palette de couleurs interactive et harmonieuse</p>
+                        
+                        <h3>📋 Éléments à créer</h3>
+                        <ul>
+                            <li>🎨 5 boîtes de couleurs différentes</li>
+                            <li>🏷️ Classes CSS pour chaque couleur (.rouge, .bleu, etc.)</li>
+                            <li>✨ Effets visuels (border-radius, box-shadow)</li>
+                            <li>🎯 Couleurs harmonieuses et contrastées</li>
+                            <li>📝 Texte lisible sur chaque fond</li>
+                        </ul>
+                        
+                        <div class="tips-box">
+                            <p><strong>🌟 Bonus :</strong> Ajoutez des effets de survol et des animations !</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Propriétés typographiques complètes -->
+                <section>
+                    <h2>📝 Propriétés typographiques complètes</h2>
+                    <div class="concept-box">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                            <div>
+                                <h4>📚 Police et taille</h4>
+                                <div class="code-demo">
+                                    <pre><code class="css">font-family: Arial, sans-serif;
+font-size: 16px; /* px, em, rem, % */
+font-weight: bold; /* normal, bold, 100-900 */
+font-style: italic; /* normal, italic, oblique */
+font-variant: small-caps;</code></pre>
+                                </div>
+                            </div>
+                            <div>
+                                <h4>📐 Alignement et espacement</h4>
+                                <div class="code-demo">
+                                    <pre><code class="css">text-align: center; /* left, right, justify */
+text-decoration: underline; /* none, line-through */
+text-transform: uppercase; /* lowercase, capitalize */
+line-height: 1.5;
+letter-spacing: 2px;
+word-spacing: 5px;
+text-shadow: 2px 2px 4px rgba(0,0,0,0.3);</code></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Familles de polices -->
+                <section>
+                    <h2>📚 Familles de polices</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="code-demo">
+                            <pre><code class="css">/* Polices système sûres */
+font-family: Arial, sans-serif;
+font-family: "Times New Roman", serif;
+font-family: "Courier New", monospace;
+font-family: Georgia, serif;
+font-family: Verdana, sans-serif;
+font-family: "Trebuchet MS", sans-serif;
+
+/* Polices modernes */
+font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto;
+
+/* Google Fonts (à importer) */
+font-family: "Roboto", sans-serif;
+font-family: "Open Sans", sans-serif;</code></pre>
+                        </div>
+                        <div class="demo-result">
+                            <p style="font-family: Arial, sans-serif; margin: 8px 0;"><strong>Arial :</strong> Police sans-serif moderne</p>
+                            <p style="font-family: Georgia, serif; margin: 8px 0;"><strong>Georgia :</strong> Police serif élégante</p>
+                            <p style="font-family: 'Courier New', monospace; margin: 8px 0;"><strong>Courier New :</strong> Police monospace (code)</p>
+                            <p style="font-family: Verdana, sans-serif; margin: 8px 0;"><strong>Verdana :</strong> Police sans-serif lisible</p>
+                            <p style="font-family: 'Times New Roman', serif; margin: 8px 0;"><strong>Times New Roman :</strong> Police serif classique</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Unités CSS -->
+                <section>
+                    <h2>📏 Unités CSS importantes</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="concept-box">
+                            <h4>📐 Unités absolues</h4>
+                            <ul>
+                                <li><strong>px</strong> - Pixels (précis, écrans)</li>
+                                <li><strong>pt</strong> - Points (impression)</li>
+                                <li><strong>cm, mm</strong> - Centimètres, millimètres</li>
+                                <li><strong>in</strong> - Pouces (2.54cm)</li>
+                            </ul>
+                            
+                            <div class="code-demo">
+                                <pre><code class="css">font-size: 16px;  /* 16 pixels */
+font-size: 12pt;  /* 12 points */
+width: 5cm;       /* 5 centimètres */</code></pre>
+                            </div>
+                        </div>
+                        <div class="concept-box">
+                            <h4>📱 Unités relatives</h4>
+                            <ul>
+                                <li><strong>em</strong> - Relatif à la police parent</li>
+                                <li><strong>rem</strong> - Relatif à la police racine</li>
+                                <li><strong>%</strong> - Pourcentage du parent</li>
+                                <li><strong>vw, vh</strong> - Viewport width/height</li>
+                                <li><strong>vmin, vmax</strong> - Plus petit/grand viewport</li>
+                            </ul>
+                            
+                            <div class="code-demo">
+                                <pre><code class="css">font-size: 1.2em;  /* 120% du parent */
+font-size: 1.5rem; /* 150% de la racine */
+width: 50%;        /* 50% du parent */
+width: 100vw;      /* 100% largeur écran */</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Effets de texte -->
+                <section>
+                    <h2>✨ Effets de texte avancés</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="code-demo">
+                            <pre><code class="css">/* Ombres de texte */
+text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+text-shadow: 0 0 10px #fff; /* Effet de lueur */
+text-shadow: 
+    1px 1px 0px #000,
+    2px 2px 0px #333; /* Ombre multiple */
+
+/* Dégradés sur texte */
+background: linear-gradient(45deg, #667eea, #764ba2);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+background-clip: text;</code></pre>
+                        </div>
+                        <div class="demo-result">
+                            <p style="text-shadow: 2px 2px 4px rgba(0,0,0,0.3); font-size: 1.2em; margin: 10px 0;">Texte avec ombre</p>
+                            <p style="text-shadow: 0 0 10px #42a5f5; font-size: 1.2em; margin: 10px 0; color: #42a5f5;">Texte avec lueur</p>
+                            <p style="background: linear-gradient(45deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; font-size: 1.5em; font-weight: bold; margin: 10px 0;">Texte dégradé</p>
+                            <p style="text-transform: uppercase; letter-spacing: 3px; font-weight: bold; margin: 10px 0;">Texte espacé</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Exercice 03: Typography Poster -->
+                <section>
+                    <h2>📝 Exercice 03 : Poster Typographique</h2>
+                    <div class="exercise-preview">
+                        <h3>🎯 Objectif</h3>
+                        <p>Créez un poster moderne avec différents styles typographiques</p>
+                        
+                        <h3>📋 Techniques à maîtriser</h3>
+                        <ul>
+                            <li>📏 <strong>font-size</strong> - Variez les tailles (4em pour titre, 1.2em pour sous-titre)</li>
+                            <li>⚖️ <strong>font-weight</strong> - Poids variés (100, 300, 700, 900)</li>
+                            <li>📐 <strong>letter-spacing</strong> - Espacements élégants (5px-15px)</li>
+                            <li>🌈 <strong>Couleurs</strong> - Dégradés et contrastes</li>
+                            <li>✨ <strong>text-shadow</strong> - Effets d'ombre et de lueur</li>
+                            <li>🎨 <strong>text-transform</strong> - Majuscules pour impact</li>
+                        </ul>
+                        
+                        <div class="tips-box">
+                            <p><strong>🎨 Thème :</strong> "CRÉATIVITÉ" - Créez une hiérarchie visuelle impactante avec animations !</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Bonnes pratiques CSS -->
+                <section>
+                    <h2>✅ Bonnes pratiques CSS</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="concept-box">
+                            <h4>✅ À faire</h4>
+                            <ul>
+                                <li>Utilisez des noms de classes descriptifs</li>
+                                <li>Groupez les propriétés similaires</li>
+                                <li>Commentez votre code CSS</li>
+                                <li>Utilisez la cascade à votre avantage</li>
+                                <li>Préférez les classes aux IDs</li>
+                                <li>Testez sur différents navigateurs</li>
+                            </ul>
+                        </div>
+                        <div class="concept-box">
+                            <h4>❌ À éviter</h4>
+                            <ul>
+                                <li>Styles en ligne (style="")</li>
+                                <li>!important partout</li>
+                                <li>Sélecteurs trop spécifiques</li>
+                                <li>Code CSS non organisé</li>
+                                <li>Propriétés dépréciées</li>
+                                <li>Valeurs codées en dur</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="tips-box">
+                        <p><strong>💡 Organisation CSS :</strong> Organisez votre CSS par sections (layout, typography, components, utilities)</p>
+                    </div>
+                </section>
+
+                <!-- Récapitulatif -->
+                <section>
+                    <h2>🎯 Récapitulatif Chapitre 3</h2>
+                    
+                    <div class="concept-box">
+                        <h3>🏆 Ce que vous maîtrisez maintenant :</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 30px;">
+                            <div>
+                                <h4>🎯 Sélecteurs CSS</h4>
+                                <ul>
+                                    <li>✅ Éléments, classes, IDs</li>
+                                    <li>✅ Pseudo-classes (:hover, :focus)</li>
+                                    <li>✅ Sélecteurs combinés</li>
+                                    <li>✅ Priorité et spécificité</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>🎨 Styles et design</h4>
+                                <ul>
+                                    <li>✅ Couleurs (hex, RGB, HSL)</li>
+                                    <li>✅ Typographie avancée</li>
+                                    <li>✅ Dégradés et effets</li>
+                                    <li>✅ Mise en page de base</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tips-box">
+                        <h3>🚀 Prochaine étape :</h3>
+                        <p>Chapitre 4 - Le modèle de boîte CSS pour maîtriser les espacements et dimensions !</p>
+                    </div>
+                </section>
+            </section>
+               <!-- ====== CHAPITRE 4: CSS BOX MODEL ====== -->
+            <section>
+                <!-- Intro Chapitre 4 -->
+                <section data-background-gradient="linear-gradient(135deg, #00b894 0%, #00cec9 100%)">
+                    <h1>📦 Chapitre 4</h1>
+                    <h2>CSS - Le Modèle de Boîte</h2>
+                    <p><em>Maîtriser l'espace et les dimensions</em></p>
+                    <div style="margin-top: 40px;">
+                        <h3>📚 Au programme :</h3>
+                        <ul>
+                            <li>📐 Composition d'une boîte CSS</li>
+                            <li>📏 Propriétés d'espacement</li>
+                            <li>🔲 Bordures et coins arrondis</li>
+                            <li>✨ Effets visuels et ombres</li>
+                            <li>🛍️ Exercice : Cartes produits</li>
+                            <li>📸 Exercice : Galerie photos</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Composition boîte -->
+                <section>
+                    <h2>📐 Composition d'une boîte CSS</h2>
+                    
+                    <div class="box-layers">
+                        <div class="layer margin-layer">
+                            <div class="label label-margin">MARGIN</div>
+                            <div class="border-layer">
+                                <div class="label label-border">BORDER</div>
+                                <div class="padding-layer">
+                                    <div class="label label-padding">PADDING</div>
+                                    <div class="content-layer">
+                                        <div class="label label-content">CONTENT</div>
+                                        CONTENU<br>
+                                        <small>width × height</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="concept-box">
+                        <h3>🎯 Les 4 couches du modèle de boîte :</h3>
+                        <ol style="font-size: 1.1em; line-height: 1.8;">
+                            <li><span class="highlight">Content</span> - Le contenu de l'élément (texte, images)</li>
+                            <li><span class="highlight">Padding</span> - Espacement intérieur transparent</li>
+                            <li><span class="highlight">Border</span> - Bordure visible autour du padding</li>
+                            <li><span class="highlight">Margin</span> - Espacement extérieur transparent</li>
+                        </ol>
+                    </div>
+                </section>
+
+                <!-- Propriétés dimensions -->
+                <section>
+                    <h2>📏 Propriétés de dimensions</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="code-demo">
+                            <pre><code class="css">/* Dimensions de base */
+width: 300px;          /* Largeur fixe */
+height: 200px;         /* Hauteur fixe */
+
+/* Dimensions flexibles */
+max-width: 100%;       /* Largeur maximale */
+min-width: 200px;      /* Largeur minimale */
+max-height: 500px;     /* Hauteur maximale */
+min-height: 100px;     /* Hauteur minimale */
+
+/* Dimensions relatives */
+width: 50%;            /* 50% du parent */
+width: 100vw;          /* 100% largeur viewport */
+height: 100vh;         /* 100% hauteur viewport */</code></pre>
+                        </div>
+                        <div class="concept-box">
+                            <h4>💡 Bonnes pratiques :</h4>
+                            <ul>
+                                <li><strong>max-width: 100%</strong> pour le responsive</li>
+                                <li><strong>min-height</strong> plutôt que height fixe</li>
+                                <li><strong>vh/vw</strong> pour les sections plein écran</li>
+                                <li><strong>%</strong> pour les layouts fluides</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Margin propriétés -->
+                <section>
+                    <h2>📏 Margin - Espacement extérieur</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="code-demo">
+                            <pre><code class="css">/* Syntaxes courtes */
+margin: 10px;                    /* Tous les côtés */
+margin: 10px 20px;              /* Vertical | Horizontal */
+margin: 10px 20px 15px 25px;    /* Haut | Droite | Bas | Gauche */
+
+/* Côtés individuels */
+margin-top: 10px;
+margin-right: 20px;
+margin-bottom: 15px;
+margin-left: 25px;
+
+/* Valeurs spéciales */
+margin: 0 auto;                 /* Centrage horizontal */
+margin: auto;                   /* Centrage automatique */
+margin: -10px;                  /* Marge négative */</code></pre>
+                        </div>
+                        <div class="demo-result">
+                            <div style="background: #e74c3c; padding: 10px; margin: 20px; color: white; text-align: center;">
+                                margin: 20px
+                            </div>
+                            <div style="background: #3498db; padding: 10px; margin: 10px auto; width: 200px; color: white; text-align: center;">
+                                margin: 10px auto (centré)
+                            </div>
+                            <div style="background: #27ae60; padding: 10px; margin: 5px 0 15px 30px; color: white; text-align: center;">
+                                margin: 5px 0 15px 30px
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tips-box">
+                        <p><strong>🕐 Mémo "horloge" :</strong> Haut → Droite → Bas → Gauche (sens horaire)</p>
+                    </div>
+                </section>
+
+                <!-- Padding propriétés -->
+                <section>
+                    <h2>📦 Padding - Espacement intérieur</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="code-demo">
+                            <pre><code class="css">/* Syntaxes courtes */
+padding: 15px;                  /* Tous les côtés */
+padding: 10px 20px;            /* Vertical | Horizontal */
+padding: 5px 10px 15px 20px;   /* Haut | Droite | Bas | Gauche */
+
+/* Côtés individuels */
+padding-top: 5px;
+padding-right: 10px;
+padding-bottom: 15px;
+padding-left: 20px;
+
+/* Valeurs en pourcentage */
+padding: 5%;                   /* Relatif à la largeur parent */
+padding: 1em;                  /* Relatif à la taille de police */</code></pre>
+                        </div>
+                        <div class="demo-result">
+                            <div style="background: #3498db; padding: 5px; margin: 5px; color: white; text-align: center;">
+                                padding: 5px
+                            </div>
+                            <div style="background: #e74c3c; padding: 20px; margin: 5px; color: white; text-align: center;">
+                                padding: 20px
+                            </div>
+                            <div style="background: #27ae60; padding: 10px 30px; margin: 5px; color: white; text-align: center;">
+                                padding: 10px 30px
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Border propriétés -->
+                <section>
+                    <h2>🔲 Border - Bordures</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="code-demo">
+                            <pre><code class="css">/* Bordure complète */
+border: 2px solid #333;
+
+/* Propriétés séparées */
+border-width: 2px;
+border-style: solid;    /* dashed, dotted, double, groove, ridge */
+border-color: #333;
+
+/* Bordures individuelles */
+border-top: 1px solid red;
+border-right: 2px dashed blue;
+border-bottom: 3px dotted green;
+border-left: 4px double orange;
+
+/* Coins arrondis */
+border-radius: 10px;           /* Tous les coins */
+border-radius: 10px 20px;      /* Haut-gauche/bas-droite | autres */
+border-radius: 5px 10px 15px 20px; /* Sens horaire */
+border-radius: 50%;            /* Cercle parfait */</code></pre>
+                        </div>
+                        <div class="demo-result">
+                            <div style="border: 2px solid #333; padding: 10px; margin: 8px; border-radius: 5px;">solid</div>
+                            <div style="border: 3px dashed #e74c3c; padding: 10px; margin: 8px; border-radius: 10px;">dashed</div>
+                            <div style="border: 2px dotted #3498db; padding: 10px; margin: 8px; border-radius: 15px;">dotted</div>
+                            <div style="border: 4px double #27ae60; padding: 10px; margin: 8px; border-radius: 20px;">double</div>
+                            <div style="border: 3px solid #9b59b6; padding: 10px; margin: 8px; border-radius: 50%; width: 80px; height: 80px; display: flex; align-items: center; justify-content: center;">circle</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Box-sizing -->
+                <section>
+                    <h2>📦 Box-sizing - Calcul des dimensions</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="concept-box">
+                            <h4>📐 content-box (défaut)</h4>
+                            <p>Largeur = <strong>content uniquement</strong></p>
+                            <div class="code-demo">
+                                <pre><code class="css">width: 200px;
+padding: 20px;
+border: 5px solid;
+
+/* Largeur totale = 250px */
+/* 200 + 20*2 + 5*2 */</code></pre>
+                            </div>
+                        </div>
+                        <div class="concept-box">
+                            <h4>📦 border-box (recommandé)</h4>
+                            <p>Largeur = <strong>content + padding + border</strong></p>
+                            <div class="code-demo">
+                                <pre><code class="css">box-sizing: border-box;
+width: 200px;
+padding: 20px;
+border: 5px solid;
+
+/* Largeur totale = 200px */
+/* Content s'ajuste automatiquement */</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tips-box">
+                        <p><strong>🎯 Best Practice :</strong> Toujours utiliser <code>* { box-sizing: border-box; }</code> en début de CSS !</p>
+                    </div>
+                </section>
+
+                <!-- Effets visuels -->
+                <section>
+                    <h2>✨ Effets visuels</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="code-demo">
+                            <pre><code class="css">/* Ombres de boîte */
+box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+box-shadow: 0 2px 4px rgba(0,0,0,0.1), 
+            0 8px 16px rgba(0,0,0,0.1); /* Multiple */
+box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); /* Intérieure */
+
+/* Transparence */
+opacity: 0.8;          /* 0 (transparent) à 1 (opaque) */
+
+/* Transformations */
+transform: scale(1.1);           /* Agrandissement */
+transform: rotate(45deg);        /* Rotation */
+transform: translateX(50px);     /* Déplacement X */
+transform: translateY(-20px);    /* Déplacement Y */
+transform: translate(50px, -20px); /* X et Y */</code></pre>
+                        </div>
+                        <div class="demo-result">
+                            <div style="padding: 15px; margin: 10px; background: #fff; box-shadow: 0 4px 8px rgba(0,0,0,0.1); border-radius: 5px;">
+                                box-shadow simple
+                            </div>
+                            <div style="padding: 15px; margin: 10px; background: #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.1), 0 8px 16px rgba(0,0,0,0.1); border-radius: 5px;">
+                                box-shadow multiple
+                            </div>
+                            <div style="padding: 15px; margin: 10px; background: #3498db; color: white; opacity: 0.7; border-radius: 5px;">
+                                opacity: 0.7
+                            </div>
+                            <div style="padding: 15px; margin: 10px; background: #e74c3c; color: white; transform: scale(0.9); border-radius: 5px;">
+                                transform: scale(0.9)
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Transitions -->
+                <section>
+                    <h2>🔄 Transitions CSS</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="code-demo">
+                            <pre><code class="css">/* Transition simple */
+transition: all 0.3s ease;
+
+/* Propriétés spécifiques */
+transition: transform 0.5s ease-in-out;
+transition: opacity 0.2s linear;
+transition: background-color 0.3s ease;
+
+/* Transitions multiples */
+transition: transform 0.3s ease,
+            opacity 0.2s linear,
+            box-shadow 0.4s ease-out;
+
+/* Fonctions de transition */
+ease;           /* Lent-rapide-lent (défaut) */
+ease-in;        /* Lent au début */
+ease-out;       /* Lent à la fin */
+ease-in-out;    /* Lent début et fin */
+linear;         /* Vitesse constante */</code></pre>
+                        </div>
+                        <div class="concept-box">
+                            <h4>🎯 Propriétés animables courantes :</h4>
+                            <ul>
+                                <li><strong>transform</strong> - scale, rotate, translate</li>
+                                <li><strong>opacity</strong> - transparence</li>
+                                <li><strong>background-color</strong> - couleur de fond</li>
+                                <li><strong>box-shadow</strong> - ombres</li>
+                                <li><strong>border-radius</strong> - coins arrondis</li>
+                                <li><strong>width, height</strong> - dimensions</li>
+                                <li><strong>margin, padding</strong> - espacements</li>
+                            </ul>
+                            
+                            <div class="tips-box" style="margin-top: 15px;">
+                                <p><strong>⚡ Performance :</strong> Préférez transform et opacity pour les animations fluides !</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Pseudo-classes -->
+                <section>
+                    <h2>🎯 Pseudo-classes pour l'interactivité</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="code-demo">
+                            <pre><code class="css">/* États d'interaction */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.button:active {
+    transform: scale(0.95);
+}
+
+.input:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+}
+
+/* États structurels */
+.item:first-child {
+    margin-top: 0;
+}
+
+.item:last-child {
+    margin-bottom: 0;
+}
+
+.item:nth-child(odd) {
+    background-color: #f8f9fa;
+}</code></pre>
+                        </div>
+                        <div class="concept-box">
+                            <h4>🎮 Pseudo-classes utiles :</h4>
+                            <ul>
+                                <li><strong>:hover</strong> - Survol souris</li>
+                                <li><strong>:focus</strong> - Focus clavier/souris</li>
+                                <li><strong>:active</strong> - Clic actif</li>
+                                <li><strong>:visited</strong> - Lien visité</li>
+                                <li><strong>:first-child</strong> - Premier enfant</li>
+                                <li><strong>:last-child</strong> - Dernier enfant</li>
+                                <li><strong>:nth-child(odd/even)</strong> - Enfants pairs/impairs</li>
+                                <li><strong>:nth-child(3n)</strong> - Chaque 3ème</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Display et positionnement -->
+                <section>
+                    <h2>📐 Display et positionnement</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="code-demo">
+                            <pre><code class="css">/* Types d'affichage */
+display: block;        /* Élément bloc (div, p, h1...) */
+display: inline;       /* Élément en ligne (span, a, em...) */
+display: inline-block; /* Hybride (dimensions + en ligne) */
+display: none;         /* Masqué complètement */
+display: flex;         /* Conteneur flexible */
+display: grid;         /* Grille CSS */
+
+/* Positionnement */
+position: static;      /* Normal (défaut) */
+position: relative;    /* Relatif à sa position normale */
+position: absolute;    /* Relatif au parent positionné */
+position: fixed;       /* Relatif à l'écran */
+position: sticky;      /* Collant au scroll */
+
+/* Coordonnées (avec position) */
+top: 10px; right: 20px; bottom: 30px; left: 40px;
+z-index: 999;         /* Ordre de superposition */</code></pre>
+                        </div>
+                        <div class="concept-box">
+                            <h4>💡 Cas d'usage :</h4>
+                            <ul>
+                                <li><strong>inline-block</strong> - Éléments côte à côte avec dimensions</li>
+                                <li><strong>relative</strong> - Léger décalage ou conteneur pour absolute</li>
+                                <li><strong>absolute</strong> - Overlay, badges, éléments flottants</li>
+                                <li><strong>fixed</strong> - Header/footer fixes, boutons flottants</li>
+                                <li><strong>sticky</strong> - Navigation qui reste visible au scroll</li>
+                                <li><strong>flex</strong> - Layouts modernes et centrage</li>
+                                <li><strong>grid</strong> - Grilles complexes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Exercice 01: Product Cards -->
+                <section>
+                    <h2>📝 Exercice 01 : Cartes Produits</h2>
+                    <div class="exercise-preview">
+                        <h3>🎯 Objectif</h3>
+                        <p>Créez des cartes produits tech avec espacements parfaits et effets visuels</p>
+                        
+                        <h3>📋 Techniques à maîtriser</h3>
+                        <ul>
+                            <li>📦 <strong>box-sizing: border-box</strong> - Base solide pour les calculs</li>
+                            <li>📍 <strong>Padding</strong> - Espace intérieur harmonieux (20-30px)</li>
+                            <li>📏 <strong>Margin</strong> - Espacement entre cartes (15-20px)</li>
+                            <li>🔲 <strong>Border + border-radius</strong> - Bordures subtiles et coins arrondis</li>
+                            <li>🌟 <strong>Box-shadow</strong> - Effets de profondeur et élévation</li>
+                            <li>✨ <strong>Hover effects</strong> - Transform et transition pour l'interactivité</li>
+                            <li>🎨 <strong>Background</strong> - Dégradés pour la barre de couleur</li>
+                        </ul>
+                        
+                        <h3>🛍️ Produits à créer</h3>
+                        <ul>
+                            <li>💻 <strong>Laptop Pro 15"</strong> - 1299€</li>
+                            <li>📱 <strong>Smartphone X</strong> - 799€ (avec badge "NOUVEAU")</li>
+                            <li>📱 <strong>Tablette Design</strong> - 549€</li>
+                            <li>🎧 <strong>Écouteurs Pro</strong> - 299€</li>
+                        </ul>
+                        
+                        <div class="tips-box">
+                            <p><strong>🎨 Design :</strong> Utilisez différentes couleurs d'accent pour chaque carte et ajoutez des animations d'entrée décalées !</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Techniques avancées pour cartes -->
+                <section>
+                    <h2>🎨 Techniques avancées pour les cartes</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="code-demo">
+                            <pre><code class="css">/* Structure de carte moderne */
+.product-card {
+    background: white;
+    border-radius: 15px;
+    padding: 30px 25px;
+    margin: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Effet de survol */
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+/* Barre de couleur en haut */
+.product-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+}</code></pre>
+                        </div>
+                        <div class="code-demo">
+                            <pre><code class="css">/* Badge "Nouveau" */
+.product-card.new::after {
+    content: 'NOUVEAU';
+    position: absolute;
+    top: 15px;
+    right: -30px;
+    background: #e74c3c;
+    color: white;
+    padding: 5px 40px;
+    font-size: 0.8em;
+    font-weight: bold;
+    transform: rotate(45deg);
+    text-align: center;
+}
+
+/* Animation d'entrée */
+.product-card {
+    animation: slideInUp 0.6s ease-out;
+}
+
+.product-card:nth-child(1) { animation-delay: 0.1s; }
+.product-card:nth-child(2) { animation-delay: 0.2s; }
+.product-card:nth-child(3) { animation-delay: 0.3s; }
+.product-card:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes slideInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Exercice 02: Photo Gallery -->
+                <section>
+                    <h2>📝 Exercice 02 : Galerie Photos</h2>
+                    <div class="exercise-preview">
+                        <h3>🎯 Défi Avancé</h3>
+                        <p>Créez une galerie photos avec layout en grille et effets sophistiqués</p>
+                        
+                        <h3>📋 Fonctionnalités avancées</h3>
+                        <ul>
+                            <li>🌅 <strong>6 photos nature</strong> - Coucher de soleil, Océan, Montagne, Forêt, Automne, Rivière</li>
+                            <li>📐 <strong>CSS Grid Layout</strong> - Organisation automatique responsive</li>
+                            <li>🎭 <strong>Overlay au survol</strong> - Descriptions cachées qui apparaissent</li>
+                            <li>✨ <strong>Animations complexes</strong> - Entrée décalée + effets de survol</li>
+                            <li>💫 <strong>Effet de brillance</strong> - Animation de survol qui traverse l'image</li>
+                            <li>📱 <strong>Design responsive</strong> - Adaptation automatique mobile/desktop</li>
+                            <li>🎨 <strong>Backdrop-filter</strong> - Effet de flou sur l'overlay</li>
+                        </ul>
+                        
+                        <h3>🌈 Photos avec dégradés</h3>
+                        <ul>
+                            <li>🌅 <strong>Coucher de soleil</strong> - linear-gradient(45deg, #ff6b6b, #feca57)</li>
+                            <li>🌊 <strong>Océan</strong> - linear-gradient(45deg, #48cae4, #023e8a)</li>
+                            <li>🏔️ <strong>Montagne</strong> - linear-gradient(45deg, #a8dadc, #457b9d)</li>
+                            <li>🌲 <strong>Forêt</strong> - linear-gradient(45deg, #f1faee, #a8dadc)</li>
+                            <li>🍂 <strong>Automne</strong> - linear-gradient(45deg, #e63946, #f77f00)</li>
+                            <li>🏞️ <strong>Rivière</strong> - linear-gradient(45deg, #2a9d8f, #264653)</li>
+                        </ul>
+                        
+                        <div class="tips-box">
+                            <p><strong>🌟 Challenge :</strong> Utilisez backdrop-filter, animations CSS et positionnement absolu pour créer des effets wow !</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CSS Grid pour galerie -->
+                <section>
+                    <h2>📐 CSS Grid pour galeries</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="code-demo">
+                            <pre><code class="css">/* Container de galerie */
+.photos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+}
+
+/* Photo individuelle */
+.photo {
+    position: relative;
+    height: 250px;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    border: 3px solid rgba(255,255,255,0.1);
+}
+
+/* Effet de survol */
+.photo:hover {
+    transform: translateY(-15px) scale(1.02);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.4);
+    border-color: rgba(255,255,255,0.3);
+}</code></pre>
+                        </div>
+                        <div class="code-demo">
+                            <pre><code class="css">/* Responsive automatique */
+@media (max-width: 768px) {
+    .photos-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .photo {
+        height: 200px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .photos-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Auto-fit expliqué */
+/* minmax(350px, 1fr) = minimum 350px, maximum 1 fraction */
+/* repeat(auto-fit, ...) = nombre de colonnes automatique */
+/* gap: 30px = espace entre les éléments */</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Overlay avancé -->
+                <section>
+                    <h2>🎭 Techniques d'overlay avancées</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="code-demo">
+                            <pre><code class="css">/* Overlay de base */
+.photo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.photo:hover .photo-overlay {
+    opacity: 1;
+}
+
+/* Contenu de l'overlay */
+.photo-title {
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    color: white;
+}</code></pre>
+                        </div>
+                        <div class="code-demo">
+                            <pre><code class="css">/* Animation du contenu */
+.photo-title,
+.photo-description {
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.photo:hover .photo-title {
+    transform: translateY(0);
+    transition-delay: 0.1s;
+}
+
+.photo:hover .photo-description {
+    transform: translateY(0);
+    transition-delay: 0.2s;
+}
+
+/* Effet de brillance qui traverse */
+.photo::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255,255,255,0.3), 
+        transparent);
+    transition: left 0.6s ease;
+    z-index: 1;
+}
+
+.photo:hover::before {
+    left: 100%;
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Animations d'entrée -->
+                <section>
+                    <h2>✨ Animations d'entrée sophistiquées</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="code-demo">
+                            <pre><code class="css">/* Animation de base */
+.photo {
+    animation: fadeInUp 0.8s ease-out;
+    opacity: 0;
+    animation-fill-mode: both;
+}
+
+/* Délais décalés */
+.photo:nth-child(1) { animation-delay: 0.1s; }
+.photo:nth-child(2) { animation-delay: 0.2s; }
+.photo:nth-child(3) { animation-delay: 0.3s; }
+.photo:nth-child(4) { animation-delay: 0.4s; }
+.photo:nth-child(5) { animation-delay: 0.5s; }
+.photo:nth-child(6) { animation-delay: 0.6s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}</code></pre>
+                        </div>
+                        <div class="code-demo">
+                            <pre><code class="css">/* Animation plus complexe */
+@keyframes slideInScale {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) scale(0.8);
+    }
+    50% {
+        opacity: 0.8;
+        transform: translateY(-10px) scale(1.05);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Animation en spirale */
+@keyframes spiralIn {
+    0% {
+        opacity: 0;
+        transform: translateY(50px) rotate(45deg) scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) rotate(0deg) scale(1);
+    }
+}
+
+/* Utilisation */
+.photo {
+    animation: spiralIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Unités et responsive -->
+                <section>
+                    <h2>📏 Unités et design responsive</h2>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                        <div class="concept-box">
+                            <h4>📐 Unités recommandées</h4>
+                            <ul>
+                                <li><strong>rem</strong> - Tailles de police cohérentes</li>
+                                <li><strong>em</strong> - Espacements relatifs à la police</li>
+                                <li><strong>%</strong> - Largeurs fluides</li>
+                                <li><strong>vw/vh</strong> - Tailles relatives au viewport</li>
+                                <li><strong>px</strong> - Bordures et détails précis</li>
+                            </ul>
+                        </div>
+                        <div class="code-demo">
+                            <pre><code class="css">/* Exemple responsive avec unités mixtes */
+.photo {
+    width: 100%;                    /* Fluide */
+    height: 40vh;                   /* 40% hauteur écran */
+    margin: 1rem;                   /* Espacement cohérent */
+    padding: 1.5rem;                /* Relatif à la police */
+    border: 2px solid #ccc;         /* Précis en pixels */
+    border-radius: 0.5rem;          /* Coins proportionnels */
+    font-size: 1.1rem;              /* Taille de police relative */
+}
+
+/* Media queries pour différents écrans */
+@media (max-width: 480px) {
+    .photo {
+        height: 30vh;
+        margin: 0.5rem;
+        padding: 1rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .photo {
+        height: 50vh;
+        margin: 2rem;
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Checklist finale -->
+                <section>
+                    <h2>✅ Checklist modèle de boîte</h2>
+                    <div class="concept-box">
+                        <h3>🎯 Points essentiels à retenir :</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                            <div>
+                                <h4>📦 Structure</h4>
+                                <ul>
+                                    <li>✅ Toujours utiliser <code>box-sizing: border-box</code></li>
+                                    <li>✅ Comprendre content → padding → border → margin</li>
+                                    <li>✅ Utiliser margin: 0 auto pour centrer</li>
+                                    <li>✅ Préférer max-width à width fixe</li>
+                                </ul>
+                                
+                                <h4>🎨 Effets visuels</h4>
+                                <ul>
+                                    <li>✅ box-shadow pour la profondeur</li>
+                                    <li>✅ border-radius pour l'élégance</li>
+                                    <li>✅ transition pour la fluidité</li>
+                                    <li>✅ transform pour les animations</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>📱 Responsive</h4>
+                                <ul>
+                                    <li>✅ CSS Grid avec auto-fit</li>
+                                    <li>✅ Unités relatives (rem, %, vw/vh)</li>
+                                    <li>✅ Media queries pour différents écrans</li>
+                                    <li>✅ Images qui s'adaptent</li>
+                                </ul>
+                                
+                                <h4>⚡ Performance</h4>
+                                <ul>
+                                    <li>✅ Animer transform et opacity</li>
+                                    <li>✅ Éviter les animations de layout</li>
+                                    <li>✅ Utiliser will-change si nécessaire</li>
+                                    <li>✅ Transitions douces (0.2s-0.5s)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Résumé du chapitre -->
+                <section data-background-gradient="linear-gradient(135deg, #00b894 0%, #00cec9 100%)">
+                    <h2>🎉 Chapitre 4 terminé !</h2>
+                    
+                    <div class="concept-box">
+                        <h3>🏆 Vous maîtrisez maintenant :</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                            <div>
+                                <h4>📦 Modèle de boîte</h4>
+                                <ul>
+                                    <li>✅ Content, padding, border, margin</li>
+                                    <li>✅ Box-sizing et calculs</li>
+                                    <li>✅ Syntaxes courtes</li>
+                                </ul>
+                                
+                                <h4>🎨 Effets visuels</h4>
+                                <ul>
+                                    <li>✅ Bordures et coins arrondis</li>
+                                    <li>✅ Ombres et transparence</li>
+                                    <li>✅ Transformations CSS</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4>✨ Interactivité</h4>
+                                <ul>
+                                    <li>✅ Transitions fluides</li>
+                                    <li>✅ Pseudo-classes (:hover, :focus)</li>
+                                    <li>✅ Animations d'entrée</li>
+                                </ul>
+                                
+                                <h4>📱 Layout moderne</h4>
+                                <ul>
+                                    <li>✅ CSS Grid responsive</li>
+                                    <li>✅ Positionnement avancé</li>
+                                    <li>✅ Design adaptatif</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="tips-box" style="margin-top: 30px;">
+                        <h3>🚀 Prochaine étape :</h3>
+                        <p><strong>HTML5 Sémantique</strong> - Construire des sites modernes et accessibles !</p>
+                    </div>
+                </section>
+            </section>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/3.6.0/lib/js/head.min.js" integrity="sha512-8Nk/zoTKjNixnM15wXjpF26KR4Ln87cc5Yllc5xP54wwbcKnljAAn2JP+tYAS8+4e7s/XK8XTiDH0Ltw2fmoBQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

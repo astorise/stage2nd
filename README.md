@@ -36,3 +36,23 @@ npm run deploy
 ```
 
 This builds the project and publishes the `dist` folder using the `gh-pages` package.
+
+## Collaboration Chat
+
+The app ships with a small chat widget powered by [simple-peer](https://github.com/feross/simple-peer).
+Enable it by setting `"collaboration": true` in `public/config.json` (or `"chat"` if present).
+Once enabled, a chat panel appears at the bottom of the UI allowing connected peers to exchange short messages.
+
+Peers discover each other and exchange WebRTC signals through a small Cloudflare Worker.
+Configure its endpoint using the `registerServer` section of `public/config.json`:
+
+```json
+{
+  "registerServer": {
+    "registerUrl": "https://your-worker.example.com",
+    "rtcConfig": { "iceServers": [{ "urls": "stun:stun.l.google.com:19302" }] }
+  }
+}
+```
+
+`rtcConfig` is passed directly to `simple-peer` when creating the `RTCPeerConnection` and can be used to specify custom ICE servers.

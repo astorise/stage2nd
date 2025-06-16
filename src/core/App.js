@@ -18,11 +18,11 @@ export class CodePlayApp extends EventEmitter {
   
   async init() {
     try {
-      // Initialiser l'interface
-      await this.ui.init();
-      
       // Charger la configuration
       await this.loadConfig();
+
+      // Initialiser l'interface
+      await this.ui.init();
       
       // Charger les modules disponibles
       await this.modules.loadAvailableModules();
@@ -48,6 +48,12 @@ export class CodePlayApp extends EventEmitter {
     try {
       const response = await fetch("config.json");
       this.config = await response.json();
+      const defaults = { registerUrl: '', rtcConfig: null };
+      const { registerServer = {} } = this.config;
+      this.config.registerServer = {
+        ...defaults,
+        ...registerServer,
+      };
     } catch (error) {
       // Configuration par défaut
       this.config = {
@@ -57,6 +63,7 @@ export class CodePlayApp extends EventEmitter {
           collaboration: false,
         },
         lessonsUrl: "lessons/manifest.json",
+        registerServer: { registerUrl: '', rtcConfig: null },
       };
     }
   }

@@ -1,13 +1,15 @@
 import { defineConfig } from 'vite';
 import monacoEditor from 'vite-plugin-monaco-editor';
 const monacoEditorPlugin = monacoEditor.default;
-import { resolve } from 'path';
+import { resolve, join } from 'path';
 
 export default defineConfig({
   plugins: [
-    monacoEditorPlugin({})
+    monacoEditorPlugin({
+      customDistPath: (root, outDir) => join(root, outDir, 'monacoeditorwork')
+    })
   ],
-  // Use repo subdirectory when deploying to GitHub Pages
+  // Use a relative base path in production that matches the repository name
   base: process.env.NODE_ENV === 'production' ? '/stage2nd/' : '/',
   resolve: {
     alias: {
