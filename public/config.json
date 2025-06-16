@@ -12,7 +12,7 @@
   "theme": "dark",
   "locale": "fr",
   "registerServer": {
-    "registerUrl": "https://register.workers.dev",
+    "registerUrl": "https://register.astorise-eaf.workers.dev",
     "rtcConfig": {
       "iceServers": [
         { "urls": "stun:stun.l.google.com:19302" }
