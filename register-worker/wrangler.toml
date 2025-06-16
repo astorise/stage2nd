@@ -1,0 +1,5 @@
+name = "register-worker"
+main = "src/index.js"
+compatibility_date = "2025-06-14"
+
+routes = ["*/register*", "*/signal*", "*/peers*"]
