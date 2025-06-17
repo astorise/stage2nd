@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formation HTML/CSS - De Zéro à Expert</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/reveal.min.css" integrity="sha512-ZIo9ivf88U0L1S+0D/npMNTTkjez5B9cK5xIecN4IA2OmtbTNBbPAZo/0cBC195sq7FU7cEOVPwtit37f/+1rQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/theme/moon.min.css" integrity="sha512-JGJihbSPr8WGKFJzv8xOvXaw91KhI14WlPYD5ktHS1YiyDly98kfs7m0WLXh3F2P2ljA0U7VzBnNalXbQcw5wg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    
+    <style>
+        .reveal {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .reveal h1, .reveal h2, .reveal h3 {
+            text-transform: none;
+            font-weight: 600;
+        }
+        
+        .exercise-preview {
+            background: #1e1e1e;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 4px solid #42a5f5;
+            text-align: left;
+        }
+        
+        .code-demo {
+            background: #1a1a1a;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8em;
+            text-align: left;
+        }
+        
+        .concept-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            color: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .tips-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            color: white;
+        }
+        
+        .demo-result {
+            background: white;
+            color: #333;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .highlight {
+            color: #42a5f5;
+            font-weight: bold;
+        }
+        
+        .emoji {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+        
+        .structure-tree {
+            font-family: monospace;
+            text-align: left;
+            background: #1a1a1a;
+            padding: 20px;
+            border-radius: 8px;
+            color: #00ff00;
+        }
+
+        .box-model-visual {
+            display: inline-block;
+            background: #e74c3c;
+            padding: 20px;
+            margin: 20px;
+            border: 5px solid #f39c12;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .navigation-hint {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 0.8em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <!-- Slide de titre -->
+         <section data-markdown>
+                <textarea data-template>
+                    # Découverte de JavaScript 
+                    ## Un voyage dans le monde de la programmation
+
+                    <i class="fas fa-graduation-cap"></i> **Cours de Seconde** | 2025
+
+                    Note: Présentation d'introduction à JavaScript pour des élèves de seconde sans connaissance préalable en informatique.
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#fff5ee">
+                <textarea data-template>
+                    ## Qui sommes-nous aujourd'hui ?
+
+                    - **Vous** : Explorateurs du numérique 🧭 <!-- .element: class="fragment" -->
+                    - **Moi** : Votre guide dans ce voyage 👨‍🏫 <!-- .element: class="fragment" -->
+                    - **JavaScript** : Notre destination 🎯 <!-- .element: class="fragment" -->
+
+                    Note: Commencer par créer une connexion avec les élèves et dédramatiser l'apprentissage de la programmation.
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#f0f8ff">
+                <textarea data-template>
+                    ## Qu'est-ce que vous utilisez chaque jour ?
+
+                    - 📱 **Téléphone** : Apps, jeux, réseaux sociaux <!-- .element: class="fragment" -->
+                    - 💻 **Ordinateur** : Sites web, vidéos, musique <!-- .element: class="fragment" -->
+                    - 🎮 **Jeux vidéo** : Console, mobile, PC <!-- .element: class="fragment" -->
+                    - 📺 **Smart TV** : Netflix, YouTube, streaming <!-- .element: class="fragment" -->
+
+                    ### Tout cela fonctionne grâce à la **PROGRAMMATION** ! <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#fff5ee">
+                <textarea data-template>
+                    ## La programmation, c'est quoi ?
+
+                    > **C'est donner des instructions précises à un ordinateur** <!-- .element: class="fragment" -->
+
+                    Comme une **recette de cuisine** 👩‍🍳 : <!-- .element: class="fragment" -->
+
+                    1. **Ingrédients** = Données <!-- .element: class="fragment" -->
+                    2. **Étapes** = Instructions <!-- .element: class="fragment" -->
+                    3. **Résultat** = Programme qui fonctionne <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#f5f5dc">
+                <textarea data-template>
+                    ## Analogie : Vous et votre ami(e)
+
+                    Imaginez que vous voulez expliquer à un ami comment aller à la boulangerie : <!-- .element: class="fragment" -->
+
+                    **Version humaine :** <!-- .element: class="fragment" -->
+                    - "Va à la boulangerie" <!-- .element: class="fragment" -->
+
+                    **Version ordinateur :** <!-- .element: class="fragment" -->
+                    - Sors de la maison <!-- .element: class="fragment" -->
+                    - Tourne à droite <!-- .element: class="fragment" -->
+                    - Marche 100 mètres <!-- .element: class="fragment" -->
+                    - Traverse au feu <!-- .element: class="fragment" -->
+                    - Entre dans le magasin avec le panneau "Boulangerie" <!-- .element: class="fragment" -->
+
+                    ### L'ordinateur a besoin d'instructions **TRÈS précises** ! <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#e6f3ff">
+                <textarea data-template>
+                    ## Pourquoi JavaScript ?
+
+                    JavaScript est **PARTOUT** ! 🌍
+
+                    - 🌐 **Sites web** : Facebook, Instagram, TikTok <!-- .element: class="fragment" -->
+                    - 📱 **Applications mobile** : WhatsApp, Spotify <!-- .element: class="fragment" -->
+                    - 🖥️ **Applications bureau** : Discord, Visual Studio Code <!-- .element: class="fragment" -->
+                    - 🎮 **Jeux** : 2048, jeux en ligne <!-- .element: class="fragment" -->
+                    - 🤖 **Objets connectés** : Alexa, montres connectées <!-- .element: class="fragment" -->
+
+                    ### C'est le langage le plus utilisé au monde ! <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#2c3e50">
+                <textarea data-template>
+                    # Chapitre 1
+                    ## Les Fondamentaux
+                    <!-- .slide: style="color: white;" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#f0fff0">
+                <textarea data-template>
+                    ## Mon premier programme
+
+                    ```javascript
+                    console.log("Bonjour tout le monde !");
+                    ```
+                    <!-- .element: class="fragment" -->
+
+                    ### Que fait ce code ? <!-- .element: class="fragment" -->
+
+                    - `console.log()` = "Afficher quelque chose" <!-- .element: class="fragment" -->
+                    - `"Bonjour tout le monde !"` = Le message à afficher <!-- .element: class="fragment" -->
+                    - `;` = Fin de l'instruction <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#fff0f5">
+                <textarea data-template>
+                    ## À vous de jouer ! 🎯
+
+                    **Exercice 1 :** Affichez votre prénom
+
+                    ```javascript
+                    console.log("Votre prénom ici");
+                    ```
+                    <!-- .element: class="fragment" -->
+
+                    **Exercice 2 :** Affichez votre âge
+
+                    ```javascript
+                    console.log(16);
+                    ```
+                    <!-- .element: class="fragment" -->
+
+                    **Question :** Pourquoi pas de guillemets pour l'âge ? 🤔 <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#f5f5f5">
+                <textarea data-template>
+                    ## Les Variables : des boîtes magiques 📦
+
+                    Une variable = une **boîte** avec une **étiquette** <!-- .element: class="fragment" -->
+
+                    ```javascript
+                    let monPrenom = "Alice";
+                    let monAge = 16;
+                    let jaimeLeChocolat = true;
+                    ```
+                    <!-- .element: class="fragment" -->
+
+                    ### Analogie de l'armoire : <!-- .element: class="fragment" -->
+
+                    - **L'armoire** = La mémoire de l'ordinateur <!-- .element: class="fragment" -->
+                    - **Les tiroirs** = Les variables <!-- .element: class="fragment" -->
+                    - **Les étiquettes** = Les noms des variables <!-- .element: class="fragment" -->
+                    - **Le contenu** = Les valeurs <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#f0f8ff">
+                <textarea data-template>
+                    ## Types de données : les familles
+
+                    ### 3 types principaux pour commencer : <!-- .element: class="fragment" -->
+
+                    | Type | Exemple | Usage |
+                    |------|---------|--------|
+                    | **Texte** | `"Bonjour"` | Mots, phrases, noms |
+                    | **Nombre** | `42` | Âge, prix, quantité |
+                    | **Booléen** | `true/false` | Oui/non, vrai/faux |
+                    <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#fff5ee">
+                <textarea data-template>
+                    ## Exemples concrets
+
+                    ```javascript
+                    // Informations sur un élève
+                    let nom = "Dupont";          // Texte
+                    let prenom = "Marie";        // Texte
+                    let age = 15;                // Nombre
+                    let estEnSeconde = true;     // Booléen
+                    let notesMaths = 14.5;       // Nombre décimal
+                    ```
+                    <!-- .element: class="fragment" -->
+
+                    ### Pourquoi c'est utile ? <!-- .element: class="fragment" -->
+
+                    - Pour **stocker** des informations <!-- .element: class="fragment" -->
+                    - Pour les **réutiliser** plus tard <!-- .element: class="fragment" -->
+                    - Pour faire des **calculs** <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#f0fff0">
+                <textarea data-template>
+                    ## Calculatrice magique 🧮
+
+                    ```javascript
+                    let nombre1 = 10;
+                    let nombre2 = 5;
+
+                    let addition = nombre1 + nombre2;        // 15
+                    let soustraction = nombre1 - nombre2;    // 5
+                    let multiplication = nombre1 * nombre2;  // 50
+                    let division = nombre1 / nombre2;        // 2
+                    ```
+                    <!-- .element: class="fragment" -->
+
+                    ### L'ordinateur = calculatrice ultra-rapide ! ⚡ <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#fff0f5">
+                <textarea data-template>
+                    ## Activité pratique 💡
+
+                    **Créez votre fiche d'identité numérique :**
+
+                    ```javascript
+                    let monNom = "???";
+                    let monAge = ???;
+                    let maTaille = ???;  // en cm
+                    let maVilleNatale = "???";
+                    let jaimeLesJeuxVideo = ???;  // true ou false
+                    ```
+                    <!-- .element: class="fragment" -->
+
+                    **Puis calculez :** <!-- .element: class="fragment" -->
+                    - Votre âge en mois <!-- .element: class="fragment" -->
+                    - Votre taille en mètres <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#2c3e50">
+                <textarea data-template>
+                    # Chapitre 2
+                    ## Prendre des Décisions
+                    <!-- .slide: style="color: white;" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#f5f5dc">
+                <textarea data-template>
+                    ## La vie, c'est faire des choix 🤔
+
+                    **Dans la vraie vie :** <!-- .element: class="fragment" -->
+                    - S'il pleut ➜ Je prends un parapluie ☂️ <!-- .element: class="fragment" -->
+                    - Si j'ai 18 ans ➜ Je peux voter 🗳️ <!-- .element: class="fragment" -->
+                    - Si j'ai faim ➜ Je mange 🍕 <!-- .element: class="fragment" -->
+
+                    **En programmation :** <!-- .element: class="fragment" -->
+                    - Si (condition) ➜ Alors (action) <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#f0f8ff">
+                <textarea data-template>
+                    ## Les conditions : if/else
+
+                    ```javascript
+                    let age = 16;
+
+                    if (age >= 18) {
+                        console.log("Tu peux passer le permis !");
+                    } else {
+                        console.log("Encore un peu de patience...");
+                    }
+                    ```
+                    <!-- .element: class="fragment" -->
+
+                    ### Structure : <!-- .element: class="fragment" -->
+                    - `if` = "Si" <!-- .element: class="fragment" -->
+                    - `(condition)` = Ce qu'on teste <!-- .element: class="fragment" -->
+                    - `{ }` = Ce qu'on fait <!-- .element: class="fragment" -->
+                    - `else` = "Sinon" <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#fff5ee">
+                <textarea data-template>
+                    ## Comparaisons : plus ou moins ? 🎯
+
+                    | Symbole | Signification | Exemple |
+                    |---------|---------------|---------|
+                    | `>` | Plus grand que | `age > 15` |
+                    | `<` | Plus petit que | `note < 10` |
+                    | `>=` | Plus grand ou égal | `age >= 18` |
+                    | `<=` | Plus petit ou égal | `note <= 20` |
+                    | `===` | Égal à | `prenom === "Paul"` |
+                    | `!==` | Différent de | `ville !== "Paris"` |
+                    <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#f0fff0">
+                <textarea data-template>
+                    ## Calculateur de notes 📊
+
+                    ```javascript
+                    let note = 15;
+
+                    if (note >= 16) {
+                        console.log("Très bien ! 🎉");
+                    } else if (note >= 14) {
+                        console.log("Bien ! 👍");
+                    } else if (note >= 10) {
+                        console.log("Assez bien ! 👌");
+                    } else {
+                        console.log("Il faut retravailler ! 💪");
+                    }
+                    ```
+                    <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#fff0f5">
+                <textarea data-template>
+                    ## Activité : Votre profil Netflix 🎬
+
+                    ```javascript
+                    let age = 16;
+                    let aNetflix = true;
+
+                    if (age >= 18) {
+                        console.log("Accès à tous les contenus");
+                    } else if (age >= 13) {
+                        console.log("Contenu adapté aux ados");
+                    } else {
+                        console.log("Contenu familial uniquement");
+                    }
+                    ```
+                    <!-- .element: class="fragment" -->
+
+                    **À vous :** Créez un système pour votre jeu vidéo préféré ! <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#f5f5dc">
+                <textarea data-template>
+                    ## Les boucles : répéter sans se fatiguer 🔄
+
+                    **Problème :** Afficher les nombres de 1 à 10
+
+                    **Version longue :** <!-- .element: class="fragment" -->
+                    ```javascript
+                    console.log(1);
+                    console.log(2);
+                    console.log(3);
+                    // ... 7 lignes de plus !
+                    ```
+                    <!-- .element: class="fragment" -->
+
+                    **Version intelligente :** <!-- .element: class="fragment" -->
+                    ```javascript
+                    for (let i = 1; i <= 10; i++) {
+                        console.log(i);
+                    }
+                    ```
+                    <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#f0f8ff">
+                <textarea data-template>
+                    ## Comprendre la boucle for 🧠
+
+                    ```javascript
+                    for (let i = 1; i <= 10; i++) {
+                        console.log(i);
+                    }
+                    ```
+
+                    **Décortiquons :**
+
+                    - `let i = 1` ➜ On commence à 1 <!-- .element: class="fragment" -->
+                    - `i <= 10` ➜ On continue tant que i ≤ 10 <!-- .element: class="fragment" -->
+                    - `i++` ➜ On augmente i de 1 à chaque tour <!-- .element: class="fragment" -->
+
+                    ### Comme un compte à rebours à l'envers ! ⏰ <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#fff5ee">
+                <textarea data-template>
+                    ## Table de multiplication 📚
+
+                    ```javascript
+                    let nombre = 7;
+
+                    console.log("Table de " + nombre + " :");
+                    for (let i = 1; i <= 10; i++) {
+                        let resultat = nombre * i;
+                        console.log(nombre + " x " + i + " = " + resultat);
+                    }
+                    ```
+                    <!-- .element: class="fragment" -->
+
+                    **Résultat :** <!-- .element: class="fragment" -->
+                    ```
+                    7 x 1 = 7
+                    7 x 2 = 14
+                    7 x 3 = 21
+                    ...
+                    ```
+                    <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#2c3e50">
+                <textarea data-template>
+                    # Chapitre 3
+                    ## Organiser son code avec les Fonctions
+                    <!-- .slide: style="color: white;" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#f5f5f5">
+                <textarea data-template>
+                    ## Les fonctions : vos outils personnalisés 🛠️
+
+                    **Analogie de la cuisine :** 👨‍🍳
+
+                    Une fonction = une **recette** réutilisable <!-- .element: class="fragment" -->
+
+                    - **Nom de la recette** ➜ Nom de la fonction <!-- .element: class="fragment" -->
+                    - **Ingrédients** ➜ Paramètres <!-- .element: class="fragment" -->
+                    - **Instructions** ➜ Code de la fonction <!-- .element: class="fragment" -->
+                    - **Plat final** ➜ Résultat <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#f0f8ff">
+                <textarea data-template>
+                    ## Ma première fonction
+
+                    ```javascript
+                    function direBonjour() {
+                        console.log("Bonjour tout le monde !");
+                    }
+
+                    // Pour utiliser la fonction :
+                    direBonjour();
+                    ```
+                    <!-- .element: class="fragment" -->
+
+                    ### Pourquoi c'est génial ? <!-- .element: class="fragment" -->
+
+                    - **Réutilisable** : On peut l'appeler plusieurs fois <!-- .element: class="fragment" -->
+                    - **Organisé** : Le code est plus propre <!-- .element: class="fragment" -->
+                    - **Modifiable** : On change à un seul endroit <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#fff5ee">
+                <textarea data-template>
+                    ## Fonctions avec paramètres 📝
+
+                    ```javascript
+                    function saluer(prenom) {
+                        console.log("Bonjour " + prenom + " !");
+                    }
+
+                    // Utilisation :
+                    saluer("Alice");    // "Bonjour Alice !"
+                    saluer("Bob");      // "Bonjour Bob !"
+                    saluer("Charlie");  // "Bonjour Charlie !"
+                    ```
+                    <!-- .element: class="fragment" -->
+
+                    **Le paramètre** = une variable que la fonction peut utiliser <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#f0fff0">
+                <textarea data-template>
+                    ## Fonctions qui calculent 🧮
+
+                    ```javascript
+                    function additionner(a, b) {
+                        let resultat = a + b;
+                        return resultat;
+                    }
+
+                    // Utilisation :
+                    let somme = additionner(5, 3);
+                    console.log(somme);  // 8
+                    ```
+                    <!-- .element: class="fragment" -->
+
+                    **`return`** = La fonction nous "rend" un résultat <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#fff0f5">
+                <textarea data-template>
+                    ## Calculatrice personnalisée ⚡
+
+                    ```javascript
+                    function multiplier(x, y) {
+                        return x * y;
+                    }
+
+                    function diviser(x, y) {
+                        if (y !== 0) {
+                            return x / y;
+                        } else {
+                            return "Erreur : division par zéro !";
+                        }
+                    }
+
+                    // Tests :
+                    console.log(multiplier(6, 7));  // 42
+                    console.log(diviser(10, 2));    // 5
+                    console.log(diviser(10, 0));    // "Erreur : division par zéro !"
+                    ```
+                    <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#f5f5dc">
+                <textarea data-template>
+                    ## Activité : Votre convertisseur 🔄
+
+                    **Créez des fonctions pour convertir :**
+
+                    ```javascript
+                    function celsiusVersFahrenheit(celsius) {
+                        return (celsius * 9/5) + 32;
+                    }
+
+                    function minutesVersHeures(minutes) {
+                        return minutes / 60;
+                    }
+
+                    function euroVersDoller(euros) {
+                        return euros * 1.1;  // Taux approximatif
+                    }
+                    ```
+                    <!-- .element: class="fragment" -->
+
+                    **À vous :** Créez une fonction qui calcule votre âge en jours ! <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#2c3e50">
+                <textarea data-template>
+                    # Chapitre 4
+                    ## Les Listes (Tableaux)
+                    <!-- .slide: style="color: white;" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#f0f8ff">
+                <textarea data-template>
+                    ## Les tableaux : des listes organisées 📋
+
+                    **Dans la vraie vie :** <!-- .element: class="fragment" -->
+                    - Liste de courses 🛒 <!-- .element: class="fragment" -->
+                    - Playlist musicale 🎵 <!-- .element: class="fragment" -->
+                    - Contact téléphone 📱 <!-- .element: class="fragment" -->
+                    - Notes de la classe 📊 <!-- .element: class="fragment" -->
+
+                    **En programmation :** <!-- .element: class="fragment" -->
+                    ```javascript
+                    let listeCourses = ["pain", "lait", "œufs", "chocolat"];
+                    let notes = [15, 12, 18, 14, 16];
+                    let couleurs = ["rouge", "vert", "bleu"];
+                    ```
+                    <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#fff5ee">
+                <textarea data-template>
+                    ## Manipuler les tableaux 🎯
+
+                    ```javascript
+                    let fruits = ["pomme", "banane"];
+
+                    // Ajouter à la fin
+                    fruits.push("orange");
+                    console.log(fruits);  // ["pomme", "banane", "orange"]
+
+                    // Enlever le dernier
+                    let dernier = fruits.pop();
+                    console.log(dernier);  // "orange"
+
+                    // Ajouter au début
+                    fruits.unshift("fraise");
+                    console.log(fruits);  // ["fraise", "pomme", "banane"]
+                    ```
+                    <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#f0fff0">
+                <textarea data-template>
+                    ## Accéder aux éléments 🔍
+
+                    ```javascript
+                    let animaux = ["chien", "chat", "oiseau", "poisson"];
+
+                    // Les positions commencent à 0 !
+                    console.log(animaux[0]);  // "chien"
+                    console.log(animaux[1]);  // "chat"
+                    console.log(animaux[2]);  // "oiseau"
+
+                    // Longueur du tableau
+                    console.log(animaux.length);  // 4
+
+                    // Dernier élément
+                    console.log(animaux[animaux.length - 1]);  // "poisson"
+                    ```
+                    <!-- .element: class="fragment" -->
+
+                    ### Attention : On compte à partir de 0 ! 🚨 <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+
+            <section data-markdown data-background-color="#fff0f5">
+                <textarea data-template>
+                    ## Parcourir un tableau 🔄
+
+                    ```javascript
+                    let notes = [15, 12, 18, 14, 16];
+
+                    // Afficher toutes les notes
+                    for (let i = 0; i < notes.length; i++) {
+                        console.log("Note " + (i+1) + " : " + notes[i]);
+                    }
+
+                    // Calculer la moyenne
+                    let somme = 0;
+                    for (let i = 0; i < notes.length; i++) {
+                        somme = somme + notes[i];
+                    }
+                    let moyenne = somme / notes.length;
+                    console.log("Moyenne : " + moyenne);
+                    ```
+                    <!-- .element: class="fragment" -->
+                </textarea>
+            </section>
+        </div>
+    </div>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/reveal.js" integrity="sha512-GvouLVZT+gJSJW5eOfpG46xTaBb2c3VeNnbzmDYTRQkFlgvxNhnzZQqiQ/jAyAYPh+a9roBvAHJP6zvXIVq34Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/plugin/markdown/markdown.min.js" integrity="sha512-4exkEeyVuaWUFKozXl6L3UCugl6ai1cKnrVFkWUstdrNB2sDxxmPEaHBzTlYm9wX78EjPzEBG0s8k37oPeUFIw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   <script>
+        // Initialisation Reveal.js se fera par votre configuration
+        Reveal.initialize({
+            hash: true,
+            transition: 'slide',
+            plugins: [RevealMarkdown],
+             dependencies: [
+                 { src: 'https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.2.1/plugin/highlight/highlight.min.js', async: true },
+
+             ]
+         });
+    </script>
+</body>
+</html>
