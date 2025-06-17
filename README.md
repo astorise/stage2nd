@@ -19,7 +19,13 @@ Start a local development server with Vite:
 npm run dev
 ```
 
-The app will be available at the URL printed in the console.
+The app will be available at the URL printed in the console. If you see a
+"global is not defined" error, ensure `vite.config.js` contains:
+
+```js
+define: { global: 'globalThis' }
+```
+which exposes the Node-style `global` variable during development.
 
 ## Deploy
 
