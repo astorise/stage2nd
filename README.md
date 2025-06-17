@@ -56,3 +56,14 @@ Configure its endpoint using the `registerServer` section of `public/config.json
 ```
 
 `rtcConfig` is passed directly to `simple-peer` when creating the `RTCPeerConnection` and can be used to specify custom ICE servers.
+
+### Deploying the Worker
+
+The signaling API uses a Cloudflare Durable Object to persist the list of peers and pending signals. Deploy it from the `register` directory:
+
+```bash
+cd register
+npm run deploy
+```
+
+The first deployment creates the Durable Object using the configuration in `wrangler.jsonc`.
