@@ -6,11 +6,14 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "register",
         "main": "src/index.js",
-        "workers_dev": true,
+        "workers_dev": false,
         "compatibility_date": "2025-06-14",
         "observability": {
                 "enabled": true
         },
+		  "routes": [
+    "https://codeplay.astori.name/*"
+  ],
   // Déclaration de la migration
   "migrations": [
     {
