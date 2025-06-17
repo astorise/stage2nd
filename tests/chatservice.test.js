@@ -29,6 +29,7 @@ beforeEach(() => {
 
 afterEach(() => {
   vi.restoreAllMocks();
+  vi.useRealTimers();
 });
 
 describe('ChatService', () => {
@@ -123,5 +124,32 @@ describe('ChatService', () => {
     expect(MockPeerCtor).toHaveBeenCalledWith(
       expect.objectContaining({ config: { iceServers: [] } })
     );
+  });
+
+  it('register starts polling signals', async () => {
+    vi.useFakeTimers();
+    service = new ChatService({ registerUrl: 'http://host' });
+    const pollSpy = vi.spyOn(service, '_pollSignals').mockResolvedValue();
+    const intervalSpy = vi.spyOn(global, 'setInterval');
+    await service.register('me');
+    expect(pollSpy).toHaveBeenCalled();
+    expect(intervalSpy).toHaveBeenCalled();
+  });
+
+  it('polled signals are handled', async () => {
+    vi.useFakeTimers();
+    service = new ChatService({ registerUrl: 'http://host' });
+    global.fetch = vi
+      .fn()
+      .mockResolvedValueOnce({ ok: true })
+      .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve([]) })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve([{ from: 'peer', signal: 's1' }])
+      });
+    const handle = vi.spyOn(service, 'handleSignal').mockResolvedValue();
+    await service.register('me');
+    expect(global.fetch).toHaveBeenCalledWith('http://host/signal?id=me');
+    expect(handle).toHaveBeenCalledWith('peer', 's1');
   });
 });
