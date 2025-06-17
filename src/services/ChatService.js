@@ -7,6 +7,7 @@ export class ChatService extends EventEmitter {
     this.options = options;
     this.id = null;
     this.peers = new Map();
+    this._pollHandle = null;
   }
 
   async listPeers() {
@@ -39,6 +40,10 @@ export class ChatService extends EventEmitter {
       });
     } catch (err) {
       console.error('Failed to auto-connect peers', err);
+    }
+    if (this.options.registerUrl) {
+      this._pollHandle = setInterval(() => this._pollSignals(), 1000);
+      await this._pollSignals();
     }
   }
 
@@ -97,6 +102,21 @@ export class ChatService extends EventEmitter {
     peer.signal(data);
   }
 
+  async _pollSignals() {
+    if (!this.options.registerUrl || !this.id) return;
+    const base = this.options.registerUrl.replace(/\/$/, '');
+    try {
+      const res = await fetch(`${base}/signal?id=${this.id}`);
+      if (!res.ok) return;
+      const list = await res.json();
+      for (const { from, signal } of list) {
+        try {
+          await this.handleSignal(from, signal);
+        } catch {}
+      }
+    } catch {}
+  }
+
   sendMessage(msg) {
     for (const peer of this.peers.values()) {
       if (peer.connected) {
@@ -114,6 +134,10 @@ export class ChatService extends EventEmitter {
       peer.destroy?.();
     }
     this.peers.clear();
+    if (this._pollHandle) {
+      clearInterval(this._pollHandle);
+      this._pollHandle = null;
+    }
     this.emit('leave');
   }
 
