@@ -299,7 +299,9 @@ ${exercise.difficulty}
       }
 
       // Combiner le code de l'utilisateur et les tests
-      const combined = `${code}\n${testCode}`;
+      const combined =
+        `const code = ${JSON.stringify(code)};\n` +
+        `${code}\n${testCode}`;
 
       // Créer une fonction de test exécutant d'abord le code puis les tests
       const testFunction = new Function('output', 'results', combined);
