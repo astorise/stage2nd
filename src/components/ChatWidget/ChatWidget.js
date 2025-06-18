@@ -15,9 +15,9 @@ export class ChatWidget {
   }
 
   async handleUnload() {
-    this.service.leave();
     this.service.sendMessage(`${this.id} a quitté le chat`);
     await new Promise(r => setTimeout(r, 50));
+    this.service.leave();
   }
 
   render() {
@@ -47,12 +47,13 @@ export class ChatWidget {
     this.service.register(username);
     this.service.onMessage(msg => this.addMessage(msg));
     this.service.on('open', () => {
-      this.service.sendMessage(`${username} a rejoint le chat`);
       this.addSystemMessage(`Connecté en tant que ${username}`);
       this.updateStatus();
     });
     this.service.on('connected', id => {
       this.connectedPeers.add(id);
+      const peer = this.service.peers.get(id);
+      try { peer?.send(`${username} a rejoint le chat`); } catch {}
       this.updateStatus();
     });
     this.service.on('disconnected', id => {
