@@ -4,8 +4,8 @@
   "modules": ["javascript", "python", "web"],
   "features": {
     "github": true,
-    "collaboration": true,
-    "chat": true,
+    "collaboration": false,
+    "chat": false,
     "analytics": false
   },
   "lessonsUrl": "/lessons/manifest.json",
