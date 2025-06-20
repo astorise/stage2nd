@@ -29,6 +29,8 @@ export class UIManager {
       progressFill: document.getElementById("progress-fill"),
       testRunner: document.getElementById("test-runner"),
       chatWidget: document.getElementById("chat-widget"),
+      workspaceTabs: document.querySelectorAll(".workspace-tab"),
+      workspacePanels: document.querySelectorAll(".workspace-panel"),
     };
 
     // Vérifier que les éléments critiques existent
@@ -62,6 +64,7 @@ export class UIManager {
 
       // Gérer les onglets
       this.setupOutputTabs();
+      this.setupWorkspaceTabs();
 
       // Configurer les événements
       this.setupEventListeners();
@@ -107,26 +110,33 @@ export class UIManager {
         </aside>
         
         <section class="workspace">
-          <div class="lesson-info" id="lesson-info">
-            <div class="welcome-screen">
-              <h2>Bienvenue dans CodePlay ! 👋</h2>
-              <p>Sélectionne une leçon pour commencer</p>
-            </div>
+          <div class="workspace-tabs" role="tablist">
+            <button class="workspace-tab active" data-panel="lesson" role="tab" aria-controls="lesson-panel">Énoncé</button>
+            <button class="workspace-tab" data-panel="editor" role="tab" aria-controls="editor-panel">Workspace</button>
           </div>
-          
-          <div class="editor-container">
-            <div class="editor-toolbar">
-              <button class="btn-primary" id="btn-run">
-                ▶️ Exécuter
-              </button>
-              <button class="btn-secondary" id="btn-reset">
-                🔄 Réinitialiser
-              </button>
+          <div class="workspace-panels">
+            <div class="workspace-panel active" id="lesson-panel">
+              <div class="lesson-info" id="lesson-info">
+                <div class="welcome-screen">
+                  <h2>Bienvenue dans CodePlay ! 👋</h2>
+                  <p>Sélectionne une leçon pour commencer</p>
+                </div>
+              </div>
             </div>
-            <div id="editor" class="editor"></div>
-          </div>
-          
-          <div class="output-container" id="output-container">
+            <div class="workspace-panel" id="editor-panel">
+              <div class="editor-container">
+                <div class="editor-toolbar">
+                  <button class="btn-primary" id="btn-run">
+                    ▶️ Exécuter
+                  </button>
+                  <button class="btn-secondary" id="btn-reset">
+                    🔄 Réinitialiser
+                  </button>
+                </div>
+                <div id="editor" class="editor"></div>
+              </div>
+
+              <div class="output-container" id="output-container">
   <div class="output-tabs">
     <button class="output-tab active" data-panel="console">Console</button>
     <button class="output-tab" data-panel="network">Réseau</button>
@@ -144,7 +154,9 @@ export class UIManager {
     </div>
   </div>
 </div>
-          <div id="chat-widget"></div>
+              <div id="chat-widget"></div>
+            </div>
+          </div>
         </section>
       </main>
     `;
@@ -323,6 +335,26 @@ export class UIManager {
         panels.forEach((panel) => {
           panel.classList.remove("active");
           if (panel.id === `${targetPanel}-panel`) {
+            panel.classList.add("active");
+          }
+        });
+      });
+    });
+  }
+
+  setupWorkspaceTabs() {
+    const { workspaceTabs: tabs, workspacePanels: panels } = this.elements;
+
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const target = tab.dataset.panel;
+
+        tabs.forEach((t) => t.classList.remove("active"));
+        tab.classList.add("active");
+
+        panels.forEach((panel) => {
+          panel.classList.remove("active");
+          if (panel.id === `${target}-panel`) {
             panel.classList.add("active");
           }
         });

@@ -36,26 +36,53 @@
       </aside>
       
       <section class="workspace">
-        <div class="lesson-info" id="lesson-info">
-          <div class="welcome-screen">
-            <h2>Bienvenue dans CodePlay ! 👋</h2>
-            <p>Sélectionne une leçon pour commencer</p>
+        <div class="workspace-tabs" role="tablist">
+          <button class="workspace-tab active" data-panel="lesson" role="tab" aria-controls="lesson-panel">Énoncé</button>
+          <button class="workspace-tab" data-panel="editor" role="tab" aria-controls="editor-panel">Workspace</button>
+        </div>
+        <div class="workspace-panels">
+          <div class="workspace-panel active" id="lesson-panel">
+            <div class="lesson-info" id="lesson-info">
+              <div class="welcome-screen">
+                <h2>Bienvenue dans CodePlay ! 👋</h2>
+                <p>Sélectionne une leçon pour commencer</p>
+              </div>
+            </div>
+          </div>
+          <div class="workspace-panel" id="editor-panel">
+            <div class="editor-container">
+              <div class="editor-toolbar">
+                <button class="btn-primary" id="btn-run">
+                  ▶️ Exécuter
+                </button>
+                <button class="btn-secondary" id="btn-reset">
+                  🔄 Réinitialiser
+                </button>
+              </div>
+              <div id="editor" class="editor"></div>
+            </div>
+
+            <div class="output-container" id="output-container">
+  <div class="output-tabs">
+    <button class="output-tab active" data-panel="console">Console</button>
+    <button class="output-tab" data-panel="network">Réseau</button>
+    <button class="output-tab" data-panel="tests">Tests</button>
+  </div>
+  <div class="output-panels">
+    <div class="output-panel active" id="console-panel">
+      <div id="console"></div>
+    </div>
+    <div class="output-panel" id="network-panel">
+      <div id="network-monitor"></div>
+    </div>
+  <div class="output-panel" id="tests-panel">
+      <div id="test-runner"></div>
+    </div>
+  </div>
+</div>
+            <div id="chat-widget"></div>
           </div>
         </div>
-        
-        <div class="editor-container">
-          <div class="editor-toolbar">
-            <button class="btn-primary" id="btn-run">
-              ▶️ Exécuter
-            </button>
-            <button class="btn-secondary" id="btn-reset">
-              🔄 Réinitialiser
-            </button>
-          </div>
-          <div id="editor" class="editor"></div>
-        </div>
-        
-        <div class="console-container" id="console"></div>
       </section>
     </main>
   </div>

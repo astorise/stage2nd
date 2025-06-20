@@ -92,7 +92,7 @@ body {
 .workspace {
   flex: 1;
   display: grid;
-  grid-template-rows: auto 1fr 250px;
+  grid-template-rows: auto 1fr;
   gap: 1px;
   background-color: var(--border-color);
   overflow: hidden;
@@ -280,7 +280,7 @@ body {
   }
 
   .workspace {
-    grid-template-rows: auto 1fr 200px;
+    grid-template-rows: auto 1fr;
   }
 }
 
@@ -574,6 +574,47 @@ body {
 }
 
 .output-panel.active {
+  display: block;
+}
+
+/* Tabs pour la zone de travail */
+.workspace-tabs {
+  display: flex;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.workspace-tab {
+  padding: 10px 20px;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.workspace-tab:hover {
+  color: var(--text-primary);
+}
+
+.workspace-tab.active {
+  color: var(--text-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+.workspace-panels {
+  position: relative;
+  height: calc(100% - 42px);
+}
+
+.workspace-panel {
+  position: absolute;
+  inset: 0;
+  display: none;
+}
+
+.workspace-panel.active {
   display: block;
 }
 
