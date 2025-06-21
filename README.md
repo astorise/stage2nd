@@ -47,7 +47,7 @@ This builds the project and publishes the `dist` folder using the `gh-pages` pac
 
 The app ships with a small chat widget powered by [simple-peer](https://github.com/feross/simple-peer).
 Enable it by setting `"collaboration": true` in `public/config.json` (or `"chat"` if present).
-Once enabled, a chat panel appears at the bottom of the UI allowing connected peers to exchange short messages.
+Once enabled, a chat panel appears as a floating widget that can be toggled using the **Chat** button next to *Exécuter* and *Réinitialiser*.
 
 Peers discover each other and exchange WebRTC signals through a small Cloudflare Worker.
 Configure its endpoint using the `registerServer` section of `public/config.json`:

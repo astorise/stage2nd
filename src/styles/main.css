@@ -751,11 +751,21 @@ body {
 
 /* Chat Widget */
 #chat-widget {
-  height: 200px;
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  width: 250px;
+  height: 250px;
   background: var(--bg-secondary);
-  border-top: 1px solid var(--border-color);
-  display: flex;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  display: none;
   flex-direction: column;
+  z-index: 40;
+}
+
+#chat-widget.visible {
+  display: flex;
 }
 
 .chat-status {
