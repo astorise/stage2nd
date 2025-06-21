@@ -26,12 +26,17 @@ export class UIManager {
       courseSelector: document.getElementById("course-selector"),
       runButton: document.getElementById("btn-run"),
       resetButton: document.getElementById("btn-reset"),
+      chatToggleButton: document.getElementById("btn-chat-toggle"),
       progressFill: document.getElementById("progress-fill"),
       testRunner: document.getElementById("test-runner"),
       chatWidget: document.getElementById("chat-widget"),
       workspaceTabs: document.querySelectorAll(".workspace-tab"),
       workspacePanels: document.querySelectorAll(".workspace-panel"),
     };
+
+    if (!this.app.config?.features?.collaboration && this.elements.chatToggleButton) {
+      this.elements.chatToggleButton.style.display = "none";
+    }
 
     // Vérifier que les éléments critiques existent
     if (!this.elements.editor) {
@@ -133,6 +138,9 @@ export class UIManager {
                   <button class="btn-secondary" id="btn-reset">
                     🔄 Réinitialiser
                   </button>
+                  <button class="btn-secondary" id="btn-chat-toggle">
+                    💬 Chat
+                  </button>
                 </div>
               </div>
 
@@ -171,6 +179,13 @@ export class UIManager {
     this.elements.resetButton.addEventListener("click", () => {
       this.resetCode();
     });
+
+    // Bouton Chat
+    if (this.elements.chatToggleButton) {
+      this.elements.chatToggleButton.addEventListener("click", () => {
+        this.toggleChatWidget();
+      });
+    }
 
     // Raccourcis clavier globaux
     document.addEventListener("editor:run", () => {
@@ -360,6 +375,14 @@ export class UIManager {
         });
       });
     });
+  }
+
+  toggleChatWidget() {
+    const widget = this.elements.chatWidget;
+    const btn = this.elements.chatToggleButton;
+    if (!widget || !btn) return;
+    const visible = widget.classList.toggle("visible");
+    btn.textContent = visible ? "❌ Fermer" : "💬 Chat";
   }
   showLoading(message = "Chargement...") {
     // Créer ou mettre à jour l'overlay de chargement
