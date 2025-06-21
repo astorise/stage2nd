@@ -125,7 +125,8 @@ export class UIManager {
             </div>
             <div class="workspace-panel" id="editor-panel">
               <div class="editor-container">
-                <div class="editor-toolbar">
+                <div id="editor" class="editor"></div>
+                <div class="floating-actions">
                   <button class="btn-primary" id="btn-run">
                     ▶️ Exécuter
                   </button>
@@ -133,7 +134,6 @@ export class UIManager {
                     🔄 Réinitialiser
                   </button>
                 </div>
-                <div id="editor" class="editor"></div>
               </div>
 
               <div class="output-container" id="output-container">
