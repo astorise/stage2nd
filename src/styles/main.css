@@ -2,6 +2,8 @@
 :root {
   --color-primary: #667eea;
   --color-primary-dark: #5a67d8;
+  --color-secondary: #4a5568;
+  --color-secondary-dark: #2d3748;
   --color-success: #48bb78;
   --color-danger: #f56565;
   --color-warning: #ed8936;
@@ -139,12 +141,13 @@ body {
   flex-direction: column;
 }
 
-.editor-toolbar {
-  background-color: var(--bg-secondary);
-  padding: 10px;
+.floating-actions {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
   display: flex;
   gap: 10px;
-  border-bottom: 1px solid var(--border-color);
+  z-index: 50;
 }
 
 .editor {
@@ -221,12 +224,12 @@ body {
 }
 
 .btn-secondary {
-  background-color: var(--bg-tertiary);
-  color: var(--text-primary);
+  background-color: var(--color-secondary);
+  color: white;
 }
 
 .btn-secondary:hover {
-  background-color: #5a6578;
+  background-color: var(--color-secondary-dark);
 }
 
 .btn-icon {
