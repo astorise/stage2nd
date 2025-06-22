@@ -394,7 +394,10 @@ export class UIManager {
     const { outputResizer, outputContainer } = this.elements;
     if (!outputResizer || !outputContainer) return;
 
-    const minHeight = 62;
+    const minHeight = parseInt(
+      window.getComputedStyle(outputContainer).minHeight,
+      10,
+    ) || 62;
     let startY = 0;
     let startHeight = 0;
 
@@ -403,16 +406,16 @@ export class UIManager {
       outputContainer.style.height = `${newHeight}px`;
     };
 
-    const onMouseUp = () => {
+    const stopDrag = () => {
       document.removeEventListener("mousemove", onMouseMove);
-      document.removeEventListener("mouseup", onMouseUp);
+      document.removeEventListener("mouseup", stopDrag);
     };
 
     outputResizer.addEventListener("mousedown", (e) => {
       startY = e.clientY;
       startHeight = outputContainer.offsetHeight;
       document.addEventListener("mousemove", onMouseMove);
-      document.addEventListener("mouseup", onMouseUp);
+      document.addEventListener("mouseup", stopDrag);
     });
   }
 
