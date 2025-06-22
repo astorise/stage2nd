@@ -173,7 +173,6 @@ export class UIManager {
               <div id="chat-widget"></div>
             </div>
           </div>
-          </section>
           <div class="output-container" id="output-container">
             <div class="output-resizer" id="output-resizer"></div>
             <div class="output-tabs">
@@ -193,6 +192,7 @@ export class UIManager {
               </div>
             </div>
           </div>
+          </section>
         </main>
     `;
   }
