@@ -27,6 +27,16 @@ define: { global: 'globalThis' }
 ```
 which exposes the Node-style `global` variable during development.
 
+## Testing
+
+Ensure **Node.js 20** is installed and run the tests with `npm test` after
+installing dependencies with `npm ci`:
+
+```bash
+npm ci
+npm test
+```
+
 ## Deploy
 
 Deployment is handled by GitHub Actions. Every push to the `main` branch triggers the [deploy workflow](.github/workflows/deploy.yml):
