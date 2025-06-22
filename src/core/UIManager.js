@@ -30,6 +30,8 @@ export class UIManager {
       progressFill: document.getElementById("progress-fill"),
       testRunner: document.getElementById("test-runner"),
       chatWidget: document.getElementById("chat-widget"),
+      outputContainer: document.getElementById("output-container"),
+      outputResizer: document.getElementById("output-resizer"),
       workspaceTabs: document.querySelectorAll(".workspace-tab"),
       workspacePanels: document.querySelectorAll(".workspace-panel"),
     };
@@ -69,6 +71,7 @@ export class UIManager {
 
       // Gérer les onglets
       this.setupOutputTabs();
+      this.setupOutputResizer();
       this.setupWorkspaceTabs();
 
       // Configurer les événements
@@ -149,6 +152,7 @@ export class UIManager {
           </div>
           </section>
           <div class="output-container" id="output-container">
+            <div class="output-resizer" id="output-resizer"></div>
             <div class="output-tabs">
               <button class="output-tab active" data-panel="console">Console</button>
               <button class="output-tab" data-panel="network">Réseau</button>
@@ -354,6 +358,32 @@ export class UIManager {
           }
         });
       });
+    });
+  }
+
+  setupOutputResizer() {
+    const { outputResizer, outputContainer } = this.elements;
+    if (!outputResizer || !outputContainer) return;
+
+    const minHeight = 62;
+    let startY = 0;
+    let startHeight = 0;
+
+    const onMouseMove = (e) => {
+      const newHeight = Math.max(startHeight + (startY - e.clientY), minHeight);
+      outputContainer.style.height = `${newHeight}px`;
+    };
+
+    const onMouseUp = () => {
+      document.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseup", onMouseUp);
+    };
+
+    outputResizer.addEventListener("mousedown", (e) => {
+      startY = e.clientY;
+      startHeight = outputContainer.offsetHeight;
+      document.addEventListener("mousemove", onMouseMove);
+      document.addEventListener("mouseup", onMouseUp);
     });
   }
 
