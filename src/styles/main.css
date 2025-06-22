@@ -238,6 +238,10 @@ body {
   color: var(--color-warning);
 }
 
+.console-entry.console-success {
+  color: var(--color-success);
+}
+
 /* Buttons */
 .btn-primary,
 .btn-secondary,
