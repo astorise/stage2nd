@@ -118,14 +118,14 @@ export class UIManager {
           <span class="header-tagline">Apprends à programmer</span>
         </div>
         <nav class="header-nav">
-          <button class="btn-icon" id="btn-sidebar-toggle" title="Menu">☰</button>
           <div id="course-selector" class="course-selector"></div>
           <button class="btn-icon" id="btn-settings" title="Paramètres">⚙️</button>
         </nav>
       </header>
-      
+
       <main class="app-main">
         <aside class="sidebar" id="sidebar">
+          <button class="btn-icon sidebar-toggle" id="btn-sidebar-toggle" title="Menu">⮜</button>
           <div class="lessons-container">
             <h2>📚 Leçons</h2>
             <div id="lessons-list" class="lessons-list">
@@ -450,7 +450,7 @@ export class UIManager {
     const collapsed = sidebar.classList.toggle("collapsed");
     const btn = this.elements.sidebarToggleButton;
     if (btn) {
-      btn.textContent = collapsed ? "☰" : "⮜";
+      btn.textContent = collapsed ? "⮞" : "⮜";
     }
   }
   showLoading(message = "Chargement...") {
