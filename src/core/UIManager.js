@@ -27,6 +27,8 @@ export class UIManager {
       runButton: document.getElementById("btn-run"),
       resetButton: document.getElementById("btn-reset"),
       chatToggleButton: document.getElementById("btn-chat-toggle"),
+      sidebarToggleButton: document.getElementById("btn-sidebar-toggle"),
+      sidebar: document.getElementById("sidebar"),
       progressFill: document.getElementById("progress-fill"),
       testRunner: document.getElementById("test-runner"),
       chatWidget: document.getElementById("chat-widget"),
@@ -36,7 +38,10 @@ export class UIManager {
       workspacePanels: document.querySelectorAll(".workspace-panel"),
     };
 
-    if (!this.app.config?.features?.collaboration && this.elements.chatToggleButton) {
+    if (
+      !this.app.config?.features?.collaboration &&
+      this.elements.chatToggleButton
+    ) {
       this.elements.chatToggleButton.style.display = "none";
     }
 
@@ -96,6 +101,7 @@ export class UIManager {
           <span class="header-tagline">Apprends à programmer</span>
         </div>
         <nav class="header-nav">
+          <button class="btn-icon" id="btn-sidebar-toggle" title="Menu">☰</button>
           <div id="course-selector" class="course-selector"></div>
           <button class="btn-icon" id="btn-settings" title="Paramètres">⚙️</button>
         </nav>
@@ -188,6 +194,12 @@ export class UIManager {
     if (this.elements.chatToggleButton) {
       this.elements.chatToggleButton.addEventListener("click", () => {
         this.toggleChatWidget();
+      });
+    }
+
+    if (this.elements.sidebarToggleButton) {
+      this.elements.sidebarToggleButton.addEventListener("click", () => {
+        this.toggleSidebar();
       });
     }
 
@@ -413,6 +425,16 @@ export class UIManager {
     if (!widget || !btn) return;
     const visible = widget.classList.toggle("visible");
     btn.textContent = visible ? "❌ Fermer" : "💬 Chat";
+  }
+
+  toggleSidebar() {
+    const sidebar = this.elements.sidebar;
+    if (!sidebar) return;
+    const collapsed = sidebar.classList.toggle("collapsed");
+    const btn = this.elements.sidebarToggleButton;
+    if (btn) {
+      btn.textContent = collapsed ? "☰" : "⮜";
+    }
   }
   showLoading(message = "Chargement...") {
     // Créer ou mettre à jour l'overlay de chargement
