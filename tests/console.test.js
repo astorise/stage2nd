@@ -22,3 +22,16 @@ describe('Console.formatValue', () => {
     expect(formatValue('hello')).toBe('hello');
   });
 });
+
+describe('Console.success', () => {
+  it('adds a success log entry and element', () => {
+    document.body.innerHTML = '<div id="c"></div>';
+    const c = new Console(document.getElementById('c'));
+    c.success('yay');
+
+    expect(c.logs[0].type).toBe('success');
+    const elem = document.querySelector('.console-entry.console-success');
+    expect(elem).toBeTruthy();
+    expect(elem.textContent).toContain('yay');
+  });
+});

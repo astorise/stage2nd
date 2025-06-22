@@ -37,6 +37,10 @@ export class Console {
   info(...args) {
     this.addEntry('info', args);
   }
+
+  success(...args) {
+    this.addEntry('success', args);
+  }
   
   addEntry(type, args) {
     const entry = {

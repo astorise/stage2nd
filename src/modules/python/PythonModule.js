@@ -93,20 +93,19 @@ import datetime
   async execute(code, context = {}) {
     const logs = [];
     const errors = [];
+    const originalLog = console.log;
+    const originalError = console.error;
     
     try {
       // Attendre que Pyodide soit chargé
       await this.loadingPromise;
       
       // Intercepter les sorties console
-      const originalLog = console.log;
-      const originalError = console.error;
-      
       console.log = (...args) => {
         logs.push({ type: 'log', args });
         originalLog.apply(console, args);
       };
-      
+
       console.error = (...args) => {
         logs.push({ type: 'error', args });
         originalError.apply(console, args);
@@ -142,8 +141,8 @@ import datetime
       });
       
       // Restaurer console
-      console.log = console.log;
-      console.error = console.error;
+      console.log = originalLog;
+      console.error = originalError;
       
       return {
         success: false,
