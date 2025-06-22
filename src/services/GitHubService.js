@@ -9,9 +9,10 @@ export class GitHubService {
     const { Octokit } = await import('@octokit/rest');
     this.token = token;
     this.octokit = new Octokit({ auth: token });
-    
+
     // Vérifier le token
     const { data: user } = await this.octokit.users.getAuthenticated();
+    this.user = user;
     return user;
   }
   
@@ -79,5 +80,52 @@ export class GitHubService {
         'Structure initiale'
       );
     }
+  }
+
+  async createOrUpdateFile(repo, path, content, message) {
+    const params = {
+      owner: this.user.login,
+      repo,
+      path,
+      message,
+      content: Buffer.from(content).toString('base64')
+    };
+
+    try {
+      const { data } = await this.octokit.repos.getContent({
+        owner: this.user.login,
+        repo,
+        path
+      });
+      params.sha = data.sha;
+    } catch (error) {
+      if (error.status !== 404) throw error;
+    }
+
+    await this.octokit.repos.createOrUpdateFileContents(params);
+  }
+
+  async updateProgressReadme(repo, lessonId, metadata) {
+    const path = 'README.md';
+    let content = '';
+
+    try {
+      const { data } = await this.octokit.repos.getContent({
+        owner: this.user.login,
+        repo,
+        path
+      });
+      content = Buffer.from(data.content, data.encoding).toString();
+    } catch (error) {
+      if (error.status !== 404) throw error;
+    }
+
+    const entry = `- ${lessonId}: ${metadata.title}`;
+    if (!content.includes(entry)) {
+      if (content && !content.endsWith('\n')) content += '\n';
+      content += `${entry}\n`;
+    }
+
+    await this.createOrUpdateFile(repo, path, content, 'Mise à jour progression');
   }
 }
