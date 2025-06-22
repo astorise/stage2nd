@@ -50,6 +50,23 @@ export class UIManager {
       throw new Error("Editor element not found in DOM");
     }
 
+    const requiredControls = {
+      runButton: "btn-run",
+      resetButton: "btn-reset",
+      chatToggleButton: "btn-chat-toggle",
+      sidebarToggleButton: "btn-sidebar-toggle",
+    };
+
+    const missing = Object.entries(requiredControls)
+      .filter(([key]) => !this.elements[key])
+      .map(([, id]) => id);
+
+    if (missing.length) {
+      const message = `UI element(s) not found: ${missing.join(", ")}`;
+      this.showError(message);
+      throw new Error(message);
+    }
+
     try {
       // Initialiser l'éditeur
       this.editor = new Editor(this.elements.editor);

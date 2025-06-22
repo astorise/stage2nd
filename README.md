@@ -71,7 +71,13 @@ Configure its endpoint using the `registerServer` section of `public/config.json
 }
 ```
 
+
 `rtcConfig` is passed directly to `simple-peer` when creating the `RTCPeerConnection` and can be used to specify custom ICE servers.
+
+> **Note**
+> The **Exécuter**, **Réinitialiser**, **Chat** and sidebar toggle buttons are
+> inserted by the application at runtime. If the UI fails to initialize these
+> controls will be missing.
 
 ### Deploying the Worker
 
