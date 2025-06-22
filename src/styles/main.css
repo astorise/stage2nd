@@ -614,7 +614,7 @@ body {
 
 .output-panels {
   position: relative;
-  height: calc(100% - 42px);
+  height: 100%;
 }
 
 .output-panel {
@@ -658,7 +658,7 @@ body {
 
 .workspace-panels {
   position: relative;
-  height: calc(100% - 42px);
+  height: 100%;
 }
 
 .workspace-panel {
