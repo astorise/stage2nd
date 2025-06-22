@@ -547,11 +547,17 @@ body {
   bottom: 0;
   height: 62px;
   min-height: 62px;
-  resize: vertical;
+  resize: none;
   overflow: auto;
   border-top: 1px solid var(--border-color);
   background: var(--bg-primary);
   z-index: 40;
+}
+
+.output-resizer {
+  height: 6px;
+  cursor: ns-resize;
+  background: var(--bg-secondary);
 }
 
 /* Tabs pour Console/Network */
