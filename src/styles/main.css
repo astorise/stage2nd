@@ -97,10 +97,34 @@ body {
   transition: width 0.3s ease, transform 0.3s ease;
 }
 
+.sidebar-toggle {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 60;
+}
+
 .sidebar.collapsed {
-  width: 0;
-  flex-basis: 0;
-  transform: translateX(-100%);
+  width: 40px;
+  flex-basis: 40px;
+  transform: none;
+}
+
+.sidebar.collapsed .lessons-container,
+.sidebar.collapsed .progress-container {
+  display: none;
+}
+
+.sidebar.collapsed::after {
+  content: "Leçons";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  transform-origin: center;
+  white-space: nowrap;
+  color: var(--text-primary);
+  font-size: 14px;
 }
 
 .workspace {
