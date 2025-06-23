@@ -41,6 +41,11 @@ export class UIManager {
     // Définir la hauteur initiale de l'output
     this.setInitialLayout();
 
+    // Ajuster l'output lors du redimensionnement de la fenêtre
+    window.addEventListener("resize", () => {
+      this.setInitialLayout();
+    });
+
     if (
       !this.app.config?.features?.collaboration &&
       this.elements.chatToggleButton
@@ -423,16 +428,18 @@ export class UIManager {
   }
 
   setInitialLayout() {
-    const workspace = document.querySelector(".workspace");
-    const { outputContainer } = this.elements;
-    if (!workspace || !outputContainer) return;
-    const totalHeight = workspace.clientHeight;
-    const minHeight = parseInt(
-      window.getComputedStyle(outputContainer).minHeight,
-      10,
-    ) || 62;
-    const desired = Math.max(Math.floor(totalHeight / 3), minHeight);
-    outputContainer.style.height = `${desired}px`;
+    requestAnimationFrame(() => {
+      const workspace = document.querySelector(".workspace");
+      const { outputContainer } = this.elements;
+      if (!workspace || !outputContainer) return;
+      const minHeight =
+        parseInt(window.getComputedStyle(outputContainer).minHeight, 10) || 62;
+      const desired = Math.max(
+        Math.floor(workspace.clientHeight / 3),
+        minHeight,
+      );
+      outputContainer.style.height = `${desired}px`;
+    });
   }
 
   setupWorkspaceTabs() {
