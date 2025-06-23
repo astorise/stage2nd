@@ -575,7 +575,6 @@ body {
 
 /* Output Container inside workspace */
 .output-container {
-  height: 62px;
   min-height: 62px;
   resize: none;
   overflow: auto;
