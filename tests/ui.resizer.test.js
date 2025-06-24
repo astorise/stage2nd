@@ -29,4 +29,27 @@ describe('UIManager output resizer', () => {
 
     expect(ui.elements.outputContainer.style.height).toBe('150px');
   });
+
+  it('preserves manual height when setInitialLayout is called', () => {
+    document.body.innerHTML = '<div id="app"></div>';
+    const ui = new UIManager(new DummyApp());
+    ui.createUI();
+    ui.elements.outputContainer = document.getElementById('output-container');
+    ui.elements.outputResizer = document.getElementById('output-resizer');
+
+    Object.defineProperty(ui.elements.outputContainer, 'offsetHeight', { configurable: true, value: 100 });
+    ui.setupOutputResizer();
+
+    ui.elements.outputResizer.dispatchEvent(new MouseEvent('mousedown', { clientY: 200 }));
+    document.dispatchEvent(new MouseEvent('mousemove', { clientY: 150 }));
+    document.dispatchEvent(new MouseEvent('mouseup'));
+
+    const workspace = document.querySelector('.workspace');
+    Object.defineProperty(workspace, 'clientHeight', { configurable: true, value: 600 });
+    global.requestAnimationFrame = (cb) => cb();
+
+    ui.setInitialLayout();
+
+    expect(ui.elements.outputContainer.style.height).toBe('150px');
+  });
 });

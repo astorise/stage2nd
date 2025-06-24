@@ -11,6 +11,8 @@ export class UIManager {
     this.console = null;
     this.testRunner = null;
     this.elements = {};
+    // Indicates if the user manually changed the output height
+    this.outputManuallyResized = false;
   }
 
   async init() {
@@ -43,7 +45,9 @@ export class UIManager {
 
     // Ajuster l'output lors du redimensionnement de la fenêtre
     window.addEventListener("resize", () => {
-      this.setInitialLayout();
+      if (!this.outputManuallyResized) {
+        this.setInitialLayout();
+      }
     });
 
     if (
@@ -321,6 +325,11 @@ export class UIManager {
     }
   }
 
+  // Allow external callers to reset the manual resize flag
+  resetOutputResize() {
+    this.outputManuallyResized = false;
+  }
+
   showLesson(lesson) {
     if (!lesson) {
       this.elements.lessonInfo.innerHTML = `
@@ -415,6 +424,7 @@ export class UIManager {
     };
 
     const stopDrag = () => {
+      this.outputManuallyResized = true;
       document.removeEventListener("mousemove", onMouseMove);
       document.removeEventListener("mouseup", stopDrag);
     };
@@ -428,6 +438,7 @@ export class UIManager {
   }
 
   setInitialLayout() {
+    if (this.outputManuallyResized) return;
     requestAnimationFrame(() => {
       const workspace = document.querySelector(".workspace");
       const { outputContainer } = this.elements;
