@@ -240,7 +240,11 @@ async loadCourse(course) {
         </div>
       `
     });
-    
+
+    if (this.app.ui.resetOutputResize) {
+      this.app.ui.resetOutputResize();
+    }
+
     // Charger le code de démarrage
     this.app.ui.editor.setValue(this.currentExercise.starterCode);
     
@@ -366,6 +370,9 @@ ${exercise.difficulty}
     if (this.currentExercise) {
       this.app.ui.editor.setValue(this.currentExercise.starterCode);
       this.app.ui.console.info('Code réinitialisé');
+      if (this.app.ui.resetOutputResize) {
+        this.app.ui.resetOutputResize();
+      }
     }
   }
   
