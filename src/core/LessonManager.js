@@ -189,6 +189,9 @@ async loadCourse(course) {
       
       // Afficher l'exercice
       this.displayExercise();
+
+      // Sur mobile, refermer le tiroir des leçons pour libérer l'espace
+      this.app.ui.closeMobileSidebar?.();
       
       // Activer le bon module
       const moduleType = exercise.language === 'web' ? 'web' : 'javascript';
