@@ -30,6 +30,7 @@ export class UIManager {
       resetButton: document.getElementById("btn-reset"),
       chatToggleButton: document.getElementById("btn-chat-toggle"),
       sidebarToggleButton: document.getElementById("btn-sidebar-toggle"),
+      mobileMenuButton: document.getElementById("btn-mobile-menu"),
       sidebar: document.getElementById("sidebar"),
       progressFill: document.getElementById("progress-fill"),
       testRunner: document.getElementById("test-runner"),
@@ -38,10 +39,18 @@ export class UIManager {
       outputResizer: document.getElementById("output-resizer"),
       workspaceTabs: document.querySelectorAll(".workspace-tab"),
       workspacePanels: document.querySelectorAll(".workspace-panel"),
+      sidebarBackdrop: document.getElementById("sidebar-backdrop"),
     };
+
+    this.mobileQuery = window.matchMedia("(max-width: 768px)");
 
     // Définir la hauteur initiale de l'output
     this.setInitialLayout();
+
+    // Sur mobile, le menu démarre fermé (tiroir hors-écran)
+    if (this.mobileQuery?.matches && this.elements.mobileMenuButton) {
+      this.elements.mobileMenuButton.textContent = "☰";
+    }
 
     // Ajuster l'output lors du redimensionnement de la fenêtre
     window.addEventListener("resize", () => {
@@ -125,6 +134,7 @@ export class UIManager {
     // Remplacer le contenu de chargement par l'interface
     app.innerHTML = `
       <header class="app-header">
+        <button class="btn-icon mobile-menu-toggle" id="btn-mobile-menu" title="Menu">☰</button>
         <div class="header-brand">
           <h1>🚀 CodePlay</h1>
           <span class="header-tagline">Apprends à programmer</span>
@@ -151,7 +161,8 @@ export class UIManager {
             <span class="progress-text">0% complété</span>
           </div>
         </aside>
-        
+        <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
         <section class="workspace">
           <div class="workspace-tabs" role="tablist">
             <button class="workspace-tab active" data-panel="lesson" role="tab" aria-controls="lesson-panel">Énoncé</button>
@@ -229,6 +240,18 @@ export class UIManager {
     if (this.elements.sidebarToggleButton) {
       this.elements.sidebarToggleButton.addEventListener("click", () => {
         this.toggleSidebar();
+      });
+    }
+
+    if (this.elements.mobileMenuButton) {
+      this.elements.mobileMenuButton.addEventListener("click", () => {
+        this.toggleSidebar();
+      });
+    }
+
+    if (this.elements.sidebarBackdrop) {
+      this.elements.sidebarBackdrop.addEventListener("click", () => {
+        this.closeMobileSidebar();
       });
     }
 
@@ -435,6 +458,30 @@ export class UIManager {
       document.addEventListener("mousemove", onMouseMove);
       document.addEventListener("mouseup", stopDrag);
     });
+
+    const onTouchMove = (e) => {
+      const touchY = e.touches[0].clientY;
+      const newHeight = Math.max(startHeight + (startY - touchY), minHeight);
+      outputContainer.style.height = `${newHeight}px`;
+      e.preventDefault();
+    };
+
+    const stopTouchDrag = () => {
+      this.outputManuallyResized = true;
+      document.removeEventListener("touchmove", onTouchMove);
+      document.removeEventListener("touchend", stopTouchDrag);
+    };
+
+    outputResizer.addEventListener(
+      "touchstart",
+      (e) => {
+        startY = e.touches[0].clientY;
+        startHeight = outputContainer.offsetHeight;
+        document.addEventListener("touchmove", onTouchMove, { passive: false });
+        document.addEventListener("touchend", stopTouchDrag);
+      },
+      { passive: true },
+    );
   }
 
   setInitialLayout() {
@@ -484,10 +531,30 @@ export class UIManager {
   toggleSidebar() {
     const sidebar = this.elements.sidebar;
     if (!sidebar) return;
+
+    if (this.mobileQuery?.matches) {
+      const open = sidebar.classList.toggle("mobile-open");
+      this.elements.sidebarBackdrop?.classList.toggle("visible", open);
+      if (this.elements.mobileMenuButton) {
+        this.elements.mobileMenuButton.textContent = open ? "✕" : "☰";
+      }
+      return;
+    }
+
     const collapsed = sidebar.classList.toggle("collapsed");
     const btn = this.elements.sidebarToggleButton;
     if (btn) {
       btn.textContent = collapsed ? "⮞" : "⮜";
+    }
+  }
+
+  closeMobileSidebar() {
+    const sidebar = this.elements.sidebar;
+    if (!sidebar) return;
+    sidebar.classList.remove("mobile-open");
+    this.elements.sidebarBackdrop?.classList.remove("visible");
+    if (this.elements.mobileMenuButton) {
+      this.elements.mobileMenuButton.textContent = "☰";
     }
   }
   showLoading(message = "Chargement...") {
